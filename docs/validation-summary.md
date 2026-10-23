@@ -1,18 +1,20 @@
 # Validation summary
 
 !!! warning "Not a clinical validation"
-    This page uses the headings of a clinical laboratory's validation summary (intended use,
-    accuracy, precision, reportable range, limitations) to show what this repository's evidence
-    covers and what it does not. It is not a CAP or CLIA validation. It uses one reference sample,
-    5 Mb of one chromosome, one computer, no orthogonal confirmation and no laboratory director's
-    sign-off. Nothing here supports clinical use.
+    This page uses the headings from a clinical laboratory validation overview (intended use,
+    accuracy, precision, reportable range, and limitations). These headings are used to show what
+    the evidence in this repository covers and what it does not. This is not a CAP or CLIA
+    validation. Only a single reference sample, a 5 Mb region on a single chromosome, and a single
+    computer were used. No confirmation using an independent method was performed, and no approval
+    from a laboratory director was obtained. Nothing presented here supports clinical use.
 
 ## Intended use
 
-The workflow calls germline SNVs and small indels from short-read whole-genome sequencing of a
-human sample aligned to GRCh38, with GATK HaplotypeCaller or DeepVariant. This repository
-validates *changes* to the workflow: a new tool version or default parameter is accepted only if
-accuracy against the GIAB benchmark holds (the [release validation runbook](runbooks/release-validation.md)).
+This workflow uses GATK HaplotypeCaller or DeepVariant for germline SNV and small insertion and
+deletion calling. Input consists of human short-read whole-genome sequencing data aligned to
+GRCh38. This repository validates *changes* to the workflow. New tool versions or default
+parameters are accepted only if accuracy against the GIAB benchmark is maintained
+([release validation runbook](runbooks/release-validation.md)).
 
 ## Test material
 
@@ -40,10 +42,10 @@ From [the `full` run](results/full/metrics.md). Intervals are 95% Wilson score i
 | DeepVariant | INDEL | all benchmark regions | 816 | 8 | 1 | 99.02% (98.1 to 99.5) | 99.87% (99.3 to 100.0) | 99.44% |
 | DeepVariant | INDEL | not difficult | 254 | 0 | 0 | 100.00% (98.5 to 100.0) | 100.00% (98.5 to 100.0) | 100.00% |
 
-Every missed variant in this region is in a difficult stratum. Low-mappability and segmental
-duplication sequence is the weakest: SNP recall there is 92.57% for GATK and 93.70% for
-DeepVariant. The [caller comparison](results/caller-comparison.md) has every stratum, and scores
-against the draft GIAB v5.0q benchmark, which covers more of the hard sequence.
+All missed variants in this region belonged to difficult strata. Performance was lowest in low
+mappability and segmental duplication regions, where SNP recall was 92.57% for GATK and 93.70%
+for DeepVariant. The [caller comparison](results/caller-comparison.md) has every stratum. It also
+scores against the draft GIAB v5.0q benchmark, which covers more of the hard sequence.
 
 ## Precision (repeatability and reproducibility)
 
@@ -59,49 +61,51 @@ positive, false negative and false call counts in every variant type and stratum
 | DeepVariant 1.10.0, `ci` region, with 1, 2 or 4 shards and 1, 2 or 8 GiB of memory | 15 | 24 | yes |
 | GATK 4.7.0.0, `ci` region, on a second engine (Cromwell 91 through GA4GH WES) | 2 (`ci`, `ci-wes`) | 24 | yes |
 
-The DeepVariant repeats come from [CS-03](case-studies/CS-03-deepvariant-memory.md), where the
-shard count and memory limit were changed between runs: neither changed a call. The second engine
-is described in [GA4GH standards](ga4gh.md). The regression gate relies on this: with unchanged
-images and parameters it requires the true positive counts to match exactly
+Repeated DeepVariant runs came from [CS-03](case-studies/CS-03-deepvariant-memory.md). Shard
+counts and memory limits were changed between runs, but neither change affected variant calls.
+The second engine is described in [GA4GH standards](ga4gh.md). Based on this behaviour, the regression
+gate requires identical true positive counts when images and parameters remain unchanged
 (`same_tools_max_tp_change_pct: 0.0` in `config/thresholds.yaml`).
 
-All of these ran on one computer. Repeats across days, operators, sequencing runs or instruments
-were not done, because the reads are one public data set.
+These were all run on the same computer. Since the reads came from a single public dataset,
+repeat runs were not performed under conditions which varied the date, operator, sequencing run,
+or instrument.
 
 ## Reportable range
 
-- **Variant types**: SNVs and indels in the size range of the v4.2.1 benchmark (under 50 bp).
-  Structural variants are out of range for this workflow; the long-read module scores them
-  separately, as QC only.
-- **Genome**: GRCh38 only. Reads must use the same contig names as the reference (`chr20`, not
-  `20`), or the run produces an empty result, which the workflow now refuses
-  ([CS-02](case-studies/CS-02-contig-names.md)).
-- **Regions**: performance is known inside the GIAB v4.2.1 confident regions of the test region.
-  Outside them it was not measured.
-- **Depth**: tested at about 35x. Lower depth was not tested.
+- **Variant types**: SNV and INDEL variants within the v4.2.1 benchmark size range (less than
+  50 bp). Structural variants are outside the scope of this workflow and are assessed
+  separately by the long-read module for QC purposes only.
+- **Genome**: Only GRCh38 is supported. Reads must use the same contig names as the reference
+  sequence (`chr20`, not `20`). Otherwise, the run will produce empty results which the
+  current workflow rejects ([CS-02](case-studies/CS-02-contig-names.md)).
+- **Regions**: performance is known within the GIAB v4.2.1 confident regions in the tested area.
+  Outside these regions, performance was not measured.
+- **Depth**: Testing was performed at a sequencing depth of about 35x. Lower sequencing depths were not tested.
 
 ## Acceptance criteria for a change
 
-A candidate passes the gate (`scripts/compare_metrics.py`, `config/thresholds.yaml`) when, against
-the committed baseline:
+A candidate passes the regression gate if it meets the following conditions when compared against
+the committed baseline (`scripts/compare_metrics.py`, `config/thresholds.yaml`):
 
-- overall F1 drops by no more than 0.2 points for SNPs and 0.5 points for indels;
-- F1 in each stratum with at least 50 truth variants drops by no more than 1 point for SNPs and 2
-  points for indels (smaller strata are reported, not gated);
-- with unchanged images and parameters, the true positive counts are identical.
+- Overall F1 drops by no more than 0.2 points for SNPs and 0.5 points for indels.
+- For each stratum containing at least 50 truth variants, F1 declines are no more than 1 point
+  for SNP and 2 points for INDEL (smaller strata are included in the report but excluded from the
+  regression gate).
+- If the image and parameters are unchanged, the number of true positive calls remains the same.
 
-The two upgrades accepted under these rules are in the upgrade reports
+The 2 upgrades approved under these rules were documented in the upgrade report
 ([GATK 4.6.2.0 to 4.7.0.0](upgrade-reports/2026-10-23-gatk-4.6.2.0-to-4.7.0.0.md),
-[DeepVariant 1.9.0 to 1.10.0](upgrade-reports/2026-10-23-deepvariant-1.9.0-to-1.10.0.md)). One change
-was rejected: [INC-01](incidents/INC-01-mapq-default-change.md), a MAPQ default change that missed 8
-more true SNPs to remove 1 false call.
+[DeepVariant 1.9.0 to 1.10.0](upgrade-reports/2026-10-23-deepvariant-1.9.0-to-1.10.0.md)). 1 change
+involving the MAPQ default was rejected ([INC-01](incidents/INC-01-mapq-default-change.md)). This
+change eliminated 1 false call but resulted in 8 additional missed true SNPs.
 
 ## What a clinical validation would add
 
-- More samples: the other GIAB reference genomes (HG001 to HG007), and samples with known
-  pathogenic variants confirmed by another method.
-- The whole genome, or at least every region the test reports on, instead of 5 Mb.
-- Repeats across days, operators, library preparations and sequencers.
-- Orthogonal confirmation (for example Sanger sequencing) of a sample of calls.
-- Sample-level acceptance criteria such as minimum coverage, contamination and sex checks.
-- A signed document under the laboratory's quality system, and a plan for revalidation.
+- More samples, including other GIAB reference genomes (HG001-HG007) and samples carrying
+  known pathogenic variants which have been confirmed using other methods.
+- The entire genome, or at least every region reported on by the test, instead of 5 Mb.
+- Repeats across days, operators, library preparations, and sequencers.
+- Orthogonal confirmation (for example using Sanger sequencing) of a subset of variant calls.
+- Acceptance criteria at the sample level such as minimum coverage, contamination checks, and sex checks.
+- A signed document governed by the laboratory quality system and a revalidation plan.

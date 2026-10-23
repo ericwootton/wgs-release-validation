@@ -9,40 +9,45 @@
 
 ## Summary and recommendation
 
-Approve. On the 5 Mb `full` profile, 1.10.0 changed the benchmark decision at one locus, a
-multiallelic insertion in a CA repeat, and got it right where 1.9.0 had it wrong. SNP false
-positives fell from 20 to 19 and missed INDELs from 9 to 8. Every stratum is unchanged or slightly
-better, and the regression gate passes with 0 of 25 rows failing.
+Approve. In the 5 Mb `full` profile, 1.10.0 changed the benchmark classification at 1 site
+involving a multiallelic insertion within a CA repeat. This corrected an incorrect classification
+in 1.9.0. SNP false positives decreased from 20 to 19, and missed INDELs decreased from 9 to 8.
+All strata were unchanged or slightly improved. There were 0 failing rows among 25, and the
+regression gate was passed.
 
-Two changes in the VCF need a line in the release notes, because they can break a customer's
-filtering or parsing even though accuracy did not get worse (see [Risks](#risks-and-follow-ups)):
-records with no genotype are now filtered `NoCall` instead of `RefCall`, and every record now
-carries the `MID` FORMAT field.
+Two VCF changes need to be documented in the release notes because they can break customers'
+filtering or parsing even though accuracy did not get worse (see [Risks](#risks-and-follow-ups)).
+Records with no genotype now use the `NoCall` filter instead of the `RefCall` filter, and all
+records now include the `MID` FORMAT field.
 
 ## What changed
 
-From the [v1.10.0 release notes](https://github.com/google/deepvariant/releases/tag/v1.10.0)
-(published 2026-03-05), the items that apply to short-read WGS germline calling:
+The following entries in
+[v1.10.0 release notes](https://github.com/google/deepvariant/releases/tag/v1.10.0)
+(released 2026-03-05) relate to short-read WGS germline variant calling:
 
 > Implemented a new multiallelic variant post-processing method called “product” which is enabled
 > for all modes except for WES.
 
 > `run_deepvariant` and `run_deepsomatic` now reads parameters from `model.example_info.json` files
 
-and, from the contributors section, work on "enhancing read sampling stability, fixing
-non-determinism, and creating robust read sampling approach at high coverages".
+Furthermore, the contributors section also lists efforts towards "enhancing read
+sampling stability, fixing non-determinism, and creating robust read sampling approach
+at high coverages".
 
-The release notes do not mention retraining the short-read WGS model or changing any default
-flag. The other headline items (continuous phasing, an ONT model, RNA-seq, DeepSomatic,
-pangenome-aware reassembly) do not apply to this workflow. The multiallelic change is the one to
-test, since it can change genotypes at sites with more than one alternate allele.
+Release notes did not mention retraining of the short-read WGS model or changes to default
+flags. Other major items (continuous phasing, ONT models, RNA-seq, DeepSomatic, and
+pangenome-aware reassembly) do not apply to this workflow. Since genotypes at sites with
+multiple alternate alleles can change, changes related to multiallelic sites should be
+validated.
 
 ## Validation performed
 
-- Profile `full`: HG002 35x NovaSeq, `chr20:21000001-26000000` (5 Mb), against GIAB v4.2.1 with
-  the GIAB v3.6 stratifications listed in `config/strat_subset.tsv`; hap.py 0.3.15 with vcfeval.
-- Both runs used the same inputs, 4 shards, 4 CPUs and 8 GiB; only the image differed. Preflight
-  was off for both, since it does not affect calls.
+- For profile `full`, HG002 35x NovaSeq data were evaluated against GIAB v4.2.1 in
+  `chr20:21000001-26000000` (5 Mb). This used the GIAB v3.6 stratifications listed in
+  `config/strat_subset.tsv` and hap.py 0.3.15 with vcfeval.
+- Both runs used the same inputs, 4 shards, 4 CPUs, and 8 GiB. The only difference was the image
+  used. Since preflight does not affect variant detection, it was disabled in both runs.
 
 ```bash
 make run PROFILE=full LABEL=full-deepvariant-1.9.0 EXTRA="run_preflight=false callers=deepvariant \
@@ -64,40 +69,44 @@ Baseline = 1.9.0, candidate = 1.10.0:
 
 --8<-- "results/full-deepvariant-1.10.0/upgrade-gate.md"
 
-![F1 by stratum, DeepVariant 1.9.0 and 1.10.0](../results/figures/deepvariant-upgrade-f1_by_stratum.png)
+![F1 by stratum for DeepVariant 1.9.0 and 1.10.0](../results/figures/deepvariant-upgrade-f1_by_stratum.png)
 
-The only visible movement is in tandem repeats, for both SNPs and INDELs; the next section shows
-that both come from the same site. The same data as a table:
-[`deepvariant-upgrade-f1_by_stratum.md`](../results/figures/deepvariant-upgrade-f1_by_stratum.md);
-recall and precision with intervals:
+Visible changes in SNPs and INDELs were limited to tandem repeat regions. The next section will
+show that these changes arose at the same site. A tabular version of the same data is available
+in
+[`deepvariant-upgrade-f1_by_stratum.md`](../results/figures/deepvariant-upgrade-f1_by_stratum.md).
+Recall and precision are shown with intervals in
 [`deepvariant-upgrade-recall_precision_by_stratum.png`](../results/figures/deepvariant-upgrade-recall_precision_by_stratum.png).
 
 ## Discordant calls examined
 
-Output of `diff_decisions.py` on the two hap.py VCFs:
+Output from `diff_decisions.py` for 2 hap.py VCFs:
 
 --8<-- "results/full-deepvariant-1.10.0/changed-sites.md"
 
-The three rows are one locus, written in different allele combinations by the two versions.
-The truth there is heterozygous for two insertions into a CA repeat: `+CA` and `+CACACACACACA`.
-DeepVariant's own records (from `calls.vcf.gz`, before normalisation):
+These 3 rows represent the same locus recorded with different allele combinations in 2
+versions. Its true genotype is heterozygous and consists of 2 insertions in a CA repeat, `+CA`
+and `+CACACACACACA`. DeepVariant's own records are shown below (taken from `calls.vcf.gz`,
+before normalization):
 
 | Version | ALT | GT | QUAL | AD |
 |---|---|---|---:|---|
 | 1.9.0 | `ACA,GCA,GCACACACACACA` | 0/1 | 29.1 | 0,3,13,2 |
 | 1.10.0 | `ACA,GCA,GCACACACACACA` | 2/3 | 98.8 | 0,3,13,2 |
 
-Both versions saw the same three candidate alleles with the same read support. 1.9.0 called
-reference plus `ACA` (a G>A change followed by a CA insertion, backed by 3 reads), which hap.py
-scores as a false-positive SNP, a correct CA insertion and a missed 12 bp insertion. 1.10.0
-genotyped the site as the two insertions, which matches the truth exactly, with much higher
-confidence. This is what the new multiallelic post-processing is meant to do. It explains every
-count that moved: one SNP false positive gone and one INDEL false negative gone, in every stratum
-that contains the site (for example SNP `all`, `tandem_repeat`, `all_difficult`; INDEL `all`,
-`tandem_repeat`, `all_difficult`, `TS_contained`, `not_lowmap_or_segdup`).
+Each version identified the same 3 candidate alleles, and read support for each candidate allele
+was unchanged. 1.9.0 called the reference allele and `ACA` (a G>A change followed by a CA
+insertion, supported by 3 reads). hap.py assessed this as a false positive SNP, a true positive
+CA insertion, and a missed 12 bp insertion. 1.10.0 assigned a genotype consisting of two
+insertions which matched the true genotype exactly, and confidence was much higher. This is the
+intended behaviour of the new multiallelic post-processing. This explains all changes in the
+counts. In every stratum which contained the site, 1 SNP false positive and 1 INDEL false
+negative were eliminated. These strata included, for example, `all`, `tandem_repeat`, and
+`all_difficult` for SNP, and `all`, `tandem_repeat`, `all_difficult`, `TS_contained`, and
+`not_lowmap_or_segdup` for INDEL.
 
-Outside the GIAB confident regions, where hap.py does not score calls, the normalised VCFs differ
-at four more sites:
+hap.py does not evaluate variant calls outside GIAB confident regions. Outside these regions, the
+normalized VCF files differ at four more sites:
 
 | Site | 1.9.0 | 1.10.0 | Note |
 |---|---|---|---|
@@ -106,45 +115,51 @@ at four more sites:
 | chr20:23,099,844 A>G (inside the deletion above) | 1/1 PASS (small model) | 0/0 RefCall | GIAB v4.2.1 has 0/1 here, unscored |
 | chr20:25,642,616 A>G | **0/0 with FILTER PASS** | 0/0 RefCall | label only |
 
-The two **0/0 PASS** records are worth knowing about: 1.9.0 marked them as passing although the
-genotype is homozygous reference, so a customer who counted variants by `FILTER == PASS` alone
-would have counted them. 1.10.0 writes none. Out of 12,232 raw output records each (before
-normalisation), 1.9.0 had 8,031 PASS
-records with an ALT genotype plus those 2; 1.10.0 has 8,031.
+These 2 **0/0 PASS** records warrant attention. In 1.9.0, these records were marked PASS
+despite having homozygous reference genotypes. A customer who counted variants by
+`FILTER == PASS` alone would have counted them. 1.10.0 writes none. Each version had 12,232 raw output records (before normalization). In
+1.9.0, these included 8,031 PASS records with ALT genotypes, plus the aforementioned 2. In
+1.10.0, there were 8,031.
 
 ## Runtime and cost impact
 
-`DeepVariant` rows of `docs/results/<label>/resources.tsv` (one run each, same machine, run one
-after the other):
+`DeepVariant` row in `docs/results/<label>/resources.tsv` (1 run each, executed sequentially on
+the same machine):
 
 | Version | Wall time (s) | CPU time (s) | Peak memory (bytes) |
 |---|---:|---:|---:|
 | 1.9.0 | 225.34 | 783.18 | 7,523,241,984 |
 | 1.10.0 | 235.49 | 803.72 | 8,487,870,464 |
 
-Wall time is 4.5% higher and CPU time 2.6% higher with 1.10.0, from one run each. That is within
-what this laptop varies between repeats of the same run (69.5 s and 100.3 s for one configuration
-in [CS-03](../case-studies/CS-03-deepvariant-memory.md)), so treat it as "no clear change" and
-re-measure on cloud hardware. Peak memory is the cgroup's `memory.peak`, which counts page cache
-and fills toward the 8 GiB limit; on the 200 kb `ci` region CS-03 measured a peak of about 2 GiB.
-It is not a sign that 1.10.0 needs more memory, but it is not proof that it doesn't either. No
-change to the cost estimate.
+Results from one run of each version showed that wall time increased by 4.5% and CPU time
+increased by 2.6% for 1.10.0. This was within the variation observed when repeating the same run
+on this laptop (69.5 s and 100.3 s for one configuration in
+[CS-03](../case-studies/CS-03-deepvariant-memory.md)). Therefore, treat this as no apparent
+change and repeat the measurements on cloud hardware. Peak memory was measured using the cgroup
+`memory.peak` value which also includes the page cache and grows towards the 8 GiB limit. For the
+200 kb `ci` region, CS-03 measured peak memory at about 2 GiB. This does not indicate that 1.10.0
+requires more memory, but it also does not establish that it does not require more memory. Cost
+estimates were unchanged.
 
 ## Risks and follow-ups
 
-- **Customer note: `NoCall` instead of `RefCall`.** 580 records with no genotype (`./.`) were
-  filtered `RefCall` by 1.9.0 and are filtered `NoCall` by 1.10.0; they are the same 580 sites in
-  both. The VCF header still describes `NoCall` as "Site has depth=0", but these records have reads
-  (for example DP=9). PASS-only filtering is unaffected; a filter that drops `RefCall` to remove
-  non-variant records will now let these through.
-- **Customer note: `MID` on every record.** The FORMAT field that names the model that made the
-  call (`deepvariant` or `small_model`) is now on all records; in 1.9.0 it was missing from 2,411
-  of 12,232. Parsers that read FORMAT by position instead of by key will break. The small model
-  made 38 fewer calls (9,821 to 9,783), handing them to the full model.
-- **Not covered: exome.** The multiallelic change is off for WES by design. Validate the WES model
-  separately before telling exome customers anything.
+- **Customer note: `NoCall` instead of `RefCall`.** In 1.9.0, 580 records with no genotype (`./.`)
+  were filtered `RefCall`. In 1.10.0, they are filtered `NoCall`. These were the same 580 sites in
+  each version. VCF header text still describes `NoCall` as "Site has depth=0", but these records
+  have sequencing reads (for example, DP=9). This change leaves filtering which retains only PASS
+  records unaffected. However, these records will pass filters which remove nonvariant records by
+  excluding `RefCall`.
+- **Customer note: `MID` on every record.** All records now include a FORMAT field which
+  identifies the model that generated the call (`deepvariant` or `small_model`). In 1.9.0, this
+  field was missing from 2,411 of 12,232 records. Parsers which read FORMAT by position instead
+  of key will break. Calls generated by the small model decreased by 38 (from 9,821 to 9,783),
+  and the full model handled the corresponding calls.
+- **Not covered: exome.** Multiallelic changes are disabled in WES by design. Validate the WES
+  model separately before communicating anything to exome analysis customers.
 - **Not covered: GVCF output and joint calling.** This workflow writes VCF only.
-- **Scale.** 5 Mb of one chromosome of one sample, with one confident-region site changed. The
-  direction is good, but one site says nothing about the size of the gain genome-wide.
-- After release, the weekly `full` CI run and `baselines/full.json` pick up the new numbers; the
-  baseline update follows [the baseline runbook](../runbooks/updating-baselines.md).
+- **Scale.** Within 5 Mb of one chromosome in one sample, one site changed within the
+  confident regions. While the direction of change was favourable, one site says nothing about
+  the size of the genome-wide gain.
+- After release, the weekly `full` CI runs and `baselines/full.json` will reflect the new
+  values. Updates to the baseline follow
+  [the baseline runbook](../runbooks/updating-baselines.md).

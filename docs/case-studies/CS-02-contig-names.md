@@ -1,9 +1,10 @@
 # CS-02: "The run finished, but the results table is empty"
 
-All runs, errors and outputs are real (GIAB HG002, `ci` region `chr20:21800001-22000000`). The
-customer and ticket are fictional. Reproduce with
-`miniwdl run wdl/main.wdl -i inputs/cs02_contig_mismatch.json`, after writing
-`data/cs02/confident.bed` with `sed 's/^chr20/20/' data/ci/confident.bed`.
+All runs, errors, and outputs are real records (GIAB HG002, `ci` region
+`chr20:21800001-22000000`). The customer and ticket are fictional. Use
+`sed 's/^chr20/20/' data/ci/confident.bed` to write
+`data/cs02/confident.bed`. Then, reproduce the run using
+`miniwdl run wdl/main.wdl -i inputs/cs02_contig_mismatch.json`.
 
 | Field | Value |
 |---|---|
@@ -15,18 +16,20 @@ customer and ticket are fictional. Reproduce with
 
 ## 1. Summary
 
-The customer's target BED named the chromosome `20`, while the reference and truth set call it
-`chr20`. No region in the BED matched, so nothing was benchmarked, and the workflow still reported
-success. We fixed the BED with one command, and changed the pipeline and the pre-submission checker
-so that this now fails loudly before any compute is spent.
+Chromosome names in the customer's target BED were `20` while those in the reference sequence and
+truth set are `chr20`. Since no region in the BED matched, nothing was benchmarked, but the
+workflow still reported success. We corrected the BED using one command and updated the pipeline
+and pre-submission checker. When this problem is present, they now fail loudly before consuming any
+compute resources.
 
 ## 2. Impact
 
-- One run produced an empty report. No numbers were wrong: there were no numbers.
-- Risk to others: any customer whose BED came from a GRCh37-style source (`1`, `2`, …, `X`) would
-  have hit the same thing. Follow-up action: scan recent submissions for BEDs without the `chr`
-  prefix against a `chr`-style reference (`preflight check --bed ... --reference ...` on each).
-- The variant calls themselves were fine: calling uses the region string, not the BED.
+- An empty report was generated during one run. It contained no incorrect values because it contained no values at all.
+- Risk to others: any customer would have encountered the same issue if they used a BED derived
+  from sources in GRCh37 format (`1`, `2`, …, `X`). Follow-up action: check recent submissions
+  to confirm whether a reference in `chr` format was used with a BED without the `chr` prefix.
+  Run `preflight check --bed ... --reference ...` for each submission.
+- The variant calls themselves were fine. A region string was used for variant calling, and BED was not used.
 
 ## 3. Timeline
 
@@ -41,8 +44,8 @@ so that this now fails loudly before any compute is spent.
 
 ### Step 1: did anything fail?
 
-No. Every task exited 0 (`miniwdl run ... ; echo $?` printed `0`). The hap.py summary shows the
-problem immediately once you look at it:
+No. All tasks completed with exit code 0 (`miniwdl run ... ; echo $?` returned `0`). The
+problem is immediately apparent once you look at the hap.py summary:
 
 ```text
 Type,Filter,TRUTH.TOTAL,TRUTH.TP,TRUTH.FN,QUERY.TOTAL,QUERY.FP,QUERY.UNK,...
@@ -50,9 +53,9 @@ INDEL,PASS,0,0,0,48,0,48,...
 SNP,PASS,0,0,0,342,0,342,...
 ```
 
-There are zero truth variants, and all 390 query calls are `UNK` (outside the benchmark regions).
-The caller produced its usual number of calls, so the reads and the reference were fine; the
-benchmark regions were empty.
+There were 0 truth variants, and all 390 query calls were classified as `UNK` (outside benchmark
+regions). The caller produced its usual number of calls, so the reads
+and the reference were fine. The benchmark regions were empty.
 
 ### Step 2: compare the chromosome names
 
@@ -61,13 +64,14 @@ cut -f1 data/cs02/confident.bed | sort -u        # 20
 cut -f1 ref.fa.fai                               # chr20
 ```
 
-The BED was exported from a vendor portal that uses GRCh37-style names. The coordinates are
-GRCh38, so the only problem is the name.
+The BED was exported from a vendor portal which used GRCh37-style names. Since the
+coordinates were in GRCh38, the issue was limited to naming.
 
 ### Step 3: what the pre-submission checker says
 
-[`ngs-preflight`](https://ericwootton.github.io/ngs-preflight/) (companion repo) on the same two
-files. Its check [`BED003`](https://ericwootton.github.io/ngs-preflight/checks/#bed003) compares every BED contig name with the reference:
+For the same 2 files, [`ngs-preflight`](https://ericwootton.github.io/ngs-preflight/) (companion
+repo) uses its [`BED003`](https://ericwootton.github.io/ngs-preflight/checks/#bed003) check to
+compare all BED contig names against the reference sequence:
 
 ```text
 ✖ FAIL  Fix 1 error before submitting
@@ -79,13 +83,14 @@ confident.fixed.bed  (writes a corrected copy and leaves your original untouched
     Technical: 18 intervals affected. Counts per name: 20=18
 ```
 
-`preflight fix-bed --add-chr` produced a file byte-identical to the `chr`-named original
-(md5 `c915f142809d14f9d5e1e91ca6334bb0` for both).
+`preflight fix-bed --add-chr` produced a file byte-identical to the original BED with `chr`
+names (md5 `c915f142809d14f9d5e1e91ca6334bb0` for both).
 
 ### Step 4: the related failure that does stop the run
 
-A name mismatch in the BED fails silently. A *length* mismatch on a shared name (reads aligned to
-another build) fails at once. Simulated by giving chr20 its GRCh37 length in the BAM header:
+Name mismatches in the BED fail silently. A mismatch in *length* for a shared name (reads aligned
+to a different reference genome version) causes immediate failure. This was simulated by setting
+the length of chr20 in the BAM header to its length in GRCh37:
 
 ```text
 A USER ERROR has occurred: Input files reference and reads have incompatible contigs: Found contigs
@@ -97,59 +102,62 @@ with the same name but different lengths:
 `ngs-preflight` reports this as [`REF001`](https://ericwootton.github.io/ngs-preflight/checks/#ref001) ("The reads file and the reference look like different
 genome builds… chromosome 20 is 63,025,520 bp in the reads but 64,444,167 bp in the reference").
 
-A dead end, recorded so it is not chased again: extra contigs in the BAM header are *not* a problem
-for current callers. With a full 195-contig header against the chr20-only reference, GATK 4.7.0.0
-called normally (exit 0) and DeepVariant 1.10.0 logged `Common contigs are ['chr20']` and finished.
-The workflow still trims the header (`FetchReadsSlice`), and `ngs-preflight` warns about it
-([`REF002`](https://ericwootton.github.io/ngs-preflight/checks/#ref002)), because other tools are stricter.
+This negative finding is documented so the investigation is not repeated. Extra contigs in the BAM
+header are *not* a problem for the current variant callers. Even when the header contained all 195
+contigs and the reference contained only chr20, GATK 4.7.0.0 completed variant calling successfully
+(exit code 0). DeepVariant 1.10.0 also logged `Common contigs are ['chr20']` and completed its run.
+However, the workflow still trims the header (`FetchReadsSlice`), and `ngs-preflight` issues a
+warning ([`REF002`](https://ericwootton.github.io/ngs-preflight/checks/#ref002)) because other
+tools have stricter requirements.
 
 ## 5. Root cause
 
-**What failed:** the BED used `20` where the reference uses `chr20`, so the benchmark regions were
-empty. **Why it was possible:** hap.py treats "no truth variants in the regions" as a valid, empty
-result, and the summary step passed the empty table through. Nothing checked that the inputs used
-the same naming before the run started.
+**What failed:** Since the BED used `20` where the reference sequence used `chr20`, the benchmark
+regions were empty. **Why this was possible:** hap.py treated the absence of truth variants within
+the regions as a valid empty result, and the summary step passed the empty table through. Before
+the run began, nothing checked that the inputs used the same naming convention.
 
 ## 6. Resolution
 
-Sent the customer a corrected BED (`preflight fix-bed --add-chr`). Their re-run matched the expected
-results exactly.
+The corrected BED (`preflight fix-bed --add-chr`) was sent to the customer. Their rerun matched the
+expected results exactly.
 
 ## 7. Prevention
 
-- **The pipeline now fails on an empty benchmark.** `scripts/summarize_happy.py` exits non-zero when
-  a caller has no truth variants inside the benchmark regions. The same inputs now stop with:
-  `error: no truth variants inside the benchmark regions for gatk. Check that the BED files, truth
-  VCF and reference use the same chromosome names (for example chr20, not 20).`
+- **The pipeline now fails on an empty benchmark.** When a variant caller's benchmark regions
+  contain no truth variants, `scripts/summarize_happy.py` exits with a non-zero exit code. For the same
+  input, it currently outputs the following message and stops running.
+  `error: no truth variants inside the benchmark regions for gatk. Check that the BED files, truth VCF and reference use the same chromosome names (for example chr20, not 20).`
 - **Checked before compute is spent.** The optional `Preflight` task (`run_preflight: true` in the
-  `ci` and `full` inputs) runs `ngs-preflight` on the reference, the region and benchmark BEDs and
-  the reads before calling starts. Errors (`BED003`, `REF001`) stop the run; warnings (`REF002`) are
-  reported.
-- **The regression gate also catches it** if an empty result ever reaches it: against
-  `baselines/ci.json`, 19 of 24 rows fail. The large strata fail with "F1 could not be computed"
-  or "stratum missing from candidate". Because the tool images and parameters match the baseline
-  exactly, every smaller stratum whose true-positive count changed fails too; the remaining 5 rows
-  have no truth variants in the region.
-- **Product fix, not a recurring ticket:** the same check ships as a standalone tool customers can
-  run on their own files before submitting, with a one-command fix for the common case.
+  `ci` and `full` inputs) runs `ngs-preflight` on the reference sequence, region BED, benchmark
+  BED, and sequencing reads before variant calling begins. Execution
+  stops on errors (`BED003`, `REF001`), and warnings (`REF002`) are reported.
+- **The regression gate also catches it.** If an empty result ever reaches it,
+  19 of 24 rows fail comparison against `baselines/ci.json`. The large strata fail with "F1 could
+  not be computed" or "stratum missing from candidate". Since the tool images and parameters are
+  identical to the baseline, every smaller stratum whose true-positive count changed fails too.
+  There are no truth variants in the regions corresponding to the remaining 5 rows.
+- **Product fix, not a recurring ticket:** the same check ships as a standalone tool.
+  Customers can run it on their own files before submitting, with a one-command fix for the common
+  case.
 
 ## 8. Customer-facing reply
 
 > Hi Sam,
 >
-> Thanks for sending the files. I've found the cause, and there's a quick fix.
+> Thank you for sending the files. I've found the cause, and there's a quick fix.
 >
-> Your target BED names the chromosome "20", but the reference genome we analyse against calls it
-> "chr20". It's the same chromosome; the two naming styles come from different sources. Because no
-> region in the BED matched, nothing was benchmarked, so the table came back empty. Your variant
-> calls were not affected.
+> Your target BED names the chromosome "20", but the reference genome we analyze against calls it
+> "chr20". These names refer to the same chromosome. The 2 naming styles come from different
+> sources. Since no region in the BED matched, nothing was benchmarked, so the table came back
+> empty. Your variant calls were not affected.
 >
 > I've attached a corrected copy of the BED with the names changed and nothing else. If you re-run
 > with it, you should see the full table. If you'd like to check files yourself in future, our
-> free checker reports this before you submit and can write the corrected file for you:
-> `preflight check --bed your.bed --reference ref.fa.fai`.
+> free checker reports this before you submit and can write the corrected file for you: `preflight
+> check --bed your.bed --reference ref.fa.fai`.
 >
-> I'm sorry the run reported success when it hadn't really done its job. That's on us, and we've
+> I'm sorry the run reported success when it hadn't really done its job. That's on us. We've
 > changed the pipeline so that an empty result now stops with a clear message instead.
 >
 > Best regards,

@@ -1,6 +1,6 @@
 # Incident report template
 
-Blameless: describe systems and decisions, not people. Copy to `docs/incidents/INC-NN-short-name.md`.
+Do not assign blame to individuals. Describe systems and decisions. Copy this to `docs/incidents/INC-NN-short-name.md`.
 
 | Field | Value |
 |---|---|
@@ -12,11 +12,11 @@ Blameless: describe systems and decisions, not people. Copy to `docs/incidents/I
 
 ## Summary
 
-What happened, in two or three sentences.
+Explain what happened in 2 or 3 sentences.
 
 ## Impact
 
-Who and what was affected, for how long, and whether any results left the building.
+Who and what were affected, how long the effects lasted, and whether any results left the building.
 
 ## Timeline
 
@@ -29,15 +29,15 @@ Who and what was affected, for how long, and whether any results left the buildi
 
 ## Root cause
 
-The technical cause, then the process gap that let it through.
+The technical cause, followed by the process failure which led to it going undetected.
 
 ## Detection
 
-How it was noticed, and how long that took. Would we have noticed without the check that fired?
+How did we detect it, and how much time had passed before we did? Would we have detected it without the check that fired?
 
 ## Resolution
 
-What was done to restore a good state.
+Actions taken to restore a healthy state.
 
 ## Prevention
 
@@ -47,4 +47,4 @@ What was done to restore a good state.
 
 ## Lessons
 
-What went well, what did not, where we got lucky.
+What went well, what did not go well, and where we were fortunate.

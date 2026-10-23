@@ -11,7 +11,7 @@ Copy to `docs/upgrade-reports/YYYY-MM-DD-tool-old-to-new.md`.
 
 ## Summary and recommendation
 
-Two or three sentences: the decision and the one fact it rests on.
+State the decision and 1 fact supporting it in 2 or 3 sentences.
 
 ## What changed
 
@@ -20,20 +20,20 @@ Quoted release notes that could affect results or runtime, with links.
 ## Validation performed
 
 - Profile and region, benchmark and version, stratifications.
-- Exact commands (`make run PROFILE=… EXTRA=…`), run labels, and the gate command.
+- Exact commands (`make run PROFILE=… EXTRA=…`), run labels, and regression gate commands.
 
 ## Results
 
-The `compare_metrics.py` table (baseline = old, candidate = new), and the plot.
+The table from `compare_metrics.py` (baseline = old, candidate = new), along with the plot.
 
 ## Discordant calls examined
 
-5–10 sites that changed state (TP↔FN, new FP), each with a one-line explanation.
+5-10 sites whose status changed (TP↔FN, new FP). Include a one-line explanation for each site.
 
 ## Runtime and cost impact
 
-From `resources.tsv`: wall time, CPU time and peak memory per task, old vs new.
+From `resources.tsv`: wall time, CPU time, and peak memory per task, old vs new.
 
 ## Risks and follow-ups
 
-What this validation does not cover, and what to watch after release.
+Items not covered by this validation and points to note after release.

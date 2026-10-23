@@ -1,8 +1,8 @@
 # Runbook: triaging a failed (or suspiciously successful) run
 
-Work top to bottom. Each step says where to look and what the common causes are. Every error
-message quoted here was produced by this repo's own runs; the case study or incident that shows it
-in context is linked.
+Follow the steps in order from top to bottom. Each step lists the locations to check and the
+common causes. All error messages quoted here were produced during execution in this repository.
+Links to the case study or incident explain the circumstances in which each message was produced.
 
 ## 0. Find the run and the failing task
 
@@ -11,12 +11,13 @@ ls -t _runs/<label>/ | head -3              # newest run directory; _LAST points
 cat _runs/<label>/_LAST/error.json          # which call failed, exit status, stderr path
 ```
 
-miniwdl writes one directory per call (`call-<Task>[-<shard>]`). In each: `command` (the exact
-script that ran), `stderr.txt`, `stdout.txt`, `task.log`, `work/` (files as the task saw them) and,
-if the task finished, `out/` and `resources.json`.
+miniwdl creates 1 directory for each call (`call-<Task>[-<shard>]`). Each directory contains
+`command` (the script actually executed), `stderr.txt`, `stdout.txt`, and `task.log`. It also
+contains `work/` (files in the state seen by the task). If the task has finished, the directory
+also contains `out/` and `resources.json`.
 
-If the run **succeeded** but the report looks wrong (an empty table, far fewer variants than
-usual), go to step 5.
+Even if the run was **successful**, continue to step 5 if the report appears unusual (empty
+tables or variant counts far below usual levels).
 
 ## 1. Did it fail before any task ran?
 
@@ -38,8 +39,9 @@ Tasks: `FetchReference`, `FetchReadsSlice`.
 
 ## 3. Did preflight stop it?
 
-Task: `Preflight` (only when `run_preflight: true`). Read `work/preflight.md` in the call
-directory; each finding names its check ID, and `preflight explain <ID>` gives the details.
+Task `Preflight` (only when `run_preflight: true`). Read `work/preflight.md` in the call
+directory. Each finding names its check ID. Use `preflight explain <ID>` to view the
+details.
 
 | Check | Meaning | Usual fix |
 |---|---|---|
@@ -47,7 +49,7 @@ directory; each finding names its check ID, and `preflight explain <ID>` gives t
 | `REF001` | Reads and reference are different genome builds (same name, different length) | Get reads and reference from the same build |
 | `REF002` (warning) | Reads header lists contigs the reference lacks | Usually harmless for GATK 4.7 and DeepVariant 1.10; the run continues |
 
-Exit codes: 0 pass, 2 warnings only (the run continues), 1 errors or 3 tool error (the run stops).
+Exit codes are 0 (pass), 2 for warnings only (run continues), and 1 for an error or 3 for a tool error (run stops).
 
 ## 4. Did it fail in calling or benchmarking?
 
@@ -59,8 +61,9 @@ Exit codes: 0 pass, 2 warnings only (the run continues), 1 errors or 3 tool erro
 | DeepVariant sits at 0% CPU after `call_variants` starts, then exits 247 with `_queue.Empty` in `stdout.txt` and no error | Also out of memory: one worker was killed and another waited about five minutes for it. Seen before the OOM watch was added; the cgroup's `memory.events` shows `oom_kill 1` | As above ([CS-03](../case-studies/CS-03-deepvariant-memory.md)) |
 | hap.py fails reading a VCF | Query VCF is empty or not bgzipped and indexed | Check `NormalizeQuery` output: `bcftools view -H <vcf> \| head` |
 
-Exit status 137 is the kernel's OOM kill (128 + signal 9). On a cloud backend the same failure may
-appear as a preempted or "killed" task instead.
+Exit status 137 indicates that the kernel forcibly terminated the process due to OOM (128 + signal
+9). Cloud backends may also report the same failure as a preempted task or a forcibly terminated
+task.
 
 ## 5. The run succeeded, but the results are wrong or empty
 
@@ -75,7 +78,7 @@ appear as a preempted or "killed" task instead.
 
 Escalate, with the run directory path, `error.json` and the failing call's `stderr.txt`, when:
 
-- the same inputs passed on the previous release and fail now, with no change in `inputs/`;
-- a task fails with an error not in this runbook (then add it here once solved);
-- the gate reports non-determinism that reproduces;
-- results may already have been delivered to a customer (treat as an incident: [template](../templates/incident.md)).
+- the same inputs ran successfully in the previous release, but now fail despite no changes to `inputs/`
+- a task fails with an error not in this runbook (then add it here once solved)
+- the regression gate reports reproducible nondeterminism
+- results may already have been provided to the customer (please treat this as an incident: [template](../templates/incident.md)).

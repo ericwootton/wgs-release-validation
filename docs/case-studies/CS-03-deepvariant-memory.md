@@ -1,9 +1,10 @@
 # CS-03: "DeepVariant fails after we lowered its memory to save money"
 
-All runs and numbers are real: GIAB HG002, `ci` profile (`chr20:21800001-22000000`), DeepVariant
-1.10.0, 4 CPUs requested in every run, on an 8-core, 15 GB Linux laptop with `config/miniwdl.cfg`
-enforcing the requested memory as a hard limit (as a cloud VM would). The customer and ticket are
-fictional. Reproduce any row with:
+All runs and values are real results. GIAB HG002 was used with the `ci` profile
+(`chr20:21800001-22000000`) and DeepVariant 1.10.0. Runs used an 8-core, 15 GB Linux laptop, and
+every run requested 4 CPUs. Requested memory was enforced as a hard limit through
+`config/miniwdl.cfg` (the same enforcement used on cloud virtual machines). Customers and tickets
+are fictional. Use the following to reproduce any row:
 
 ```bash
 make run PROFILE=ci LABEL=cs03-s<shards>-m<gib> \
@@ -20,24 +21,27 @@ make run PROFILE=ci LABEL=cs03-s<shards>-m<gib> \
 
 ## 1. Summary
 
-DeepVariant runs one `make_examples` process per shard, so its memory need grows with the shard
-count. At 1 GiB it sits right at the limit, and whether the kernel kills one of its processes
-varies from run to run. We reproduced both of the customer's failures, and each happened once in
-five runs of the same setting. With four shards a process was killed within 19 seconds (exit 137).
-With one shard a later process was killed, and the remaining process waited about five minutes for
-output that would never come, then exited 247 with no message. Eight shards at 1 GiB failed in both
-runs. Every run that finished gave the same accuracy as the default 8 GiB, and lowering memory
-saved nothing: the smallest 4-vCPU machine in our price list already has 8 GiB. The pipeline now
-watches for an out-of-memory kill and, when it sees one, fails with a message that names memory as
-the cause.
+DeepVariant runs one `make_examples` process per shard, so memory requirements increase with the
+number of shards. 1 GiB is right at the memory limit, and whether the kernel kills a process varies
+between runs. We reproduced both of the customer's failures, and each occurred once in five runs
+using the same configuration. When four shards were used, a process was killed within 19 seconds
+(exit code 137). When one shard was used, a later process was killed. The remaining process waited
+about five minutes for output which would never arrive before exiting with no message (exit code
+247). When eight shards were used at 1 GiB of memory, both runs failed. All completed runs showed
+the same accuracy as the default 8 GiB configuration. Furthermore, reducing memory saved nothing
+because the smallest 4-vCPU machine in our price list already includes 8 GiB of memory. Currently,
+the pipeline monitors for processes killed due to insufficient memory. When this is detected, it
+fails with a message which clearly identifies memory as the cause.
 
 ## 2. Impact
 
-- Failed runs cost money and time: the silent failure held a 4-vCPU machine for 377 seconds, more
-  than 5 times a successful run, before a re-run was even started.
-- No wrong results: every configuration that finished produced identical calls (below).
-- Any customer who lowers memory below what their shard count needs is exposed, on any backend.
-  Because the failures are intermittent, a few good test runs do not show that a setting is safe.
+- Failed runs cost money and time. During this silent failure, the 4-vCPU machine had already
+  been in use for 377 seconds before the rerun began. This was more than 5 times the time
+  required for a successful run.
+- No wrong results. Every configuration that finished produced identical calls (below).
+- Customers who reduce memory capacity below that required for their shard count are at risk on
+  any backend. Since failures occur intermittently, a few successful tests do not establish
+  that the configuration is safe.
 
 ## 3. Timeline
 
@@ -59,13 +63,15 @@ the cause.
 /opt/deepvariant/bin/run_deepvariant: line 2:    14 Killed    /usr/bin/python3 -u /opt/deepvariant/bin/run_deepvariant.py "$@"
 ```
 
-and miniwdl reports `exit status 137, a possible indication that it ran out of memory`. 137 is
-128 + 9: the kernel's OOM killer sent SIGKILL. This one is easy to diagnose.
+Furthermore, miniwdl reported
+`exit status 137, a possible indication that it ran out of memory`. 137 equals 128 + 9. This
+means that the kernel's OOM termination mechanism sent SIGKILL. This situation is easy to
+diagnose.
 
-**1 shard, 1 GiB: exit 247 after 377 s.** `make_examples` finished (36.9 s) and `call_variants`
-started. Its `time` line appeared after 29.9 s, meaning the main process had gone, but no error
-followed. A writer subprocess kept waiting on a queue, CPU use fell to zero, and five minutes later
-the process exited:
+**1 shard, 1 GiB: exit 247 after 377 s.** `make_examples` completed (36.9 s), and `call_variants`
+then started. Its `time` line appeared after 29.9 s, indicating that the main process had ended by
+that point. However, no errors appeared afterwards. The subprocess used for writing continued to
+wait in the queue, and CPU usage fell to zero. After 5 minutes, the process terminated:
 
 ```text
 Process ForkProcess-1:
@@ -75,14 +81,14 @@ Process ForkProcess-1:
 _queue.Empty
 ```
 
-The container's cgroup recorded the cause, which the logs never mention: `memory.events` showed
+The container's cgroup recorded the cause, which the logs never mention. `memory.events` showed
 `oom_kill 1`. Exit 247 is not documented anywhere as an out-of-memory code, so a customer has no
 way to connect it to the memory setting.
 
 ### Step 2: the sweep
 
-DeepVariant task only, one run per row; wall time from the task's own `resources.json`. The three
-DeepVariant steps are timed from `stdout.txt`.
+Only the DeepVariant task is included, one run per row. Wall time came from the task's own
+`resources.json`. The three DeepVariant steps were timed from `stdout.txt`.
 
 | Shards | Memory | Result | Task wall (s) | CPU (s) | make_examples | call_variants | postprocess | Peak memory |
 |---:|---:|---|---:|---:|---:|---:|---:|---:|
@@ -94,34 +100,40 @@ DeepVariant steps are timed from `stdout.txt`.
 | 2 | 8 GiB | OK | 87.6 | 122.2 | 28.7 s | 37.0 s | 13.0 s | 1.86 GiB |
 | 4 | 8 GiB (default) | OK | 69.5 | 145.9 | 26.2 s | 26.4 s | 9.9 s | 1.99 GiB |
 
-Accuracy was identical in all five successful runs: SNP 21 missed, 0 false calls, F1 96.996%;
-INDEL F1 100%.
+Accuracy was identical in all 5 successful runs. There were 21 missed SNPs and 0 false calls
+(F1 of 96.996%), while INDEL F1 was 100%.
 
 What to read from this:
 
-- **Peak memory "at the limit" does not mean the task needed that much.** The cgroup's
-  `memory.peak` counts file cache, which the kernel fills up to the limit and reclaims under
-  pressure. Rows that finished at exactly 1.00 or 2.00 GiB were squeezed, not starving. The 8 GiB
-  rows show the real working size: about 1.6 GiB with one shard and 2.0 GiB with four.
-- **Squeezing did not reliably cost time.** The 2-shard, 1 GiB run took 26% longer than at 8 GiB
-  (110.7 s against 87.6 s), mostly in `call_variants`. But the repeats in Step 3, at 1 and 4 shards
-  with 1 GiB, took about 70 s, no slower than the default. One run per row cannot separate a small
-  slowdown from the run-to-run noise (below).
-- **On a small region, shards hardly matter.** `make_examples` is the only step that runs in
-  parallel, and here it is a third of the time. On a whole genome it dominates, so there shards do
-  matter, and so does the memory that comes with them.
-- **CPU is the real cost lever.** One shard used 84 CPU-seconds against 146 for four, and finished
-  only 6 s later. On a small region, asking for fewer vCPUs (with a matching shard count) is what
-  saves money; asking for less memory is not.
+- **Peak memory "at the limit" does not mean the task needed that much.** cgroup `memory.peak`
+  includes file cache which the kernel fills to the limit and reclaims under memory pressure. For
+  rows which ended at exactly 1.00 or 2.00 GiB, memory was under pressure at that point and had
+  not been exhausted. The 8 GiB rows showed the amount of memory required for the actual run.
+  This was about 1.6 GiB for 1 shard and 2.0 GiB for 4 shards.
+- **Squeezing did not reliably cost time.** Runtime for the 2-shard run at 1 GiB was 26% longer
+  than at 8 GiB (110.7 s compared to 87.6 s). This difference arose mainly from `call_variants`.
+  However, repeated runs in Step 3 using 1 and 4 shards at 1 GiB took about 70 s. They were no
+  slower than under the default conditions. Since each row was run only 1 time, a slight slowdown
+  cannot be distinguished from noise between runs (see below).
+- **On a small region, shards hardly matter.** `make_examples` is the only step which runs in
+  parallel and accounts for a third of the total runtime here. This step accounts for most of the
+  total runtime in whole-genome analyses. Therefore, shards and their associated memory
+  requirements become important.
+- **CPU is the real cost lever.** Using 1 shard consumed 84 CPU seconds, while using 4 shards
+  consumed 146 CPU seconds. Completion was only 6 s later with one shard. For smaller regions,
+  asking for fewer vCPUs, with a matching shard count, is what saves money. Asking for less memory
+  is not.
 
-Wall times also move with whatever else the machine is doing: the same 4-shard, 8 GiB task took
-100.3 s (peak 2.31 GiB) in an earlier run while other containers were busy.
+Actual runtime also varies depending on the other work being processed by the machine. In a
+previous run while other containers were processing tasks, the same 4-shard, 8 GiB task took
+100.3 s (peak 2.31 GiB).
 
 ### Step 3: repeating the failures
 
-After the pipeline change in section 7, we ran both failing settings four more times each, and
-added 8 shards at 1 GiB, a setting we expected to fail, to test the change. The change
-only reads a counter every 2 seconds, so it does not change how much memory the task uses.
+Following the pipeline change in Section 7, we ran both failing settings four more times each.
+To test this change, we also added the 1 GiB, 8 shards configuration which we expected to
+fail. Since the change only reads the counter every 2 seconds, task memory usage will not
+change.
 
 | Shards | Memory | Runs | Result | Task wall (s) | CPU (s) | Peak memory |
 |---:|---:|---:|---|---:|---:|---:|
@@ -129,19 +141,22 @@ only reads a counter every 2 seconds, so it does not change how much memory the 
 | 1 | 1 GiB | 4 | all OK | 70.2 to 72.2 | 78 to 80 | 1.00 GiB (at limit) |
 | 8 | 1 GiB | 2 | both killed in make_examples, exit 137, about 25 s into DeepVariant | | | |
 
-All eight runs that finished had the same accuracy as the default.
+Accuracy was the same as with the default settings in all 8 completed runs.
 
-So each of the customer's failures happened once in five runs of its setting. At 1 GiB the task
-is right at the edge. The kernel keeps reclaiming file cache to stay under the limit, and a
-process is killed only when the processes' memory peaks happen to coincide. Five runs are too few
-to give a failure rate. Across a batch of hundreds of samples, though, even a rate well below one
-in five means regular failures. With 8 shards it failed in both runs, about 25 s in.
+This means that each of the customer's failures occurred in 1 of the 5 runs under its
+corresponding configuration. At 1 GiB, the task is just at its limit. The kernel continuously
+reclaims the file cache to avoid exceeding the limit. Processes are forcibly terminated only when
+their peak memory usage coincides. A set of only 5 runs is insufficient to estimate the failure
+rate. However, failures will still recur when processing hundreds of samples in batches, even at
+a rate far below 1 in 5. When 8 shards were used, the 2 runs each failed about 25 s after
+starting.
 
 ### Step 4: what the memory setting costs
 
-Priced from `config/prices.yaml` (AWS us-east-1, retrieved 2026-10-22). The task asks for 4 vCPUs.
-The smallest 4-vCPU machine listed there, `c6i.xlarge`, has 8 GiB, so asking for 1 or 2 GiB buys
-the same machine. Only the time changes.
+Costs are calculated using `config/prices.yaml` (AWS us-east-1, retrieved 2026-10-22). This task
+requires 4 vCPU. The smallest 4-vCPU machine listed is `c6i.xlarge` which has 8 GiB of memory.
+Therefore, the same machine is used even when 1 GiB or 2 GiB of memory is requested. Only runtime
+changes.
 
 | Configuration | Task wall (s) | On demand ($0.170/h) | Spot ($0.0748/h, medium confidence) |
 |---|---:|---:|---:|
@@ -150,93 +165,102 @@ the same machine. Only the time changes.
 | 4 shards, 1 GiB, killed (then re-run) | 19 | $0.0009 | $0.0004 |
 | 1 shard, 1 GiB, silent failure (then re-run) | 377 | $0.0178 | $0.0078 |
 
-For one 200 kb region these are fractions of a cent, but they scale linearly with the work. The
-point is the ratios. When it worked, lowering memory saved nothing. When it failed, the sample still
-had to be re-run, so a failure cost the wasted time on top of a good run: about 1.3 times a good
-run for the immediate kill, and about 6.4 times for the silent one.
+For 1 region of 200 kb, these amounts were all below 1 cent, but they increase in proportion to
+processing volume. The ratios are the main consideration. Reducing memory saved nothing when
+processing succeeded. When processing failed, the sample still had to be rerun. Therefore, the cost
+of wasted time was added to the cost of a successful run. Immediate forced termination cost about
+1.3 times as much as a successful run, while silent failure cost about 6.4 times as much.
 
 ## 5. Root cause
 
-**What failed:** the memory limit was at the edge of what DeepVariant needs for the shard count,
-so in some runs the kernel killed one of its processes. **Why it was hard to see:** depending on
-which process died, the task either failed at once with 137 or hung and exited 247 without a word,
-and nothing in the pipeline turned the cgroup's OOM record into a message. Because it happened in
-some runs and not others, a test run or two at 1 GiB could easily have passed. **Why it happened at
-all:** lowering memory looks like a free saving, and nothing told the customer it was not.
+**What failed:** memory was capped at a level which only just met DeepVariant's requirements for
+this shard count. Therefore, the kernel forcibly terminated one of its processes in some runs.
+**Why it was difficult to detect:** Depending on which process was terminated, the task either
+failed immediately with 137 or hung and then exited with 247 without a message. Nothing in the
+pipeline converted cgroup OOM records into messages. Since some runs were affected while others
+were not, a test run or two at 1 GiB could easily have passed. **Why it happened at all:**
+Lowering memory looks like a free saving. Nothing told the customer it was not.
 
 ## 6. Resolution
 
-Advised going back to the default of 4 shards with 8 GiB. 2 GiB with 4 shards finished in the one
-run we made, but its peak was at the limit, and Step 3 shows how little one good run proves. The
-customer went back to the default; their failed sample re-ran in the normal time.
+Restoring the default settings of 8 GiB and 4 shards is recommended. We completed one run using 2
+GiB and 4 shards, but peak usage reached the limit. However, Step 3 shows that a single
+successful run provides very limited evidence. The customer restored the defaults, and the rerun
+of the previously failed sample completed within the usual time.
 
 ## 7. Prevention
 
 - **The task now watches for an OOM kill and names it.** The DeepVariant task in
   `wdl/tasks/call.wdl` reads the container's `oom_kill` counter (`/sys/fs/cgroup/memory.events`)
-  every 2 seconds while DeepVariant runs. If the counter goes up, the task prints a message, stops
-  DeepVariant, and fails. If DeepVariant exits with an error, the task reads the counter once
-  more, in case the kill came less than one check before the exit.
+  every 2 seconds while DeepVariant is running. If the counter increases, the task prints a
+  message, stops DeepVariant, and fails. If DeepVariant exits with an error, the task reads the
+  counter again. This checks for a forced termination which may have occurred less than one check
+  interval before exit.
 
-  The silent hang did not happen again in four repeats (Step 3), so we tested the change on
-  8 shards with 1 GiB, which was killed in both runs we made. Both stopped with exit 137 about
-  25 s into DeepVariant, and `stderr.txt` now ends with:
+  Since the silent hang did not recur in 4 reruns (Step 3), we tested the change at 1 GiB
+  using 8 shards. Both runs were killed. Each stopped about 25 s after DeepVariant started and
+  returned exit code 137. `stderr.txt` now ends with:
 
   ```text
   /opt/deepvariant/bin/run_deepvariant: line 2:    18 Killed    /usr/bin/python3 -u /opt/deepvariant/bin/run_deepvariant.py "$@"
   error: a DeepVariant process was killed for running out of memory (memory_gb=1, shards=8). Raise deepvariant_memory_gb or lower deepvariant_shards; see docs/case-studies/CS-03-deepvariant-memory.md
   ```
 
-  In those runs the killed process was the main one, so they would have failed quickly anyway. What
-  the change adds there is the message. We have not seen a real DeepVariant hang again, so the
-  other case, where a worker is killed and the rest wait, was tested with a stand-in. A small script
-  in the DeepVariant image, under a 300 MB container limit, started a child that allocated memory
-  until the kernel killed it, then waited forever, as the hung run did. The guard printed the
-  message and stopped the script 4 s after the kill, the task exited with 143, and no processes
-  were left behind. The same script exited normally when nothing was killed, and an ordinary
-  failure with no OOM kill passed its own exit code through with no message.
+  Since the main process was killed in those runs, they would have failed quickly in any case. This
+  change added a message in that situation. Since we had not observed another actual DeepVariant
+  hang, we used a substitute script to test a different situation. In this case, a worker was killed
+  while the remaining processes continued waiting. We ran a small script in the DeepVariant image
+  with the container memory limit set to 300 MB. It started a child process which continued
+  allocating memory until it was killed by the kernel. Then, the script waited indefinitely in the
+  same way as the hanging runs. The guard printed the message and stopped the script 4 s after the
+  kill. This task ended with exit code 143, and no processes remained. When nothing was killed, the
+  same script exited normally. For ordinary failures with no OOM kill, the guard printed no message
+  and returned the original failure exit code unchanged.
 
   DeepVariant runs in its own process group (`setsid`), so the guard stops only DeepVariant and
-  its workers. After that change the default run gave the same accuracy (SNP F1 97.00%), and 8 shards
-  at 1 GiB again failed with the message above.
-- **The triage runbook has both signatures:** exit 137 with `Killed`, and exit 247 or a long
-  stall at 0% CPU after `call_variants` starts
+  its worker processes. After this change, runs using the default settings still achieved the same
+  accuracy (SNP F1 97.00%). The run with 8 shards at 1 GiB failed again and displayed the message
+  above.
+- **The triage runbook has both signatures.** It covers exit code 137 with `Killed`. It also
+  covers exit code 247 or a long stall at 0% CPU after `call_variants` starts
   ([failed-run-triage.md](../runbooks/failed-run-triage.md)).
-- **For production deployments:** set a task timeout well above the normal time (Cromwell's
-  `maxRetries` runtime attribute with the `memory_retry_multiplier` workflow option can retry
-  with more memory automatically), and
-  alert on a task at 0% CPU for more than a few minutes, which catches other hangs too.
-- **Documented sizing:** `deepvariant_memory_gb` in `wdl/main.wdl` now points here. Leave it at
-  the default: on a 4-vCPU machine nothing is saved below 8 GiB, and 1 GiB was at the edge with 1
-  to 4 shards. With 4 shards the recorded peak (file cache included) was about 2 GiB on this
-  200 kb region and 6.9 to 7.9 GiB in three runs on the 5 Mb `full` region. The higher figure is
-  close to the 8 GiB limit, but most of it is likely cache the kernel can reclaim, since none of
-  those runs failed. Whole genomes have not been measured here, so measure before going below the
-  default, or above 4 shards.
+- **For production deployments.** Set the task timeout well above the time a run usually takes
+  (the Cromwell runtime attribute `maxRetries` with the workflow option `memory_retry_multiplier`
+  can retry with more memory automatically). Also set an alert for a task at 0% CPU for more than a
+  few minutes. This catches other hangs too.
+- **Documented sizing.** `deepvariant_memory_gb` in `wdl/main.wdl` now points to this page. Keep
+  the default value. Setting memory below 8 GiB on a 4-vCPU machine saves nothing, and 1 GiB is
+  already at the edge with 1 to 4 shards. Peak usage recorded with 4 shards (file cache included)
+  was about 2 GiB on this 200 kb region. It was 6.9 to 7.9 GiB in 3 runs on the 5 Mb `full` region.
+  The higher value is close to the 8 GiB limit, but none of these runs failed. So most of it is
+  likely cache which the kernel can reclaim. Whole genomes have not been measured here, so measure
+  usage before setting memory below the default or using more than 4 shards.
 
 ## 8. Customer-facing reply
 
 > Hi Jordan,
 >
-> Thanks for the exit codes and the run directories; they made this quick to pin down.
+> Thank you for the exit codes and the run directories. They made this quick to pin down.
 >
 > Both failures come from the 1 GiB memory setting. DeepVariant runs several worker processes at
-> once, and at 1 GiB the system sometimes stopped one of them for using too much memory. Exit 137
-> is the usual sign of that. Exit 247 after a long pause is the same problem, but the remaining
-> process waited a few minutes before giving up and never said why. That part was a gap in our
-> pipeline: it now checks for this and fails with a message that says memory was the cause.
+> the same time. At 1 GiB, the system sometimes stopped one of them for using too much memory.
+> Exit code 137 is the usual sign of this. Exit code 247 after a long pause is the same problem.
+> But the remaining process waited a few minutes before giving up and never said why. That part
+> was a gap in our pipeline. It now checks for this and fails with a message stating that memory
+> was the cause.
 >
-> One thing worth knowing: at 1 GB the failures come and go. We ran each of your two settings five
-> times, and each failed once. So a few good runs at a low setting do not mean it is safe across a
-> whole batch.
+> One thing worth knowing is that failures at 1 GB come and go. We ran each of your 2 settings 5
+> times, and each failed once. So a few successful runs at a low setting do not mean it is safe
+> across a whole batch.
 >
-> The good news is you can go back to the default without paying more. With 4 CPUs, the smallest
-> standard cloud machine already has 8 GB of memory, so asking for 1 GB was buying the same machine.
-> In our tests the lower setting saved nothing when it worked, and a failed run cost the wasted time
-> plus a full re-run. Your results are unaffected: every run that finished gave identical calls.
+> The good news is that you can go back to the default without paying more. With 4 CPUs, the
+> smallest standard cloud machine already has 8 GB of memory. So asking for 1 GB was buying the
+> same machine. In our tests, the lower setting saved nothing when it worked. A failed run cost
+> the wasted time plus a full re-run. Your results are unaffected. Every run that finished gave
+> identical calls.
 >
-> If you'd like to tune cost further, the setting that matters is the number of CPUs, and I'm happy
-> to look at your sample sizes with you.
+> If you'd like to tune cost further, the setting that matters is the number of CPUs. I'm happy to
+> look at your sample sizes with you.
 >
 > Best regards,
 > Customer Success

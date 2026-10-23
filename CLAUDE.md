@@ -1,16 +1,18 @@
 # Working notes for AI assistants (and humans)
 
-Release validation for a germline short-read WGS workflow: WDL 1.0 run with miniwdl, benchmarked
-against GIAB HG002 with hap.py, gated against committed baselines.
+Release validation of the germline short-read WGS workflow uses miniwdl to execute WDL 1.0.
+Benchmarking is performed using hap.py against GIAB HG002, and validation is gated against
+committed baselines.
 
 ## Layout
 
-- `wdl/main.wdl` + `wdl/tasks/*.wdl`: the workflow. `wdl/optional/`: long-read and deliverables modules.
-- `scripts/`: standard-library Python (plus PyYAML/matplotlib where noted). `fetch_data.py` prepares
-  data, `summarize_happy.py` makes `metrics.json`, `compare_metrics.py` is the regression gate.
-- `config/`: data manifest (URLs + MD5), profiles (regions), thresholds, prices, miniwdl config.
-- `baselines/`: gated reference metrics. Change only per `docs/runbooks/updating-baselines.md`.
-- `docs/results/<label>/`: small generated outputs that are committed; large outputs go to `results/`.
+- `wdl/main.wdl` + `wdl/tasks/*.wdl`: Workflow. `wdl/optional/`: Long-read and deliverables modules.
+- `scripts/`: Python scripts use the standard library (and PyYAML/matplotlib where noted).
+  `fetch_data.py` prepares the data, `summarize_happy.py` generates `metrics.json`, and
+  `compare_metrics.py` is the regression gate.
+- `config/`: Data manifest (URLs + MD5), profiles (regions), prices, thresholds, and miniwdl settings.
+- `baselines/`: Reference metrics used for regression gate decisions. Make changes only as specified in `docs/runbooks/updating-baselines.md`.
+- `docs/results/<label>/`: Small generated outputs included in the commit. Large outputs are stored in `results/`.
 
 ## Commands
 
@@ -21,15 +23,15 @@ against GIAB HG002 with hap.py, gated against committed baselines.
 
 ## Rules
 
-- Pin every container as `tag@sha256:digest`. Record any new image in the README tools table.
-- Every task writes `resources.json` with the shared snippet (wall, CPU, peak memory). Keep it.
-- Never drop `@SQ` lines with `samtools reheader`: BAM records refer to contigs by index. Re-encode
-  through SAM text instead (see `FetchReadsSlice`).
-- Do not loosen `config/thresholds.yaml` to make a run pass; investigate and write it up.
-- No credentials, account IDs or bucket names in the repo. Cloud configs with them are gitignored.
-- Python: ruff (line length 120), mypy strict on `scripts/`, tests in `tests/` run offline.
-- Every result number in the docs comes from a generated file (`metrics.json`, `metrics.md`,
-  `gate.md`, `resources.tsv`, a script's output). Never type a number in by hand; quote or embed
-  the generated file, and regenerate it when the inputs change.
-- Changes written by an assistant are reviewed as a diff, and `make test lint` (plus the run they
-  affect) passes before they are committed.
+- Keep all containers pinned using the `tag@sha256:digest` format. Record all new images in the README tool table.
+- Every task writes resource usage (elapsed time, CPU, peak memory) to `resources.json` with the shared snippet. Keep the snippet.
+- Never use `samtools reheader` to remove `@SQ` lines. BAM records reference contigs by index.
+  Re-encode through SAM text instead (see `FetchReadsSlice`).
+- Do not relax the settings in `config/thresholds.yaml` to make the run pass. Investigate and document your findings.
+- Never put credentials, account IDs or bucket names in the repo. Cloud configs that contain them are gitignored.
+- For Python, use ruff (line length 120), apply mypy in strict mode to `scripts/`, and run the tests in `tests/` offline.
+- All numerical results in the documentation are taken from generated files (`metrics.json`,
+  `metrics.md`, `gate.md`, `resources.tsv`, and script output). Never enter values manually.
+  Reference or embed the generated files, and regenerate them when the inputs change.
+- Changes written by an assistant are reviewed as a diff. `make test lint` and any run the change
+  affects must pass before it is committed.

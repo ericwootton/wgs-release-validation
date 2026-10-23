@@ -1,12 +1,13 @@
 # Running in the cloud
 
 !!! warning "Not run yet"
-    These are the steps for one real cloud run of the `full` profile. They have **not been
-    executed**: there is no billed cost below, and the estimate-versus-actual comparison is still
-    to do. Every fact below was checked against the provider's documentation or source code on
-    2026-10-22. Each step marked *check* is one that only a real run can confirm.
+    These are the steps for one real cloud run of the `full` profile. These steps have
+    **not been executed**. No billed costs are reported below, and the comparison between estimated
+    and actual costs remains to be done. All facts below were verified against provider
+    documentation or source code on 2026-10-22. Steps marked *check* can only be confirmed after
+    they have actually been executed.
 
-The workflow runs locally with miniwdl. In the cloud it runs on either of these:
+This workflow is run locally using miniwdl. It is run in the cloud using any of the following methods:
 
 | | AWS HealthOmics | GCP Batch through Cromwell 92 |
 |---|---|---|
@@ -16,13 +17,14 @@ The workflow runs locally with miniwdl. In the cloud it runs on either of these:
 | Spot | No | Yes (`preemptible` above 0) |
 | Inputs JSON | Bare input names (`region`, not `ReleaseValidation.region`) | Same as miniwdl |
 
-`scripts/cloud_inputs.py` turns an inputs file such as `inputs/full.json` into one for either
-target, and lists the local files that have to be uploaded first.
+`scripts/cloud_inputs.py` converts input files such as `inputs/full.json` into inputs for one
+of 2 targets and lists local files which must be uploaded in advance.
 
 ## Step 0: a budget alert, before anything else
 
-A budget alert sends an email when spending crosses a threshold. It does not stop spending. Set
-one at a few dollars before creating any resource; the `full` profile should cost cents.
+Budget alerts send emails when spending exceeds the threshold. They do not stop spending.
+Before creating resources, set a budget alert with a threshold of a few dollars. Costs for the
+`full` profile should be only cents.
 
 ```bash
 # AWS: monthly cost budget of 10 USD, email at 50 % and 100 % of actual spend
@@ -39,16 +41,17 @@ gcloud billing budgets create --billing-account="$BILLING_ACCOUNT" --display-nam
     --budget-amount=10USD --threshold-rule=percent=0.5 --threshold-rule=percent=1.0
 ```
 
-Keep account IDs, project IDs and bucket names in environment variables or in git-ignored files
-(`cromwell-gcp.conf`, `cloud/*.env`, `_cloud/`). Never commit credentials.
+Store account IDs, project IDs, and bucket names in environment variables or files designated
+to be ignored by git (`cromwell-gcp.conf`, `cloud/*.env`, `_cloud/`). Never commit credentials.
 
 ## Option 1: AWS HealthOmics
 
 ### 1. Stage the inputs in S3
 
-Runs have no internet access unless you set up VPC networking (a NAT gateway in your VPC, chosen
-per run with `networkingMode`). The simpler route is to stage everything in S3. The run then
-uses the local-file inputs (`ref_fasta`, `reads_bam`) instead of the streaming ones (`ref_url`,
+Unless VPC networking is configured, the runtime environment has no internet access. This
+requires a NAT gateway within the VPC and selection through `networkingMode` for each run. A
+simpler approach is to store everything in S3 in advance. In this case, local file inputs
+(`ref_fasta`, `reads_bam`) are used at runtime instead of streaming inputs (`ref_url`,
 `reads_url`):
 
 ```bash
@@ -66,19 +69,20 @@ python scripts/cloud_inputs.py inputs/full.json --target healthomics --prefix "s
 while IFS=$'\t' read -r local remote; do aws s3 cp "$local" "$remote"; done < _cloud/uploads.tsv
 ```
 
-`cloud_inputs.py` refuses to write a HealthOmics file that still has an `https://` input, and
-says which input it is. The slice already has 1 kb of padding and a chr20-only header, so
-FetchReadsSlice cuts it again without changing it.
+`cloud_inputs.py` refuses to write HealthOmics files which still contain `https://` inputs
+and identifies the specific inputs involved. Since the slice already includes 1 kb of padding
+and a chr20-only header, FetchReadsSlice cuts it again without changing it.
 
 ### 2. Put every image in private ECR
 
-HealthOmics pulls images only from private ECR in the region of the run. Two more requirements
-come from its documentation: images must be x86_64 (all eight are amd64), and they must not set
-an ENTRYPOINT, because the engine injects each task's command as a bash script. Four of the
-eight images set one: the biocontainers samtools, bcftools and mosdepth images, and
-happy-vcfeval, which is built on a biocontainer. All four use `/usr/local/env-execute`.
-`cloud/no-entrypoint.Dockerfile` clears it and changes nothing else. It was tested on samtools
-and happy-vcfeval: both tools run from the rebuilt images.
+HealthOmics only pulls images from private ECR repositories in the execution region. Its
+documentation also lists 2 requirements. Images must use the x86_64 architecture (all 8 images
+are amd64), and ENTRYPOINT must not be set. This is because the engine inserts each task's
+commands as a bash script. Among the 8 images, 4 set one. These were the
+biocontainers samtools, bcftools, and mosdepth images, and happy-vcfeval which was built from a
+biocontainer. These 4 images all use `/usr/local/env-execute`. `cloud/no-entrypoint.Dockerfile`
+removes this setting and changes nothing else. Tests using samtools and happy-vcfeval showed
+that these 2 tools were able to run in the rebuilt images.
 
 ```bash
 ECR="$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com"
@@ -99,13 +103,14 @@ done
 #   broadinstitute/gatk, google/deepvariant, python:3.12-slim, ngs-preflight:0.1.0
 ```
 
-Then pass each pushed image to `cloud_inputs.py` by digest, for example
-`--set samtools_docker=$ECR/wrv/samtools@sha256:...`. A run is then fully pinned, and no
-registry mapping is needed: HealthOmics needs no mapping for images given by private ECR URI.
-Each repository also needs a policy that lets the `omics.amazonaws.com` service principal pull
-(`ecr:BatchGetImage`, `ecr:GetDownloadUrlForLayer`). See "Policies for Amazon ECR" in the
-HealthOmics guide. *Check*: the rebuilt images are new digests, so record them in the run notes
-next to the upstream digests in `wdl/main.wdl`.
+Next, pass each pushed image to `cloud_inputs.py` by specifying its digest. For example, use
+`--set samtools_docker=$ECR/wrv/samtools@sha256:...`. This keeps the run fully pinned, and no
+registry mapping is needed. Images specified using private ECR URIs in HealthOmics require no
+mapping. Each repository also needs a policy that lets the
+`omics.amazonaws.com` service principal pull images (`ecr:BatchGetImage`,
+`ecr:GetDownloadUrlForLayer`). See Policies for Amazon ECR in the HealthOmics guide. *Check*:
+rebuilt images have new digests, so record them alongside the upstream digests listed in
+`wdl/main.wdl` in the run notes.
 
 ### 3. Create the workflow and start the run
 
@@ -122,23 +127,24 @@ aws omics start-run --workflow-id "$WORKFLOW_ID" --role-arn "$OMICS_ROLE_ARN" \
 aws omics get-run --id "$RUN_ID"; aws omics list-run-tasks --id "$RUN_ID"
 ```
 
-The role needs a trust policy for `omics.amazonaws.com`, read access to the input prefix,
-write access to the output prefix, ECR pull and CloudWatch Logs. Use `DYNAMIC` run storage:
-with `STATIC`, a fixed minimum is billed for the whole run however little the tasks use. That
-minimum is assumed to be 1,200 GiB in `config/prices.yaml`, which is enough to dominate a run
-this small.
+This role requires a trust policy for `omics.amazonaws.com`. It also requires read access to
+the input prefix, write access to the output prefix, permission to pull from ECR, and access
+to CloudWatch Logs. Set run storage to `DYNAMIC`. When `STATIC` is used, a fixed minimum
+capacity is billed throughout the run regardless of how little storage the tasks actually
+use. This minimum capacity is assumed to be 1,200 GiB in `config/prices.yaml`. For a run this
+small, this minimum is enough to dominate the cost.
 
-Known differences from the local run:
+Known differences from local execution:
 
-- `/tmp` is replaced by a shared run filesystem. No task here writes to `/tmp`; DeepVariant's
-  intermediate files go to `tmp/` in the task directory.
-- Task storage (`disks:`) is ignored; dynamic run storage covers all tasks.
-- HealthOmics retries a task that fails for a service reason up to two times. The DeepVariant
-  out-of-memory guard ([CS-03](../case-studies/CS-03-deepvariant-memory.md)) fails the task on
-  a real OOM, so that failure is reported, not retried.
-- *Check*: `resources.json` reads `/sys/fs/cgroup`. If HealthOmics tasks do not expose cgroup v2
-  there, CPU and memory are recorded as -1 and the per-task cost has to come from the run
-  manifest instead.
+- `/tmp` is replaced by the shared filesystem used for execution. No task here writes to
+  `/tmp`. Intermediate files from DeepVariant go to `tmp/` within the task directory.
+- Task storage (`disks:`) is ignored, and dynamic execution storage is applied to all tasks.
+- HealthOmics retries tasks which fail for service-side reasons up to two times. DeepVariant's
+  out-of-memory guard ([CS-03](../case-studies/CS-03-deepvariant-memory.md)) fails the task
+  when an OOM actually occurs. Therefore, this failure is reported and is not retried.
+- *Check*: `resources.json` reads `/sys/fs/cgroup`. If a HealthOmics task does not expose cgroup
+  v2 at this location, CPU and memory will be recorded as -1. In that case, the cost of each
+  task must be obtained from the execution manifest instead.
 
 ## Option 2: GCP Batch through Cromwell 92
 
@@ -150,17 +156,17 @@ gcloud services enable batch.googleapis.com compute.googleapis.com logging.googl
 gcloud storage buckets create "gs://$BUCKET" --location=northamerica-northeast1
 ```
 
-The VM service account needs `roles/batch.agentReporter`, `roles/logging.logWriter`, object
-access on the bucket and `roles/artifactregistry.reader`. The account that runs Cromwell needs
-`roles/batch.jobsEditor` and `roles/iam.serviceAccountUser` on the VM account. Authenticate
-Cromwell with `gcloud auth application-default login`.
+The VM service account requires `roles/batch.agentReporter`, `roles/logging.logWriter`, access
+to objects in the bucket, and `roles/artifactregistry.reader`. To run Cromwell, the account
+requires `roles/batch.jobsEditor` and `roles/iam.serviceAccountUser` on the VM service
+account. Use `gcloud auth application-default login` to authenticate Cromwell.
 
 ### 2. Images
 
-Public images (Docker Hub, quay.io) need no setup. Push the two locally built ones,
-`happy-vcfeval` and `ngs-preflight`, to Artifact Registry, and pass them as
-`--set happy_docker=...` and `--set preflight_docker=...`. Batch does not care about the
-ENTRYPOINT, so no rebuild is needed.
+Public images (Docker Hub, quay.io) require no setup. Push the two locally built images
+`happy-vcfeval` and `ngs-preflight` to Artifact Registry. Then, specify them using
+`--set happy_docker=...` and `--set preflight_docker=...`, respectively. Since Batch
+does not care about ENTRYPOINT, no rebuild is required.
 
 ### 3. Configure and run
 
@@ -177,38 +183,39 @@ java -Dconfig.file=cromwell-gcp.conf -jar cromwell-92.jar run wdl/main.wdl \
     --metadata-output _cloud/full.metadata.json
 ```
 
-The Cromwell inputs keep the streaming URLs: Batch VMs have external addresses
-(`noAddress: false`) and read the reference and reads over HTTPS, as the local run does.
+Streaming URLs are kept in the Cromwell inputs. Batch VMs have external
+addresses (`noAddress: false`). They read the reference sequence and
+sequencing reads over HTTPS in the same way as during local execution.
 
-On Spot: the Cromwell documentation page for Batch does not mention Spot. In the Cromwell
-source, any `preemptible` value above 0 sets the Batch provisioning model to `SPOT`
-(`BatchUtilityConversions.toProvisioningModel`). The example config sets `preemptible: 2` as a
-default for every task. *Check*: a preempted task should be retried, and should fall back to a
-standard VM after the retries; confirm this in the run metadata.
+The Cromwell documentation page for Batch does not mention Spot. In the Cromwell source code,
+the Batch provisioning model is set to `SPOT` when `preemptible` is greater than 0
+(`BatchUtilityConversions.toProvisioningModel`). The configuration example sets
+`preemptible: 2` as the default for all tasks. *Check*: a preempted task should be retried, and should fall back to a
+standard VM after the retries. Confirm this in the run metadata.
 
-On Cromwell versions: Cromwell 92's local backend fails on images pinned by digest
-([cromwell#7846](https://github.com/broadinstitute/cromwell/issues/7846)), and the
-[WES run](../ga4gh.md) used Cromwell 91 for that reason. The issue reports the cloud backends as
-unaffected. *Check*: the first Batch task starts with its `@sha256:` image; if it fails with
-"No coercion defined", use Cromwell 91.
+The [WES run](../ga4gh.md) used Cromwell 91 because the Cromwell 92 local backend fails when
+using images pinned by digest
+([cromwell#7846](https://github.com/broadinstitute/cromwell/issues/7846)). The issue report
+states that cloud backends are unaffected. *Check* that the first Batch task starts using the
+`@sha256:` image. If it fails with a “No coercion defined” error, use Cromwell 91.
 
 ## Reading the cost, and comparing it with the estimate
 
-- **What to compare.** The per-task cost of the `full` profile from the run's own records, set
-  against what `scripts/estimate_cost.py` predicts for the same profile from the local
-  `resources.tsv` and `config/prices.yaml`
-  ([cost estimate](cost-estimate.md)). The 30x WGS extrapolation cannot be checked this way;
-  only the per-region prices and the machine choice can.
-- **AWS.** Billing data lags by up to a day. Use Cost Explorer filtered to the HealthOmics
-  service (or `aws ce get-cost-and-usage`) for the billed amount, and `list-run-tasks` for each
-  task's instance type and duration.
-- **GCP.** Label the VMs (Cromwell's `google_labels` workflow option) and filter the billing
-  export or the Billing reports page by that label. Cromwell's metadata has each task's machine
-  type and duration.
-- **Where the gap will come from.** The estimate prices task CPU time at the cheapest listed
-  machine. A real run adds VM boot and image-pull time for each task, a minimum billing
-  increment, and storage. With tasks of a few minutes each, that overhead can be as large as
-  the compute.
+- **What to compare.** For the `full` profile, task costs derived from this run's records will
+  be compared with values predicted by `scripts/estimate_cost.py`. These predictions use the
+  local `resources.tsv` and `config/prices.yaml` for the same profile
+  ([cost estimate](cost-estimate.md)). This method cannot validate extrapolation to 30x WGS
+  and can only validate prices and machine selection in each region.
+- **AWS.** Billing data updates can be delayed by up to 1 day. Use Cost Explorer filtered to
+  the HealthOmics service (or `aws ce get-cost-and-usage`) to verify the billed amount. Then,
+  use `list-run-tasks` to verify the instance type and runtime for each task.
+- **GCP.** Add a label to the VM (Cromwell workflow option `google_labels`), and use it to
+  filter exported billing data or the billing report page. Cromwell metadata includes the
+  machine type and runtime for each task.
+- **Where the gap will come from.** This estimate uses the cheapest listed machine's rate
+  for the CPU time of each task. During actual runs, minimum billing units and storage also
+  incur costs in addition to VM startup and image retrieval for each task. When each task
+  takes a few minutes, this overhead can cost as much as the compute.
 
-Record the run date, region, image digests, billed cost and the estimate in this page when the
-run is done, and delete the budget, the workflow and the buckets afterwards.
+After the run is complete, record the run date, region, image digests, billed amount, and
+estimated amount on this page. Then, delete the budget, workflow, and buckets.

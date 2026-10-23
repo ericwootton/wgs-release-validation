@@ -2,18 +2,19 @@
 
 **Recommendation: make DeepVariant 1.10.0 the default for short-read germline WGS, and keep GATK
 4.7.0.0 for customers who need GATK's GVCF and joint-genotyping path or must stay consistent with
-data already processed by GATK.** On the same reads, DeepVariant was at least as accurate in every
-stratum of the gated benchmark and in all but one of the draft benchmark (SNPs in homopolymers,
-98.20% against 98.43% F1 on 226 variants), made a tenth as many false SNP calls, and costs about
-the same to run.
+data already processed by GATK.** Using the same reads, DeepVariant was at least as accurate in
+every stratum of the benchmark used for the regression gate. This was also observed in all but 1
+stratum of the draft benchmark. SNPs in homopolymers were the exception (226 variants, F1 of
+98.20% for DeepVariant against 98.43% for GATK). DeepVariant produced one tenth as many SNP false
+calls, and running costs were nearly identical.
 
-Everything below is one sample (HG002, 35x NovaSeq) on 5 Mb of chr20 (`full` profile), run on the
-same machine with the same inputs. That is enough to see a consistent pattern, not to quote
-genome-wide accuracy.
+All results below were obtained for a single sample (HG002, 35x NovaSeq) in a 5 Mb region on
+chr20 (`full` profile). Runs were performed on the same machine using the same inputs. This is
+sufficient to see a consistent pattern, but not to quote genome-wide accuracy.
 
 ## Accuracy against the GIAB v4.2.1 benchmark (the gated one)
 
-From [`full/metrics.md`](full/metrics.md). F1, with missed (FN) and false (FP) calls:
+Excerpt from [`full/metrics.md`](full/metrics.md). F1 is listed alongside missed variants (FN) and false calls (FP):
 
 | Type | Stratum | Truth variants | GATK 4.7.0.0 | DeepVariant 1.10.0 |
 |---|---|---:|---:|---:|
@@ -26,18 +27,20 @@ From [`full/metrics.md`](full/metrics.md). F1, with missed (FN) and false (FP) c
 | INDEL | all_difficult | 564 | 96.89% (14 FN, 20 FP) | 99.19% (8 FN, 1 FP) |
 | INDEL | lowmap_or_segdup | 82 | 85.98% (7 FN, 17 FP) | 95.57% (6 FN, 1 FP) |
 
-![F1 by stratum for GATK and DeepVariant on the full profile](figures/f1_by_stratum.png)
+![F1 for GATK and DeepVariant by stratum in the full profile](figures/f1_by_stratum.png)
 
-Outside the difficult regions the two callers are effectively identical. The gap is in
-low-mappability and segmentally duplicated sequence, and it is mostly precision: 172 of GATK's 182
-false SNP calls are there. Recall is closer (82 against 68 missed SNPs);
+Outside difficult regions, the 2 variant callers were essentially equivalent. Differences occurred
+in low mappability sequences and sequences containing segmental duplication, and were largely
+reflected in precision. GATK had 182 SNP false calls, of which 172 were located in these regions.
+Differences in recall were smaller (82 versus 68 missed SNPs).
 [CS-01](../case-studies/CS-01-missed-variants-lowmap.md) looks at the sites both callers miss.
 
 ## Against the draft GIAB v5.0q benchmark
 
-GIAB's v5.0q small-variant benchmark is a **draft**, so it is used here for comparison only, never
-for the gate. It evaluates a different and larger set of variants: in this region it has 1,242
-truth INDELs against v4.2.1's 816, most of the additions in homopolymers and tandem repeats. From
+Since the GIAB v5.0q small-variant benchmark is a **draft**, it is used here for comparison only
+and never for gating. This benchmark evaluates a set with a different composition and includes
+more variants. In this region, the v4.2.1 truth set contained 816 INDELs while v5.0q contained
+1,242. Most additional variants were found within homopolymers and tandem repeats. Quoted from
 [`full-v5q/metrics.md`](full-v5q/metrics.md):
 
 | Type | Stratum | Truth variants | GATK 4.7.0.0 | DeepVariant 1.10.0 |
@@ -50,20 +53,22 @@ truth INDELs against v4.2.1's 816, most of the additions in homopolymers and tan
 | INDEL | tandem_repeat | 317 | 87.97% (45 FN, 27 FP) | 92.24% (38 FN, 8 FP) |
 | INDEL | lowmap_or_segdup | 110 | 85.23% (23 FN, 7 FP) | 91.75% (15 FN, 2 FP) |
 
-Two things to read from it:
+There are 2 main points to take from this:
 
-- **INDEL scores drop for both callers**, because the new benchmark includes the harder repeats.
-  DeepVariant's lead grows there: it misses 26 homopolymer INDELs to GATK's 63.
-- **GATK's SNP score goes up, which is not a sign that it got better.** Of the 182 SNP calls that
-  v4.2.1 counts as false, 137 fall outside the regions v5.0q evaluates and 45 are still false
-  (traced site by site through the two hap.py output VCFs). The draft benchmark simply does not
-  score most of the sequence where GATK makes false calls. Comparing callers on one benchmark is
-  fair; comparing one caller's score across benchmarks is not.
+- Due to the inclusion of more difficult repetitive sequences in the new benchmark set, **INDEL
+  scores declined for both callers**. Here, DeepVariant's advantage increased further. GATK
+  missed 63 homopolymer INDELs while DeepVariant missed 26.
+- **GATK's SNP score goes up, which is not a sign that it got better.** Among 182 SNP calls
+  classified as false positives by v4.2.1, 137 were outside the v5.0q benchmark regions. The
+  remaining 45 were still false positives (confirmed by tracing each site individually through 2
+  hap.py output VCFs). This draft benchmark simply did not assess most of the sequence where GATK
+  produced false calls. Comparing different variant callers against the same benchmark is fair.
+  However, comparing scores for the same variant caller between different benchmarks is not fair.
 
 ## Cost and runtime
 
-From the [cost estimate](cost-estimate.md), which scales the measured task times to a 30x whole
-genome; central estimates, per genome:
+From the [cost estimate](cost-estimate.md) which scales measured task times to a 30x whole
+genome, central estimates per genome follow:
 
 | Option | GATK 4.7.0.0 | DeepVariant 1.10.0 |
 |---|---:|---:|
@@ -72,36 +77,39 @@ genome; central estimates, per genome:
 | GCP Batch northamerica-northeast1, spot | $3.86 | $3.84 |
 | AWS HealthOmics us-east-1 | $18.47 | $18.38 |
 
-The central estimates differ by under 1%, well inside the estimates' own ranges. Measured on the
-`full` run (both callers side by side, 4 CPUs each): HaplotypeCaller 297.7 s wall and 938
-CPU-seconds, DeepVariant 296.5 s and 896 CPU-seconds. Single runs on this laptop vary: in the
-separate upgrade runs, each caller on its own, DeepVariant 1.10.0 took 235.5 s and GATK 4.7.0.0
-288.1 s. Neither caller is clearly cheaper; re-measure before quoting a difference. The practical
-differences are elsewhere:
+Central estimates differed by less than 1% and fell well within their respective estimated
+ranges. During the `full` run, HaplotypeCaller and DeepVariant ran in parallel using 4 CPU each.
+HaplotypeCaller had an elapsed time of 297.7 s and a CPU time of 938 CPU seconds. DeepVariant had
+an elapsed time of 296.5 s and a CPU time of 896 CPU seconds. Single runs on this laptop vary. In
+the separate upgrade runs, each caller on its own, DeepVariant 1.10.0 took 235.5 s, while
+GATK 4.7.0.0 took 288.1 s. Neither caller can be considered clearly lower in cost. Measure again
+before presenting differences. Practical differences lie elsewhere:
 
-- DeepVariant is given 8 GiB to GATK's 6 GiB. Its recorded peak was about 2 GiB on the 200 kb
-  `ci` region and 6.9 to 7.9 GiB in three runs on the 5 Mb `full` region, but that peak includes
-  file cache, which
-  fills toward whatever limit is set ([CS-03](../case-studies/CS-03-deepvariant-memory.md)). On a
-  4-vCPU machine the 8 GiB costs nothing extra, and customers who lower it to save money can hit
-  the intermittent failures CS-03 describes.
-- The DeepVariant image is about 7 GB and the GATK image about 9 GB, so neither is cheap to pull
-  on every node; cache them in the region's registry.
-- Runtimes here come from one laptop CPU; the estimate prices them on the machines in
-  `config/prices.yaml`. Re-measure on the customer's actual instance family before quoting.
+- DeepVariant is given 8 GiB to GATK's 6 GiB. DeepVariant recorded
+  peak memory usage of about 2 GiB in the 200 kb `ci` region. Peak usage was 6.9 to 7.9 GiB over
+  three runs in the 5 Mb `full` region. However, this peak included file cache which grows
+  towards the configured limit regardless of its value
+  ([CS-03](../case-studies/CS-03-deepvariant-memory.md)). Allocating 8 GiB of memory on a 4-vCPU
+  machine costs nothing extra. Customers who lower the memory allocation to save money can hit
+  the intermittent failures described in CS-03.
+- The DeepVariant image is about 7 GB, while the GATK image is about 9 GB. Therefore, neither
+  image is cheap to pull on each node. Cache them in an image registry in that region.
+- Runtimes here were measured on one laptop CPU. Cost estimates use these runtimes
+  and machine rates in `config/prices.yaml`. Before quoting, re-measure on the
+  customer's actual instance family.
 
 ## When GATK is still the right choice
 
 - The customer joint-genotypes a cohort with GATK (`-ERC GVCF`, GenomicsDBImport,
-  GenotypeGVCFs), or has years of GATK-processed samples to stay consistent with. Switching callers
-  mid-cohort creates a batch effect that is worse than the accuracy gain.
-- A regulated or published protocol names GATK and changing it means revalidation.
-- They need a tool that ships inside the GATK image (Mutect2, CNV callers) and want one image to
+  GenotypeGVCFs), or has years of GATK-processed samples to stay consistent with. Switching variant callers midway through cohort analysis introduces
+  batch effects whose adverse effects outweigh the benefits of improved accuracy.
+- Regulated or published protocols specify the use of GATK, and changing this would require revalidation.
+- They need a tool that ships inside the GATK image (Mutect2, CNV callers) and want 1 image to
   maintain.
 
 ## What this comparison does not cover
 
-- Other samples, ancestries, coverage depths, PCR-plus libraries, or exome and panel data (the
-  DeepVariant WES model is separate).
+- Other samples, ancestry groups, coverage depths, PCR-plus libraries, or data from exomes and
+  panels (there is a separate DeepVariant WES model).
 - GVCF output and joint calling.
 - Long reads, for which DeepVariant has its own models and GATK is not the usual choice.
