@@ -55,6 +55,8 @@ not_in_nav: |
 nav:
   - Home: index.md
   - How it works: workflow.md
+  - Validation summary: validation-summary.md
+  - GA4GH standards: ga4gh.md
   - Results:
       - Latest CI run: results/latest/metrics.md
       - Caller comparison: results/caller-comparison.md
@@ -63,6 +65,7 @@ nav:
       - CI region (GATK): results/ci/metrics.md
       - Full region (GATK + DeepVariant): results/full/metrics.md
       - Long-read hand-off QC: results/longread/QC_SUMMARY.md
+      - SV merging study: results/sv-merging.md
   - Runbooks:
       - Release validation: runbooks/release-validation.md
       - Failed-run triage: runbooks/failed-run-triage.md

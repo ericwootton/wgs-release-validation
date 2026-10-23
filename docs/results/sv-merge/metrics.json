@@ -1,0 +1,132 @@
+{
+  "region": "chr20:1000001-6000000",
+  "sample": "HG002",
+  "strategies": {
+    "pbsv": {
+      "bench": {
+        "tp": 45,
+        "fn": 7,
+        "fp": 2,
+        "precision": 0.9534883720930233,
+        "recall": 0.8653846153846154,
+        "f1": 0.9073026801081879
+      },
+      "refine": {
+        "tp": 48,
+        "fn": 4,
+        "fp": 2,
+        "precision": 0.9534883720930233,
+        "recall": 0.9230769230769231,
+        "f1": 0.9380362249761678
+      },
+      "truvari_wall_seconds": 10.73,
+      "records": 110,
+      "records_ge50": 46
+    },
+    "sniffles": {
+      "bench": {
+        "tp": 44,
+        "fn": 8,
+        "fp": 4,
+        "precision": 0.9090909090909091,
+        "recall": 0.8461538461538461,
+        "f1": 0.8764940239043824
+      },
+      "refine": {
+        "tp": 47,
+        "fn": 5,
+        "fp": 4,
+        "precision": 0.9090909090909091,
+        "recall": 0.9038461538461539,
+        "f1": 0.9064609450337512
+      },
+      "truvari_wall_seconds": 135.41,
+      "records": 48,
+      "records_ge50": 46
+    },
+    "union": {
+      "bench": {
+        "tp": 47,
+        "fn": 5,
+        "fp": 43,
+        "precision": 0.5057471264367817,
+        "recall": 0.9038461538461539,
+        "f1": 0.64858083738435
+      },
+      "refine": {
+        "tp": 48,
+        "fn": 4,
+        "fp": 33,
+        "precision": 0.6206896551724138,
+        "recall": 0.9230769230769231,
+        "f1": 0.7422680412371133
+      },
+      "truvari_wall_seconds": 193.69,
+      "records": 158,
+      "records_ge50": 92
+    },
+    "collapse": {
+      "bench": {
+        "tp": 44,
+        "fn": 8,
+        "fp": 7,
+        "precision": 0.8541666666666666,
+        "recall": 0.8461538461538461,
+        "f1": 0.8501413760603205
+      },
+      "refine": {
+        "tp": 47,
+        "fn": 5,
+        "fp": 6,
+        "precision": 0.875,
+        "recall": 0.9038461538461539,
+        "f1": 0.8891891891891892
+      },
+      "truvari_wall_seconds": 189.61,
+      "records": 117,
+      "records_ge50": 51
+    },
+    "collapse_loose": {
+      "bench": {
+        "tp": 44,
+        "fn": 8,
+        "fp": 5,
+        "precision": 0.8888888888888888,
+        "recall": 0.8461538461538461,
+        "f1": 0.8669950738916256
+      },
+      "refine": {
+        "tp": 47,
+        "fn": 5,
+        "fp": 5,
+        "precision": 0.8888888888888888,
+        "recall": 0.9038461538461539,
+        "f1": 0.8963051251489869
+      },
+      "truvari_wall_seconds": 190.94,
+      "records": 114,
+      "records_ge50": 48
+    },
+    "intersect": {
+      "bench": {
+        "tp": 43,
+        "fn": 9,
+        "fp": 1,
+        "precision": 0.975,
+        "recall": 0.8269230769230769,
+        "f1": 0.8948772678762006
+      },
+      "refine": {
+        "tp": 48,
+        "fn": 4,
+        "fp": 1,
+        "precision": 0.975,
+        "recall": 0.9230769230769231,
+        "f1": 0.9483282674772037
+      },
+      "truvari_wall_seconds": 9.31,
+      "records": 44,
+      "records_ge50": 42
+    }
+  }
+}

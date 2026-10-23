@@ -14,6 +14,8 @@ import longread_handoff as lh
 import pick_fn_examples as pf
 import plot_metrics as pm
 import site_evidence as se
+import sv_merge_report as sm
+import wes_run as wr
 
 REPO = Path(__file__).resolve().parent.parent
 
@@ -294,6 +296,49 @@ def test_cloud_inputs_refuses_missing_files_and_parent_paths(tmp_path):
         ci.rewrite(inputs, "cromwell", "gs://b/wrv", {"truth_vcf": "../evil.vcf"}, [], tmp_path)
 
 
+def test_cloud_inputs_wes_keeps_prefix_and_takes_http_prefix(tmp_path):
+    out, uploads = ci.rewrite(_cloud_fixture(tmp_path), "wes", "http://172.17.0.1:8081", {}, [], tmp_path)
+    assert out["ReleaseValidation.truth_vcf"] == "http://172.17.0.1:8081/data/truth.vcf"
+    assert out["ReleaseValidation.reads_url"] == "https://example.org/reads.bam"
+    assert len(uploads) == 2
+
+
+# --------------------------------------------------------------------------- wes_run
+
+
+def test_wes_multipart_body_has_every_field():
+    body, ctype = wr.multipart({"workflow_type": "WDL", "workflow_params": '{"a": 1}'})
+    boundary = ctype.split("boundary=")[1]
+    text = body.decode("utf-8")
+    assert text.count(f"--{boundary}\r\n") == 2 and text.endswith(f"--{boundary}--\r\n")
+    assert 'name="workflow_params"\r\n\r\n{"a": 1}\r\n' in text
+
+
+def test_wes_summary_holds_no_server_paths():
+    run_log = {
+        "run_id": "r1",
+        "state": "COMPLETE",
+        "run_log": {"start_time": "t0", "end_time": "t1", "stdout": "/srv/cromwell/stdout"},
+        "task_logs": [{"name": "A", "exit_code": 0, "stderr": "/srv/cromwell/call-A/stderr"}],
+        "outputs": {"ReleaseValidation.metrics_json": "/srv/cromwell/call-S/metrics.json"},
+        "request": {"workflow_params": {"x": "/home/someone/data.vcf"}},
+    }
+    summary = wr.summarise(run_log, {"supported_wes_versions": ["1.0"], "workflow_engine_versions": {"Cromwell": "91"}})
+    assert "/" not in json.dumps(summary).replace('"1.0"', "")
+    assert summary["outputs"] == ["ReleaseValidation.metrics_json"] and summary["task_exit_codes"] == [0]
+
+
+def test_wes_save_outputs_removes_stale_copies(tmp_path):
+    out = tmp_path / "out"
+    out.mkdir()
+    (out / "metrics.json").write_text("old run")
+    new = tmp_path / "metrics.md"
+    new.write_text("new")
+    outputs = {"ReleaseValidation.metrics_json": "/not/readable/here.json", "ReleaseValidation.metrics_md": str(new)}
+    assert wr.save_outputs({"outputs": outputs}, out) == ["metrics.md"]
+    assert not (out / "metrics.json").exists() and (out / "metrics.md").read_text() == "new"
+
+
 # --------------------------------------------------------------------------- longread_handoff
 
 
@@ -337,3 +382,52 @@ def test_longread_summary_notes_unscored_small_calls(tmp_path):
     text = lh.qc_summary(qc)
     assert "Calls under 50 bp (1 from pbsv) are in the files and in the table above" in text
     assert "per haplotype" not in text
+
+
+# --------------------------------------------------------------------------- sv_merge_report
+
+
+def test_sv_merge_report_reads_run_outputs(tmp_path):
+    def score(tp, fp):
+        return {"TP-base": tp, "FN": 10 - tp, "FP": fp, "precision": tp / (tp + fp), "recall": tp / 10, "f1": 0.5}
+
+    outputs = {"summaries": [], "refine_summaries": [], "resources": []}
+    counts = ["label\trecords\trecords_ge50"]
+    for i, label in enumerate(sm.ORDER):
+        for key, suffix, tp in (("summaries", "truvari.json", 7), ("refine_summaries", "truvari.refine.json", 8)):
+            p = tmp_path / f"{label}.{suffix}"
+            p.write_text(json.dumps(score(tp, i)))
+            outputs[key].append(str(p))
+        r = tmp_path / f"{label}.resources.json"
+        r.write_text(json.dumps({"task": "Truvari", "label": label, "wall_seconds": 1.5}))
+        outputs["resources"].append(str(r))
+        counts.append(f"{label}\t{20 + i}\t{10 + i}")
+    (tmp_path / "counts.tsv").write_text("\n".join(counts) + "\n")
+    named = {f"SvMerge.{k}": v for k, v in outputs.items()} | {"SvMerge.counts": str(tmp_path / "counts.tsv")}
+    (tmp_path / "outputs.json").write_text(json.dumps(named))
+
+    (tmp_path / "inputs.json").write_text(json.dumps({"SvMerge.region": "chr20:1-50"}))
+    result = sm.collect(tmp_path)
+    assert result["region"] == "chr20:1-50" and result["sample"] == "HG002"
+    assert list(result["strategies"]) == sm.ORDER
+    assert result["strategies"]["union"]["refine"]["fp"] == 2
+    assert result["strategies"]["union"]["records_ge50"] == 12
+    text = sm.render(result)
+    assert "| intersect | 8 | 2 | 5 | 0.615 | 0.800 | 0.500 |" in text
+    assert "HG002 PacBio HiFi over" in text and "`chr20:1-50`" in text
+
+
+def test_sv_merge_report_refuses_missing_strategy(tmp_path):
+    (tmp_path / "counts.tsv").write_text("label\trecords\trecords_ge50\n")
+    outputs = {"summaries": [], "refine_summaries": [], "resources": [], "counts": str(tmp_path / "counts.tsv")}
+    (tmp_path / "outputs.json").write_text(json.dumps(outputs))
+    with pytest.raises(SystemExit, match="no results for pbsv"):
+        sm.collect(tmp_path)
+
+
+def test_sv_merge_report_refuses_missing_counts_row(tmp_path):
+    test_sv_merge_report_reads_run_outputs(tmp_path)
+    rows = (tmp_path / "counts.tsv").read_text().splitlines()
+    (tmp_path / "counts.tsv").write_text("\n".join(r for r in rows if not r.startswith("union")) + "\n")
+    with pytest.raises(SystemExit, match="no results for union"):
+        sm.collect(tmp_path)

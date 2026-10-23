@@ -39,5 +39,19 @@ First release: the core validation workflow, the regression gate and the support
   tandem-repeat and CpG methylation QC (combined and per haplotype) with a partner handoff folder
   (`wdl/optional/longread.wdl`), and customer deliverables: read-support BAM slices with an
   allele-support table, a collection VCF and targeted TSV extracts (`wdl/optional/deliverables.wdl`).
+- An SV merging study (`wdl/optional/sv_merge.wdl`, `make sv-merge`): pbsv and Sniffles alone,
+  their union, two collapsed unions and their intersection, each benchmarked with truvari.
 - Steps for a cloud run on AWS HealthOmics or GCP Batch through Cromwell
   (`docs/results/cloud-run.md`, `scripts/cloud_inputs.py`), not yet executed.
+- `make wes` and `scripts/wes_run.py`: run a profile through a GA4GH WES 1.0 server and gate the
+  result against the miniwdl run. `fixture` and `ci` ran on Cromwell 91 with identical metrics
+  (`docs/ga4gh.md`). `.dockstore.yml` registers the four workflows with Dockstore. Stratum names
+  are taken from the input file names before localisation, because Cromwell renames `http://`
+  inputs.
+- `docs/validation-summary.md`: accuracy, repeatability and reportable range in the layout of a
+  laboratory validation summary, with what a clinical validation would add.
+
+### Known issues
+
+- Cromwell 92's local backend fails on digest-pinned images
+  ([cromwell#7846](https://github.com/broadinstitute/cromwell/issues/7846)); use Cromwell 91.

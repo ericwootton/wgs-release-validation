@@ -1,0 +1,6 @@
+{
+  "SvMerge.region": "chr20:1000001-6000000",
+  "SvMerge.ref_url": "https://storage.googleapis.com/deepvariant/case-study-testdata/GCA_000001405.15_GRCh38_no_alt_analysis_set.fa",
+  "SvMerge.truth_vcf": "data/longread/stvar_vcf.vcf",
+  "SvMerge.truth_bed": "data/longread/stvar_bed.bed"
+}

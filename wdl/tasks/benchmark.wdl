@@ -58,7 +58,8 @@ task HappyBenchmark {
         File confident_bed
         File ref_fasta
         File ref_fai
-        Array[File] strat_beds   # stratum name = file basename without .bed
+        Array[File] strat_beds
+        Array[String] strat_names   # one per strat_beds entry, in the same order
         String label
         String docker
         Int cpu = 4
@@ -71,9 +72,8 @@ task HappyBenchmark {
 
         ln -s "~{ref_fasta}" ref.fa; ln -s "~{ref_fai}" ref.fa.fai
         # hap.py resolves stratification paths relative to the TSV, so write absolute paths.
-        for bed in ~{sep=" " strat_beds}; do
-            printf '%s\t%s\n' "$(basename "$bed" .bed)" "$bed"
-        done > strat.tsv
+        test ~{length(strat_names)} -eq ~{length(strat_beds)}
+        paste ~{write_lines(strat_names)} ~{write_lines(strat_beds)} > strat.tsv
 
         mkdir -p happy
         hap.py "~{truth_vcf}" "~{query_vcf}" \

@@ -1,0 +1,40 @@
+# Dockstore registration (GA4GH Tool Registry Service). With the Dockstore GitHub App installed on
+# this repository, each push to a branch or tag updates the matching workflow version on
+# dockstore.org. See docs/ga4gh.md.
+version: 1.2
+workflows:
+  - name: wgs-release-validation
+    subclass: WDL
+    primaryDescriptorPath: /wdl/main.wdl
+    readMePath: /README.md
+    testParameterFiles:
+      - /inputs/ci.json
+      - /inputs/fixture.json
+    authors:
+      - name: Eric Wootton
+    topic: Germline short-read variant calling (GATK, DeepVariant) benchmarked against GIAB HG002, with a regression gate
+  - name: longread-handoff
+    subclass: WDL
+    primaryDescriptorPath: /wdl/optional/longread.wdl
+    readMePath: /README.md
+    testParameterFiles:
+      - /inputs/longread.json
+    authors:
+      - name: Eric Wootton
+    topic: PacBio HiFi SV, tandem-repeat and CpG methylation QC with a partner hand-off folder
+  - name: sv-merge
+    subclass: WDL
+    primaryDescriptorPath: /wdl/optional/sv_merge.wdl
+    readMePath: /README.md
+    authors:
+      - name: Eric Wootton
+    topic: Six ways to combine pbsv and Sniffles SV calls, each benchmarked with truvari
+  - name: customer-deliverables
+    subclass: WDL
+    primaryDescriptorPath: /wdl/optional/deliverables.wdl
+    readMePath: /README.md
+    testParameterFiles:
+      - /inputs/deliverables.json
+    authors:
+      - name: Eric Wootton
+    topic: Read-support BAM slices, a collection VCF and targeted TSV extracts for a customer

@@ -1,6 +1,6 @@
 ### Benchmark results: `fixture`
 
-Region `chr20:21860001-21890000` · HG002 vs GIAB v4.2.1 · hap.py (vcfeval) · mean depth 34.9x
+Region `chr20:21860001-21890000` · HG002 vs GIAB v4.2.1 (GRCh38) · hap.py (vcfeval) · mean depth 34.9x
 
 | Caller | Type | Stratum | Truth variants | Missed (FN) | False calls (FP) | Recall (95% CI) | Precision (95% CI) | F1 |
 |---|---|---|---:|---:|---:|---:|---:|---:|

@@ -54,6 +54,12 @@ workflow ReleaseValidation {
     }
 
     String contig = sub(region, ":.*", "")
+    # Stratum names come from the input file names, taken here, before localization: Cromwell
+    # saves http:// inputs under hashed names, which would otherwise become the stratum names. A
+    # URL must therefore end in the file name: a signed URL or a drs:// ID would name the stratum.
+    scatter (bed in strat_beds) {
+        String strat_name = basename(bed, ".bed")
+    }
 
     call prepare.FetchReference {
         input:
@@ -164,6 +170,7 @@ workflow ReleaseValidation {
                 ref_fasta = FetchReference.fasta,
                 ref_fai = FetchReference.fai,
                 strat_beds = strat_beds,
+                strat_names = strat_name,
                 label = caller,
                 docker = happy_docker
         }

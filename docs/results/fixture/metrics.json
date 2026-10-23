@@ -2,14 +2,16 @@
   "schema_version": 1,
   "run_label": "fixture",
   "region": "chr20:21860001-21890000",
-  "truth_set": "GIAB HG002 v4.2.1 (GRCh38)",
+  "truth_set": "GIAB v4.2.1 (GRCh38)",
   "tool_versions": {
     "samtools": "quay.io/biocontainers/samtools:1.24--h9dcdb79_1@sha256:a130447589651ed09252aa95a5e4f4132942cdb54d835d81a04a9a930d656561",
     "bcftools": "quay.io/biocontainers/bcftools:1.24--h118bc1c_4@sha256:186c45de3059dbb1837006c27788284c89d17f8e693e7804624b6cf6ca5caca0",
     "gatk": "broadinstitute/gatk:4.7.0.0@sha256:7da5cf586e1c463f0c72908f9ac7dec8c29e37912c82d6e7b3c250f27fcb3891",
     "deepvariant": "google/deepvariant:1.10.0@sha256:962e5a83b1d76aae6990625d47102785f791603f2138aa1fa9aa4fb6a2eecbe6",
     "mosdepth": "quay.io/biocontainers/mosdepth:0.3.14--h87be163_2@sha256:63f50e21185f5ce50fb0b6c6d3b3d4b7e50ab19356096f1045ca2538b739793c",
-    "hap.py": "happy-vcfeval:0.3.15-rtg3.13"
+    "hap.py": "happy-vcfeval:0.3.15-rtg3.13",
+    "gatk_args": "",
+    "norm_args": ""
   },
   "coverage": {
     "mean_depth": 34.92,

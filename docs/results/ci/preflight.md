@@ -43,4 +43,4 @@ Evidence: intervals=18, raw_bp=197548, merged_bp=197548, mean_size=10974.9, styl
 
 </details>
 
-*ngs-preflight 0.1.0, generated 2026-10-23T02:45:06Z in 0.23s.*
+*ngs-preflight 0.1.0, generated 2026-10-23T13:42:18Z in 0.14s.*

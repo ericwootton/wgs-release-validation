@@ -98,7 +98,13 @@ What else is here:
 - **Optional modules**: long-read SV, tandem-repeat and methylation QC with a partner handoff
   folder (`wdl/optional/longread.wdl`), and customer deliverables (`wdl/optional/deliverables.wdl`,
   [what the customer receives](docs/deliverables.md)).
+- **SV merging study**: [six ways to combine pbsv and Sniffles calls](docs/results/sv-merging.md),
+  each benchmarked against GIAB v5.0q (`wdl/optional/sv_merge.wdl`).
 - **Cloud**: [steps for AWS HealthOmics and GCP Batch](docs/results/cloud-run.md) (written, not yet run).
+- **GA4GH**: the same workflow [run through a WES API](docs/ga4gh.md) on Cromwell, with results
+  identical to miniwdl; a `.dockstore.yml` for Dockstore (TRS); notes on DRS inputs.
+- **[Validation summary](docs/validation-summary.md)**: accuracy, repeatability and reportable range
+  laid out as a lab validation summary would be (it is not a clinical validation).
 
 ### Tools
 
@@ -157,6 +163,12 @@ URLs and MD5s are in `config/data_manifest.tsv`. GIAB data are released by NIST 
   this happens in some runs and not others. The task now watches the container's OOM counter and
   fails with a message naming memory as the cause
   ([CS-03](docs/case-studies/CS-03-deepvariant-memory.md)).
+- **Cromwell 92 cannot run digest-pinned images on its local backend**
+  ([cromwell#7846](https://github.com/broadinstitute/cromwell/issues/7846)); Cromwell 91 runs the
+  workflow unchanged ([GA4GH standards](docs/ga4gh.md)).
+- **Task images should run as root.** Cromwell saves the inputs it downloads readable by its own
+  user only, so the ngs-preflight image, which ran as an unprivileged user, failed under Cromwell
+  and passed under miniwdl.
 - **`truvari refine` can hang with its default POA aligner**: on one 40 kb region it failed to
   allocate 32 GiB and then waited at 0% CPU. The long-read module uses MAFFT and a 30-minute
   timeout instead ([CS-04](docs/case-studies/CS-04-partner-handoff.md)).

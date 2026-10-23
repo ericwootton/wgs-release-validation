@@ -13,7 +13,7 @@ BASELINE ?= baselines/$(PROFILE).json
 RUNS ?= _runs
 WOMTOOL_JAR ?= $(wildcard tools/womtool-*.jar)
 
-.PHONY: data run gate ci run-ci full longread deliverables deliverables-docs test lint wdl-check cost plots docs docs-latest clean
+.PHONY: data run gate ci run-ci full wes longread sv-merge deliverables deliverables-docs test lint wdl-check cost plots docs docs-latest clean
 
 data:
 	$(PY) scripts/fetch_data.py prepare --profile $(PROFILE)
@@ -35,6 +35,25 @@ run-ci: ci
 full:
 	$(MAKE) run PROFILE=full
 
+# The same profile through a GA4GH WES server (docs/ga4gh.md), gated against the miniwdl run of it.
+# WES_FILES is a URL at which the server and its tasks can read this directory.
+WES_URL ?= http://localhost:8000/api/ga4gh/wes/v1
+WES_FILES ?=
+WES_TIMEOUT ?= 3600
+wes:
+	@test -n "$(WES_FILES)" || { echo "set WES_FILES to a URL that serves this directory" >&2; exit 1; }
+	mkdir -p $(RUNS)/wes
+	$(PY) scripts/cloud_inputs.py $(INPUTS) --target wes --prefix $(WES_FILES) \
+		--out $(RUNS)/wes/$(LABEL).json --uploads $(RUNS)/wes/$(LABEL).uploads.tsv
+	$(PY) scripts/wes_run.py --server $(WES_URL) --workflow-url $(WES_FILES)/wdl/main.wdl \
+		--params $(RUNS)/wes/$(LABEL).json --out $(RUNS)/wes/$(LABEL) --label $(LABEL) \
+		--timeout $(WES_TIMEOUT)
+	rm -rf docs/results/$(LABEL)-wes && mkdir -p docs/results/$(LABEL)-wes
+	cp $(RUNS)/wes/$(LABEL)/wes_run.json $(RUNS)/wes/$(LABEL)/metrics.json $(RUNS)/wes/$(LABEL)/metrics.md \
+		docs/results/$(LABEL)-wes/
+	$(PY) scripts/compare_metrics.py docs/results/$(LABEL)/metrics.json docs/results/$(LABEL)-wes/metrics.json \
+		--out-md docs/results/$(LABEL)-wes/gate.md
+
 # Optional modules (spec 2.14 and 2.15); run locally, not in CI.
 LONGREAD_IDS = stvar_vcf stvar_bed pbsv_trf_bed trgt_catalog strchive_trgt cpg_islands
 longread:
@@ -43,6 +62,14 @@ longread:
 	$(MINIWDL) run wdl/optional/longread.wdl -i inputs/longread.json --cfg config/miniwdl.cfg --dir $(RUNS)/longread --verbose
 	tar -xzf $(RUNS)/longread/_LAST/out/handoff_tar/*.tar.gz -C results/longread
 	cp results/longread/handoff/QC_SUMMARY.md results/longread/handoff/qc.json results/longread/handoff/MANIFEST.tsv results/longread/handoff/VERSIONS.md docs/results/longread/
+
+# Needs a finished `make longread`: it reuses that run's region-filtered SV VCFs.
+sv-merge:
+	mkdir -p $(RUNS)/sv-merge
+	$(MINIWDL) run wdl/optional/sv_merge.wdl -i inputs/sv_merge.json --cfg config/miniwdl.cfg --dir $(RUNS)/sv-merge \
+		--verbose pbsv_vcf=$(RUNS)/longread/_LAST/out/sv_vcfs/0/pbsv.vcf.gz \
+		sniffles_vcf=$(RUNS)/longread/_LAST/out/sv_vcfs/1/sniffles.vcf.gz
+	$(PY) scripts/sv_merge_report.py $(RUNS)/sv-merge/_LAST --out docs/results/sv-merge
 
 deliverables:
 	$(PY) scripts/fetch_data.py subset hg003_vcf hg004_vcf --profile full --out data/deliverables

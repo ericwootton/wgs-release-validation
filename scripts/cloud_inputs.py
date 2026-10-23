@@ -15,6 +15,8 @@ Targets differ in two ways (docs/results/cloud-run.md):
 - healthomics: parameter names drop the "ReleaseValidation." prefix, and https:// inputs are
   refused, because runs have no internet access unless VPC networking is set up.
 - cromwell: names keep the prefix, and https:// inputs are kept (Batch VMs can stream them).
+- wes: as cromwell, for a GA4GH WES server; the prefix can be any URL the server can read
+  (gs://, s3://, http(s)://), e.g. a web server over this directory (docs/ga4gh.md).
 """
 
 from __future__ import annotations
@@ -114,7 +116,7 @@ def rewrite(
         return remote
 
     converted = {name: convert(name, value) for name, value in bare.items()}
-    if target == "cromwell":
+    if target in ("cromwell", "wes"):
         converted = {f"{WORKFLOW}.{k}": v for k, v in converted.items()}
     return converted, sorted(uploads.items())
 
@@ -122,8 +124,8 @@ def rewrite(
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("inputs", type=Path)
-    ap.add_argument("--target", choices=("healthomics", "cromwell"), required=True)
-    ap.add_argument("--prefix", required=True, help="s3://bucket/path or gs://bucket/path")
+    ap.add_argument("--target", choices=("healthomics", "cromwell", "wes"), required=True)
+    ap.add_argument("--prefix", required=True, help="s3://bucket/path, gs://bucket/path, or a URL for wes")
     ap.add_argument("--set", action="append", default=[], metavar="NAME=VALUE", dest="sets")
     ap.add_argument("--drop", action="append", default=[], metavar="NAME")
     ap.add_argument("--base", type=Path, default=Path("."), help="directory local paths are relative to")
@@ -131,9 +133,9 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--uploads", type=Path, required=True)
     args = ap.parse_args(argv)
 
-    scheme = {"healthomics": "s3://", "cromwell": "gs://"}[args.target]
-    if not args.prefix.startswith(scheme):
-        raise SystemExit(f"error: --prefix for {args.target} must start with {scheme}")
+    schemes = {"healthomics": ("s3://",), "cromwell": ("gs://",), "wes": ("gs://", "s3://", "http://", "https://")}
+    if not args.prefix.startswith(schemes[args.target]):
+        raise SystemExit(f"error: --prefix for {args.target} must start with {' or '.join(schemes[args.target])}")
 
     inputs = json.loads(args.inputs.read_text(encoding="utf-8"))
     rewritten, uploads = rewrite(inputs, args.target, args.prefix, parse_assignments(args.sets), args.drop, args.base)

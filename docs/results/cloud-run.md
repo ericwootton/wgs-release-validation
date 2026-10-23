@@ -186,6 +186,12 @@ source, any `preemptible` value above 0 sets the Batch provisioning model to `SP
 default for every task. *Check*: a preempted task should be retried, and should fall back to a
 standard VM after the retries; confirm this in the run metadata.
 
+On Cromwell versions: Cromwell 92's local backend fails on images pinned by digest
+([cromwell#7846](https://github.com/broadinstitute/cromwell/issues/7846)), and the
+[WES run](../ga4gh.md) used Cromwell 91 for that reason. The issue reports the cloud backends as
+unaffected. *Check*: the first Batch task starts with its `@sha256:` image; if it fails with
+"No coercion defined", use Cromwell 91.
+
 ## Reading the cost, and comparing it with the estimate
 
 - **What to compare.** The per-task cost of the `full` profile from the run's own records, set

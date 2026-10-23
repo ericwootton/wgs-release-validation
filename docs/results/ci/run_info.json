@@ -1,7 +1,7 @@
 {
   "label": "ci",
-  "run_dir": "20261022_234452_ReleaseValidation",
+  "run_dir": "20261023_104203_ReleaseValidation",
   "slice_read_count": 53334,
   "tasks": 10,
-  "total_wall_seconds": 66.1
+  "total_wall_seconds": 62.8
 }

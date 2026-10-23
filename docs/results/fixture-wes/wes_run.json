@@ -1,0 +1,44 @@
+{
+  "run_id": "3fada14f-7cc7-4742-9bf9-9274cfe9ac38",
+  "state": "COMPLETE",
+  "wes_versions": [
+    "1.0"
+  ],
+  "engine": {
+    "Cromwell": "91"
+  },
+  "start_time": "2026-10-23T13:40:22.116Z",
+  "end_time": "2026-10-23T13:41:35.759Z",
+  "tasks": [
+    "ReleaseValidation.FetchReadsSlice",
+    "ReleaseValidation.FetchReference",
+    "ReleaseValidation.HaplotypeCaller.0",
+    "ReleaseValidation.HappyBenchmark.0",
+    "ReleaseValidation.Mosdepth",
+    "ReleaseValidation.NormalizeQuery.0",
+    "ReleaseValidation.NormalizeTruth",
+    "ReleaseValidation.SummarizeMetrics",
+    "ReleaseValidation.VariantQC.0"
+  ],
+  "task_exit_codes": [
+    0
+  ],
+  "outputs": [
+    "ReleaseValidation.bcftools_stats",
+    "ReleaseValidation.calls_tbi",
+    "ReleaseValidation.calls_vcf",
+    "ReleaseValidation.coverage_summary",
+    "ReleaseValidation.coverage_thresholds",
+    "ReleaseValidation.happy_extended",
+    "ReleaseValidation.happy_summary",
+    "ReleaseValidation.happy_tbi",
+    "ReleaseValidation.happy_vcf",
+    "ReleaseValidation.metrics_json",
+    "ReleaseValidation.metrics_md",
+    "ReleaseValidation.preflight_report",
+    "ReleaseValidation.resources",
+    "ReleaseValidation.slice_bai",
+    "ReleaseValidation.slice_bam",
+    "ReleaseValidation.slice_read_count"
+  ]
+}
