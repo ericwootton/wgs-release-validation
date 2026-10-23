@@ -80,7 +80,8 @@ separate upgrade runs, each caller on its own, DeepVariant 1.10.0 took 235.5 s a
 differences are elsewhere:
 
 - DeepVariant is given 8 GiB to GATK's 6 GiB. Its recorded peak was about 2 GiB on the 200 kb
-  `ci` region and 6.9 GiB on the 5 Mb `full` region, but that peak includes file cache, which
+  `ci` region and 6.9 to 7.9 GiB in three runs on the 5 Mb `full` region, but that peak includes
+  file cache, which
   fills toward whatever limit is set ([CS-03](../case-studies/CS-03-deepvariant-memory.md)). On a
   4-vCPU machine the 8 GiB costs nothing extra, and customers who lower it to save money can hit
   the intermittent failures CS-03 describes.

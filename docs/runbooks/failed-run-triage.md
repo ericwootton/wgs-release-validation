@@ -34,7 +34,7 @@ Tasks: `FetchReference`, `FetchReadsSlice`.
 |---|---|---|
 | `[E::easy_errno] Libcurl reported error 60 (SSL peer certificate or SSH remote key was not OK)` then `Failed to open file "https://..."` | The container has no CA certificate bundle (seen with `staphb/samtools:1.24`), so HTTPS cannot be verified | Use an image with CA certificates; this repo uses the biocontainers samtools and bcftools images for this reason |
 | `Failed to open file` with no libcurl error 60 | Wrong URL, file moved, or no network | `curl -sI <url>`; check `config/data_manifest.tsv` |
-| Run is slow at this step | Streaming a slice of a remote BAM; speed is set by the network | Expected: about 20 s for the `ci` slice on a fast link. Cache the slice locally with `reads_bam`/`reads_bai` for repeated runs |
+| Run is slow at this step | Streaming a slice of a remote BAM; speed is set by the network | Expected: about 10 s for the `ci` slice on a fast link (up to 25 s in the committed runs). Cache the slice locally with `reads_bam`/`reads_bai` for repeated runs |
 
 ## 3. Did preflight stop it?
 

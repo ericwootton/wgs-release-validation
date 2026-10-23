@@ -29,14 +29,16 @@ are already hardest to call: in this region, recall in low-mappability sequence 
 
 ## Timeline
 
-All times 2026-10-22, local.
+All times local, 2026-10-22 unless marked.
 
 | Time | Event |
 |---|---|
 | 22:39 | Candidate run started: `make run PROFILE=ci LABEL=inc01 EXTRA='gatk_extra_args=--minimum-mapping-quality\ 40'` |
 | 22:41 | Run finished; `make gate PROFILE=ci LABEL=inc01` exited non-zero with 5 failing rows. Change rejected; default left at MAPQ 20 |
 | 22:43 | Gate changed to record parameters with tool versions (see Prevention); baseline regenerated |
-| 22:47 | Candidate re-run against the new baseline (9 tasks, 129 s of task time): same 5 failures, now reported as a parameter change |
+| 22:47 | Candidate re-run against the new baseline: same 5 failures, now reported as a parameter change |
+| 23:44 | Baseline run repeated; `baselines/ci.json` is from this run |
+| 00:32 (10-23) | Candidate run repeated against it (9 tasks, 64 s of task time). Same 5 failures; the files in `docs/results/inc01/` are from this run |
 
 ## What the gate showed
 
@@ -66,7 +68,7 @@ Outside the difficult regions nothing changed: 260 of 260 SNPs found in both run
 **Technical.** Reads in segmental duplications and other low-mappability sequence often have
 mapping qualities between 20 and 40, because a near-identical copy exists elsewhere. Discarding
 them removes most of the evidence at true variants in those regions, while barely touching false
-calls, which in this region were already rare (1 of 360). The proposal was built on a real
+calls, which in this region were already rare (1 of 332 scored calls). The proposal was built on a real
 complaint (false calls in segdups) but was not tested against a benchmark before being proposed as
 a default.
 
@@ -105,6 +107,6 @@ discard the evidence for everyone (see [CS-01](../case-studies/CS-01-missed-vari
 - **Where we got lucky:** the first attempt to stage this incident used a bad normalisation option
   (`bcftools norm --rm-dup all`, which keeps one record per position and would drop an allele at
   split multi-allelic sites). It changed nothing: this region has no multi-allelic sites, and
-  `--atomize`, `-m +any`, `--do-not-normalize` and `-c s` also left all 420 records identical. A
+  `--atomize`, `-m +any`, `--do-not-normalize` and `-c s` also left all 420 records of hap.py's output VCF identical. A
   benchmark region can only catch the classes of error it contains. The `full` profile (5 Mb) is
   the place to exercise normalisation changes.

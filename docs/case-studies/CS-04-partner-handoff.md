@@ -26,8 +26,8 @@ without a call to us. The checks below found four problems before release:
   comes from a cell line.
 
 All four were fixed and the folder was regenerated from scratch before it went out. The whole
-module runs in under 5 minutes on this region (260 s for the final run, including the download of
-the read slice).
+module's tasks take 266 s in total on this region (from `qc.json`), and the run finished in under
+5 minutes.
 
 ## 2. What was delivered
 

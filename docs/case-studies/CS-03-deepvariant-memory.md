@@ -209,7 +209,10 @@ customer went back to the default; their failed sample re-ran in the normal time
 - **Documented sizing:** `deepvariant_memory_gb` in `wdl/main.wdl` now points here. Leave it at
   the default: on a 4-vCPU machine nothing is saved below 8 GiB, and 1 GiB was at the edge with 1
   to 4 shards. With 4 shards the recorded peak (file cache included) was about 2 GiB on this
-  200 kb region and 6.9 GiB on the 5 Mb `full` region; whole genomes have not been measured here.
+  200 kb region and 6.9 to 7.9 GiB in three runs on the 5 Mb `full` region. The higher figure is
+  close to the 8 GiB limit, but most of it is likely cache the kernel can reclaim, since none of
+  those runs failed. Whole genomes have not been measured here, so measure before going below the
+  default, or above 4 shards.
 
 ## 8. Customer-facing reply
 
