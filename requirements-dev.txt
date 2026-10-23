@@ -1,0 +1,9 @@
+# Host-side tools: tests, lint, plots, cost model, WDL runner. Pinned for reproducible CI.
+miniwdl==1.16.0
+pytest==9.1.1
+pytest-cov==7.1.0
+ruff==0.17.2
+mypy==2.4.0
+PyYAML==6.0.3
+types-PyYAML==6.0.12.20260906
+matplotlib==3.11.2

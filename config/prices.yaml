@@ -1,0 +1,72 @@
+# Cloud prices for scripts/estimate_cost.py. USD per hour unless stated. Prices change: every
+# block records where it came from, when, and how much to trust it. Refresh before quoting a
+# number to anyone, and never treat spot prices as fixed (they move hourly).
+#
+# confidence: high   = read from the provider's own price list
+#             medium = derived from provider data (e.g. spot = on-demand x published typical saving)
+#             low    = third-party aggregator; use for rough comparison only
+#
+# Sizes marked derived: true are half of the listed 8-vCPU size in the same family. AWS and GCP
+# price these families linearly by size, but check before relying on it.
+
+retrieved: 2026-10-22
+
+aws_ec2:
+  source_on_demand: "AWS Price List bulk API: https://pricing.us-east-1.amazonaws.com/offers/v1.0/aws/AmazonEC2/current/<region>/index.json (published 2026-10-22)"
+  source_spot: "AWS Spot Instance Advisor typical savings (https://spot-bid-advisor.s3.amazonaws.com/spot-advisor-data.json) applied to on-demand"
+  confidence_on_demand: high
+  confidence_spot: medium
+  regions:
+    ca-central-1:
+      - {name: c6i.xlarge,  vcpu: 4, mem_gib: 8,  on_demand: 0.186,  spot: 0.0874, derived: true}
+      - {name: m6i.xlarge,  vcpu: 4, mem_gib: 16, on_demand: 0.214,  spot: 0.1027, derived: true}
+      - {name: r6i.xlarge,  vcpu: 4, mem_gib: 32, on_demand: 0.276,  spot: 0.1380, derived: true}
+      - {name: c6i.2xlarge, vcpu: 8, mem_gib: 16, on_demand: 0.372,  spot: 0.1748}
+      - {name: m6i.2xlarge, vcpu: 8, mem_gib: 32, on_demand: 0.428,  spot: 0.2054}
+      - {name: m7i.2xlarge, vcpu: 8, mem_gib: 32, on_demand: 0.4494, spot: 0.2337}
+      - {name: r6i.2xlarge, vcpu: 8, mem_gib: 64, on_demand: 0.552,  spot: 0.2760}
+    us-east-1:
+      - {name: c6i.xlarge,  vcpu: 4, mem_gib: 8,  on_demand: 0.170,  spot: 0.0748, derived: true}
+      - {name: m6i.xlarge,  vcpu: 4, mem_gib: 16, on_demand: 0.192,  spot: 0.0883, derived: true}
+      - {name: r6i.xlarge,  vcpu: 4, mem_gib: 32, on_demand: 0.252,  spot: 0.1109, derived: true}
+      - {name: c6i.2xlarge, vcpu: 8, mem_gib: 16, on_demand: 0.340,  spot: 0.1496}
+      - {name: m6i.2xlarge, vcpu: 8, mem_gib: 32, on_demand: 0.384,  spot: 0.1766}
+      - {name: m7i.2xlarge, vcpu: 8, mem_gib: 32, on_demand: 0.4032, spot: 0.1653}
+      - {name: r6i.2xlarge, vcpu: 8, mem_gib: 64, on_demand: 0.504,  spot: 0.2218}
+  storage_gb_month: {ca-central-1: 0.088, us-east-1: 0.08}   # EBS gp3
+  egress_gb: 0.09   # internet, after the first 100 GB/month, up to 10 TB
+
+aws_healthomics:
+  source: "AWS Price List bulk API: https://pricing.us-east-1.amazonaws.com/offers/v1.0/aws/AmazonOmics/current/us-east-1/index.json (published 2026-09-11)"
+  confidence: high
+  regions:
+    us-east-1:
+      - {name: omics.c.xlarge,  vcpu: 4, mem_gib: 8,  on_demand: 0.2295}
+      - {name: omics.m.xlarge,  vcpu: 4, mem_gib: 16, on_demand: 0.2592}
+      - {name: omics.c.2xlarge, vcpu: 8, mem_gib: 16, on_demand: 0.459}
+      - {name: omics.m.2xlarge, vcpu: 8, mem_gib: 32, on_demand: 0.5184}
+      - {name: omics.r.2xlarge, vcpu: 8, mem_gib: 64, on_demand: 0.6804}
+  # Run storage is billed for the whole run. The 1,200 GiB static default is an assumption to
+  # check against the HealthOmics docs; dynamic run storage is billed on use instead.
+  run_storage_gb_hour: 0.0001918
+  run_storage_gib_assumed: 1200
+
+gcp_compute:
+  source: "devzero.io instance pages, e.g. https://www.devzero.io/instances/gcp/n2-standard-8 (undated third-party; Google's pages could not be read programmatically)"
+  confidence: low
+  regions:
+    northamerica-northeast1:
+      - {name: n2-standard-4, vcpu: 4, mem_gib: 16, on_demand: 0.214,  spot: 0.098, derived: true}
+      - {name: e2-standard-8, vcpu: 8, mem_gib: 32, on_demand: 0.295,  spot: 0.096}
+      - {name: n2-standard-8, vcpu: 8, mem_gib: 32, on_demand: 0.428,  spot: 0.196}
+      - {name: c3-standard-8, vcpu: 8, mem_gib: 32, on_demand: 0.444,  spot: 0.115}
+      - {name: n2-highmem-8,  vcpu: 8, mem_gib: 64, on_demand: 0.577,  spot: 0.264}
+    us-central1:
+      - {name: n2-standard-4, vcpu: 4, mem_gib: 16, on_demand: 0.194,  spot: 0.1165, derived: true}
+      - {name: e2-standard-8, vcpu: 8, mem_gib: 32, on_demand: 0.268,  spot: 0.161}
+      - {name: n2-standard-8, vcpu: 8, mem_gib: 32, on_demand: 0.388,  spot: 0.233}
+      - {name: c3-standard-8, vcpu: 8, mem_gib: 32, on_demand: 0.403,  spot: 0.151}
+      - {name: n2-highmem-8,  vcpu: 8, mem_gib: 64, on_demand: 0.524,  spot: 0.314}
+  batch_fee: 0   # "There is no additional cost for using Batch" (https://cloud.google.com/batch/pricing)
+  storage_gb_month: {northamerica-northeast1: 0.044, us-central1: 0.04}   # pd-standard, third-party
+  egress_gb: 0.12   # Premium tier, worldwide, first TiB (medium confidence)

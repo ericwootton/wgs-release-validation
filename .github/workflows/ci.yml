@@ -1,0 +1,92 @@
+name: ci
+
+# Every push and pull request: lint and unit tests, then a real release-validation run on the
+# 200 kb CI region (GATK HaplotypeCaller), gated against the committed baseline.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-dev.txt
+      - run: pip install -r requirements-dev.txt
+      - name: Lint Python and WDL
+        run: make lint PY=python
+      - name: Unit tests
+        run: make test PY=python
+
+  validate:
+    needs: checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-dev.txt
+      - run: pip install -r requirements-dev.txt
+
+      # Hosted runners have 14 GB of disk; the GATK and hap.py images alone take ~8 GB.
+      - name: Free disk space
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL
+          df -h /
+
+      - name: Cache GIAB downloads
+        uses: actions/cache@v6
+        with:
+          path: data/cache
+          key: giab-${{ hashFiles('config/data_manifest.tsv') }}
+
+      - name: Build hap.py + RTG Tools image
+        run: docker build -t happy-vcfeval:0.3.15-rtg3.13 docker/happy-vcfeval
+
+      # The Preflight task (run_preflight: true) uses the companion repo's image.
+      - name: Check out ngs-preflight
+        uses: actions/checkout@v7
+        with:
+          repository: ericwootton/ngs-preflight
+          path: _ngs-preflight
+      - name: Build ngs-preflight image
+        run: docker build -t ngs-preflight:0.1.0 _ngs-preflight
+
+      - name: Prepare CI region
+        run: make data PROFILE=ci PY=python
+
+      - name: Run workflow (miniwdl)
+        run: make run PROFILE=ci PY=python
+
+      - name: Regression gate
+        run: make gate PROFILE=ci PY=python
+
+      - name: Upload results
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: results-ci
+          path: |
+            docs/results/ci
+            _runs/ci/_LAST/**/stderr.txt
+          if-no-files-found: warn
+
+      - run: df -h /
+        if: always()

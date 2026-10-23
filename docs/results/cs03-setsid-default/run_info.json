@@ -1,0 +1,7 @@
+{
+  "label": "cs03-setsid-default",
+  "run_dir": "20261023_014806_ReleaseValidation",
+  "slice_read_count": 53334,
+  "tasks": 9,
+  "total_wall_seconds": 92.8
+}

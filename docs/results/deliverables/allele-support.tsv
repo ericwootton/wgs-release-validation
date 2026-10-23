@@ -1,0 +1,6 @@
+chrom	pos	ref	requested_alt	alleles_seen	allele_depths	depth_mapq20	depth_any_mapq
+chr20	21855413	G	A	A,<*>	0,34,0	34	34
+chr20	21890551	T	C	.	.	0	2
+chr20	21890838	T	TC	.	.	0	6
+chr20	21911257	G	A	A,<*>	5,1,0	6	31
+chr20	21911267	T	C	C,<*>	5,1,0	6	31

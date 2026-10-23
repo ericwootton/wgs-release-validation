@@ -1,0 +1,19 @@
+file	bytes	md5	description
+DATA_DICTIONARY.md	2439	4266c92cf4b9eb29624b6fcc7e45d39f	Definitions of every column and field
+QC_SUMMARY.md	3645	b5178353faa59069e8f39260809193b9	One-page plain-language QC summary
+VERSIONS.md	2126	359e0db33df2183ac7114851aaa1a0df	Tool versions, container images and commands
+longread.cpg.combined.bed.gz	683305	7651709ff65f2373e0e82eff8e2acfed	CpG methylation scores from pb-CpG-tools (all reads)
+longread.cpg.combined.bed.gz.tbi	2679	f7384e2fe813ee3e81e8dec6ba1dd258	tabix index
+longread.cpg.hap1.bed.gz	621354	dc22eef16c76546e8a87908f70b4245a	CpG methylation scores from pb-CpG-tools (haplotype 1 reads)
+longread.cpg.hap1.bed.gz.tbi	2661	3f237b22736ff387cfe48579423f8328	tabix index
+longread.cpg.hap2.bed.gz	622455	1a10d0b266f4dcefc9e1c6746685713a	CpG methylation scores from pb-CpG-tools (haplotype 2 reads)
+longread.cpg.hap2.bed.gz.tbi	2668	13d64f34225733154ecde1213c4f0c87	tabix index
+longread.pbsv.vcf.gz	9696	d866fc9e51a151d40b9c667d407e3054	Structural variants called by pbsv
+longread.pbsv.vcf.gz.tbi	889	a3ee23a67e8d53974edd5e393ac824d2	tabix index
+longread.sniffles.vcf.gz	10238	fe1d36ef55300c648b67e2e099c8cab6	Structural variants called by Sniffles2
+longread.sniffles.vcf.gz.tbi	567	a8d49d04724ac10b1ebd8b5b63744eb8	tabix index
+longread.trgt.CJD_PRNP.svg	56487	3324c282eee80f7d641e12faad72500e	TRGT read-level plot of one repeat locus (reads spanning it, coloured by motif)
+longread.trgt.SCA36_NOP56.svg	61536	a6ca7850da4c2e600e0c7d3a287c154f	TRGT read-level plot of one repeat locus (reads spanning it, coloured by motif)
+longread.trgt.vcf.gz	16433	a7bd6d4f739804143b5ea2914215cd80	Tandem-repeat genotypes from TRGT
+longread.trgt.vcf.gz.tbi	1789	302e16715e4279a6db9582a738d9e7f4	tabix index
+qc.json	107220	b2a1b19ee2adfbc39d8a694b4cf35aff	QC numbers, machine-readable

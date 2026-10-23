@@ -1,0 +1,10 @@
+task	label	wall_seconds	cpu_seconds	peak_memory_bytes	requested_cpu	requested_memory_gb	image
+FetchReference		8.88	1.96863	142221312	1	2	quay.io/biocontainers/samtools:1.24--h9dcdb79_1@sha256:a130447589651ed09252aa95a5e4f4132942cdb54d835d81a04a9a930d656561
+FetchReadsSlice		11.33	2.56977	51298304	2	4	quay.io/biocontainers/samtools:1.24--h9dcdb79_1@sha256:a130447589651ed09252aa95a5e4f4132942cdb54d835d81a04a9a930d656561
+Mosdepth		2.03	2.14693	521744384	2	2	quay.io/biocontainers/mosdepth:0.3.14--h87be163_2@sha256:63f50e21185f5ce50fb0b6c6d3b3d4b7e50ab19356096f1045ca2538b739793c
+NormalizeVcf	truth	0.38	0.501893	10493952	1	2	quay.io/biocontainers/bcftools:1.24--h118bc1c_4@sha256:186c45de3059dbb1837006c27788284c89d17f8e693e7804624b6cf6ca5caca0
+SummarizeMetrics		0.38	0.438708	15953920	1	1	python:3.12-slim@sha256:a0f57064cbdcd6285fa45f51237ab0b35ea8ebaed06a1f5973e89e19dfb86704
+DeepVariant		70.24	78.3639	1073741824	4	1	google/deepvariant:1.10.0@sha256:962e5a83b1d76aae6990625d47102785f791603f2138aa1fa9aa4fb6a2eecbe6
+NormalizeVcf	deepvariant	0.38	0.472759	9252864	1	2	quay.io/biocontainers/bcftools:1.24--h118bc1c_4@sha256:186c45de3059dbb1837006c27788284c89d17f8e693e7804624b6cf6ca5caca0
+VariantQC	deepvariant	0.02	0.123263	5672960	1	2	quay.io/biocontainers/bcftools:1.24--h118bc1c_4@sha256:186c45de3059dbb1837006c27788284c89d17f8e693e7804624b6cf6ca5caca0
+HappyBenchmark	deepvariant	9.79	14.7448	362868736	4	8	happy-vcfeval:0.3.15-rtg3.13

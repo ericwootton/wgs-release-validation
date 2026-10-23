@@ -1,0 +1,51 @@
+name: extended
+
+# Manual (and weekly) run of the 5 Mb full profile with both callers. DeepVariant's image is
+# large; if the runner runs out of disk, run `make full` locally instead (see README).
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 6 * * 1"
+
+permissions:
+  contents: read
+
+jobs:
+  full:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-dev.txt
+      - run: pip install -r requirements-dev.txt
+      - name: Free disk space
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL
+          df -h /
+      - uses: actions/cache@v6
+        with:
+          path: data/cache
+          key: giab-${{ hashFiles('config/data_manifest.tsv') }}
+      - run: docker build -t happy-vcfeval:0.3.15-rtg3.13 docker/happy-vcfeval
+      - uses: actions/checkout@v7
+        with:
+          repository: ericwootton/ngs-preflight
+          path: _ngs-preflight
+      - run: docker build -t ngs-preflight:0.1.0 _ngs-preflight
+      - run: make data PROFILE=full PY=python
+      - name: Run workflow (both callers)
+        run: make run PROFILE=full PY=python
+      - name: Regression gate
+        run: make gate PROFILE=full PY=python
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: results-full
+          path: docs/results/full
+      - run: df -h /
+        if: always()

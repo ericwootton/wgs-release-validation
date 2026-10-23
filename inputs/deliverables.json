@@ -1,0 +1,30 @@
+{
+  "Deliverables.run_label": "hg002-full",
+  "Deliverables.ref_url": "https://storage.googleapis.com/deepvariant/case-study-testdata/GCA_000001405.15_GRCh38_no_alt_analysis_set.fa",
+  "Deliverables.contig": "chr20",
+  "Deliverables.bam": "results/full/slice.bam",
+  "Deliverables.bai": "results/full/slice.bam.bai",
+  "Deliverables.sites_tsv": "inputs/deliverables_sites.tsv",
+  "Deliverables.sample_vcfs": [
+    "data/full/truth.vcf",
+    "data/deliverables/hg003_vcf.vcf",
+    "data/deliverables/hg004_vcf.vcf"
+  ],
+  "Deliverables.region_bed": "data/full/region.bed",
+  "Deliverables.extract_vcf": "results/full/deepvariant.norm.vcf.gz",
+  "Deliverables.extract_tbi": "results/full/deepvariant.norm.vcf.gz.tbi",
+  "Deliverables.extract_bed": "data/full/strat/coding.bed",
+  "Deliverables.fields": [
+    "CHROM",
+    "POS",
+    "REF",
+    "ALT",
+    "QUAL",
+    "FILTER",
+    "FORMAT/GT",
+    "FORMAT/GQ",
+    "FORMAT/DP",
+    "FORMAT/AD",
+    "FORMAT/VAF"
+  ]
+}

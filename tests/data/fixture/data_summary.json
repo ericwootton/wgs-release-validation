@@ -1,0 +1,49 @@
+{
+  "profile": "fixture",
+  "region": "chr20:21860001-21890000",
+  "region_bp": 30000,
+  "confident_bp": 29049,
+  "truth_records_in_region": 66,
+  "strata": {
+    "all_difficult": {
+      "bp": 3662,
+      "confident_bp": 3305
+    },
+    "not_difficult": {
+      "bp": 26338,
+      "confident_bp": 25744
+    },
+    "lowmap_or_segdup": {
+      "bp": 2633,
+      "confident_bp": 2341
+    },
+    "not_lowmap_or_segdup": {
+      "bp": 27367,
+      "confident_bp": 26708
+    },
+    "homopolymer": {
+      "bp": 479,
+      "confident_bp": 396
+    },
+    "tandem_repeat": {
+      "bp": 589,
+      "confident_bp": 585
+    },
+    "segdup": {
+      "bp": 0,
+      "confident_bp": 0
+    },
+    "low_mappability": {
+      "bp": 2633,
+      "confident_bp": 2341
+    },
+    "gc_extreme": {
+      "bp": 0,
+      "confident_bp": 0
+    },
+    "coding": {
+      "bp": 0,
+      "confident_bp": 0
+    }
+  }
+}

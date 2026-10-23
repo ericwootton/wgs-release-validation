@@ -1,0 +1,24 @@
+# generated or large
+/data/
+/results/
+/_runs/
+tools/*.jar
+/*.jar
+# Cromwell run mode writes these into the current directory; logs name the project and bucket
+cromwell-executions/
+cromwell-workflow-logs/
+# left behind if `make deliverables-docs` is interrupted
+docs/results/deliverables.new/
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.part
+/site/
+# cloud configs that may contain account IDs or credentials
+*.local.conf
+cloud/*.env
+cromwell-gcp.conf
+/_cloud/
+/_ngs-preflight/
+docs/results/latest/

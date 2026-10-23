@@ -1,0 +1,8 @@
+* text=auto eol=lf
+*.bam binary
+*.bai binary
+*.gz binary
+*.png binary
+*.gzi binary
+*.tbi binary
+*.csi binary

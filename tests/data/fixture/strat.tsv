@@ -1,0 +1,10 @@
+all_difficult	strat/all_difficult.bed
+not_difficult	strat/not_difficult.bed
+lowmap_or_segdup	strat/lowmap_or_segdup.bed
+not_lowmap_or_segdup	strat/not_lowmap_or_segdup.bed
+homopolymer	strat/homopolymer.bed
+tandem_repeat	strat/tandem_repeat.bed
+segdup	strat/segdup.bed
+low_mappability	strat/low_mappability.bed
+gc_extreme	strat/gc_extreme.bed
+coding	strat/coding.bed

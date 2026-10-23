@@ -1,0 +1,5 @@
+profile	region	rationale
+ci	chr20:21800001-22000000	200 kb with 404 benchmark variants (39 indels); 99% inside the GIAB benchmark regions; 33% of variants in difficult regions and 22% in low-mappability or segmental-duplication regions, so every key stratum has some data. Ranked with `fetch_data.py pick-region`.
+full	chr20:21000001-26000000	5 Mb with about 7,300 benchmark variants (865 indels); 95% inside the benchmark regions; includes the segmental-duplication cluster at 23.6-24.0 Mb, where short-read callers struggle. Ranked with `fetch_data.py pick-region --window 5000000`.
+fixture	chr20:21860001-21890000	30 kb inside the ci region, small enough to commit as an offline test fixture (reads, a masked reference and truth).
+longread	chr20:1000001-6000000	5 Mb for the optional long-read module: 58 v5.0q benchmark SVs (>= 50 bp), 100% inside the v5.0q structural-variant benchmark regions, and two STRchive disease repeat loci (NOP56/SCA36 at 2.65 Mb, PRNP at 4.70 Mb). Ranked by counting v5.0q SVs in 5 Mb windows.

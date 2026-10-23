@@ -1,0 +1,27 @@
+{
+  "ReleaseValidation.run_label": "full",
+  "ReleaseValidation.region": "chr20:21000001-26000000",
+  "ReleaseValidation.callers": [
+    "gatk",
+    "deepvariant"
+  ],
+  "ReleaseValidation.ref_url": "https://storage.googleapis.com/deepvariant/case-study-testdata/GCA_000001405.15_GRCh38_no_alt_analysis_set.fa",
+  "ReleaseValidation.reads_url": "https://storage.googleapis.com/deepvariant/case-study-testdata/HG002.novaseq.pcr-free.35x.dedup.grch38_no_alt.bam",
+  "ReleaseValidation.truth_vcf": "data/full/truth.vcf",
+  "ReleaseValidation.confident_bed": "data/full/confident.bed",
+  "ReleaseValidation.region_bed": "data/full/region.bed",
+  "ReleaseValidation.strat_beds": [
+    "data/full/strat/all_difficult.bed",
+    "data/full/strat/not_difficult.bed",
+    "data/full/strat/lowmap_or_segdup.bed",
+    "data/full/strat/not_lowmap_or_segdup.bed",
+    "data/full/strat/homopolymer.bed",
+    "data/full/strat/tandem_repeat.bed",
+    "data/full/strat/segdup.bed",
+    "data/full/strat/low_mappability.bed",
+    "data/full/strat/gc_extreme.bed",
+    "data/full/strat/coding.bed"
+  ],
+  "ReleaseValidation.summarize_script": "scripts/summarize_happy.py",
+  "ReleaseValidation.run_preflight": true
+}

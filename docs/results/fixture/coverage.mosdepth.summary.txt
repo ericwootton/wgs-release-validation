@@ -1,0 +1,5 @@
+chrom	length	bases	mean	min	max
+chr20	64444167	1053074	0.02	0	59
+chr20_region	30000	1047547	34.92	0	59
+total	64444167	1053074	0.02	0	59
+total_region	30000	1047547	34.92	0	59

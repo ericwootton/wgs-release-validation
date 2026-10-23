@@ -1,0 +1,10 @@
+task	label	wall_seconds	cpu_seconds	peak_memory_bytes	requested_cpu	requested_memory_gb	image
+FetchReference		2.42	2.4108	135028736	1	2	quay.io/biocontainers/samtools:1.24--h9dcdb79_1@sha256:a130447589651ed09252aa95a5e4f4132942cdb54d835d81a04a9a930d656561
+FetchReadsSlice		0.28	0.414702	8503296	2	4	quay.io/biocontainers/samtools:1.24--h9dcdb79_1@sha256:a130447589651ed09252aa95a5e4f4132942cdb54d835d81a04a9a930d656561
+Mosdepth		9.37	8.6575	524513280	2	2	quay.io/biocontainers/mosdepth:0.3.14--h87be163_2@sha256:63f50e21185f5ce50fb0b6c6d3b3d4b7e50ab19356096f1045ca2538b739793c
+NormalizeVcf	truth	1.36	1.24399	16314368	1	2	quay.io/biocontainers/bcftools:1.24--h118bc1c_4@sha256:186c45de3059dbb1837006c27788284c89d17f8e693e7804624b6cf6ca5caca0
+SummarizeMetrics		0.46	0.511911	29425664	1	1	python:3.12-slim@sha256:a0f57064cbdcd6285fa45f51237ab0b35ea8ebaed06a1f5973e89e19dfb86704
+HaplotypeCaller		15.77	37.5992	639463424	4	6	broadinstitute/gatk:4.7.0.0@sha256:7da5cf586e1c463f0c72908f9ac7dec8c29e37912c82d6e7b3c250f27fcb3891
+NormalizeVcf	gatk	0.31	0.458942	11780096	1	2	quay.io/biocontainers/bcftools:1.24--h118bc1c_4@sha256:186c45de3059dbb1837006c27788284c89d17f8e693e7804624b6cf6ca5caca0
+VariantQC	gatk	0.08	0.212857	5656576	1	2	quay.io/biocontainers/bcftools:1.24--h118bc1c_4@sha256:186c45de3059dbb1837006c27788284c89d17f8e693e7804624b6cf6ca5caca0
+HappyBenchmark	gatk	14.22	18.1906	569303040	4	8	happy-vcfeval:0.3.15-rtg3.13

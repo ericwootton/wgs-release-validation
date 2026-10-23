@@ -1,0 +1,11 @@
+name	manifest_id	plain_language
+all_difficult	strat_alldifficult	Any region GIAB flags as hard for short reads (repeats, duplications, low mappability, extreme GC)
+not_difficult	strat_notinalldifficult	Everything outside the difficult regions: the "easy" genome
+lowmap_or_segdup	strat_lowmapsegdup	Places where short reads cannot be placed uniquely: low mappability or segmental duplications
+not_lowmap_or_segdup	strat_notinlowmapsegdup	Everything outside low-mappability and segmental-duplication regions
+homopolymer	strat_homopolymer	Runs of a single base (7 bp or longer), where sequencing and alignment slip
+tandem_repeat	strat_tandemrepeat	Short sequences repeated back to back
+segdup	strat_segdup	Segmental duplications: long stretches present in two or more near-identical copies
+low_mappability	strat_lowmap	Regions where reads of typical length map to more than one place
+gc_extreme	strat_gcextreme	GC content below 25% or above 65%, where coverage tends to drop
+coding	strat_cds	Protein-coding exons (RefSeq CDS)

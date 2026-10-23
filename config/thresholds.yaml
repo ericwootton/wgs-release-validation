@@ -1,0 +1,23 @@
+# Regression-gate tolerances used by scripts/compare_metrics.py.
+#
+# A candidate fails the gate if F1 drops by more than these amounts (absolute, on a 0-1 scale)
+# relative to the committed baseline. Improvements never fail. Changing a value here needs a
+# commit message that says why (docs/runbooks/updating-baselines.md).
+
+overall:                     # all benchmark regions together (hap.py stratum "*")
+  max_f1_drop:
+    SNP: 0.002
+    INDEL: 0.005
+
+strata:                      # each GIAB stratification on its own
+  max_f1_drop:
+    SNP: 0.01
+    INDEL: 0.02
+  # Strata with fewer truth variants than this are reported but never fail the gate:
+  # with ~30 variants a single extra miss moves recall by more than 3 points.
+  min_truth_variants: 50
+
+# When every tool image is identical between baseline and candidate, the result should be
+# identical too. Any change in true-positive counts above this percentage fails the gate as
+# suspected non-determinism or an input-data change, even if F1 still looks fine.
+same_tools_max_tp_change_pct: 0.0

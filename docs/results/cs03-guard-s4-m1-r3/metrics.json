@@ -1,0 +1,503 @@
+{
+  "schema_version": 1,
+  "run_label": "cs03-guard-s4-m1-r3",
+  "region": "chr20:21800001-22000000",
+  "truth_set": "GIAB v4.2.1 (GRCh38)",
+  "tool_versions": {
+    "samtools": "quay.io/biocontainers/samtools:1.24--h9dcdb79_1@sha256:a130447589651ed09252aa95a5e4f4132942cdb54d835d81a04a9a930d656561",
+    "bcftools": "quay.io/biocontainers/bcftools:1.24--h118bc1c_4@sha256:186c45de3059dbb1837006c27788284c89d17f8e693e7804624b6cf6ca5caca0",
+    "gatk": "broadinstitute/gatk:4.7.0.0@sha256:7da5cf586e1c463f0c72908f9ac7dec8c29e37912c82d6e7b3c250f27fcb3891",
+    "deepvariant": "google/deepvariant:1.10.0@sha256:962e5a83b1d76aae6990625d47102785f791603f2138aa1fa9aa4fb6a2eecbe6",
+    "mosdepth": "quay.io/biocontainers/mosdepth:0.3.14--h87be163_2@sha256:63f50e21185f5ce50fb0b6c6d3b3d4b7e50ab19356096f1045ca2538b739793c",
+    "hap.py": "happy-vcfeval:0.3.15-rtg3.13",
+    "gatk_args": "",
+    "norm_args": ""
+  },
+  "coverage": {
+    "mean_depth": 35.2,
+    "min_depth": 0.0,
+    "max_depth": 66.0
+  },
+  "callers": {
+    "deepvariant": {
+      "SNP": {
+        "*": {
+          "truth_total": 360,
+          "truth_tp": 339,
+          "truth_fn": 21,
+          "query_total": 345,
+          "query_tp": 339,
+          "query_fp": 0,
+          "query_unk": 6,
+          "fp_gt": 0,
+          "recall": 0.9416666666666667,
+          "precision": 1.0,
+          "f1": 0.9699570815450643,
+          "recall_ci95": [
+            0.9124738523292082,
+            0.9615331972735368
+          ],
+          "precision_ci95": [
+            0.9887952323682475,
+            1.0
+          ]
+        },
+        "TS_contained": {
+          "truth_total": 360,
+          "truth_tp": 339,
+          "truth_fn": 21,
+          "query_total": 339,
+          "query_tp": 339,
+          "query_fp": 0,
+          "query_unk": 0,
+          "fp_gt": 0,
+          "recall": 0.9416666666666667,
+          "precision": 1.0,
+          "f1": 0.9699570815450643,
+          "recall_ci95": [
+            0.9124738523292082,
+            0.9615331972735368
+          ],
+          "precision_ci95": [
+            0.9887952323682475,
+            1.0
+          ]
+        },
+        "all_difficult": {
+          "truth_total": 100,
+          "truth_tp": 79,
+          "truth_fn": 21,
+          "query_total": 84,
+          "query_tp": 79,
+          "query_fp": 0,
+          "query_unk": 5,
+          "fp_gt": 0,
+          "recall": 0.79,
+          "precision": 1.0,
+          "f1": 0.8826815642458101,
+          "recall_ci95": [
+            0.7002003108844285,
+            0.8583434598295537
+          ],
+          "precision_ci95": [
+            0.9536287876484593,
+            1.0
+          ]
+        },
+        "coding": {
+          "truth_total": 0,
+          "truth_tp": 0,
+          "truth_fn": 0,
+          "query_total": 0,
+          "query_tp": 0,
+          "query_fp": 0,
+          "query_unk": 0,
+          "fp_gt": 0,
+          "recall": null,
+          "precision": null,
+          "f1": null,
+          "recall_ci95": null,
+          "precision_ci95": null
+        },
+        "gc_extreme": {
+          "truth_total": 11,
+          "truth_tp": 11,
+          "truth_fn": 0,
+          "query_total": 12,
+          "query_tp": 11,
+          "query_fp": 0,
+          "query_unk": 1,
+          "fp_gt": 0,
+          "recall": 1.0,
+          "precision": 1.0,
+          "f1": 1.0,
+          "recall_ci95": [
+            0.7411670300055737,
+            1.0
+          ],
+          "precision_ci95": [
+            0.7411670300055737,
+            1.0
+          ]
+        },
+        "homopolymer": {
+          "truth_total": 10,
+          "truth_tp": 9,
+          "truth_fn": 1,
+          "query_total": 11,
+          "query_tp": 9,
+          "query_fp": 0,
+          "query_unk": 2,
+          "fp_gt": 0,
+          "recall": 0.9,
+          "precision": 1.0,
+          "f1": 0.9473684210526316,
+          "recall_ci95": [
+            0.5958499704752279,
+            0.982123787103926
+          ],
+          "precision_ci95": [
+            0.700854948272956,
+            1.0
+          ]
+        },
+        "low_mappability": {
+          "truth_total": 82,
+          "truth_tp": 61,
+          "truth_fn": 21,
+          "query_total": 64,
+          "query_tp": 61,
+          "query_fp": 0,
+          "query_unk": 3,
+          "fp_gt": 0,
+          "recall": 0.7439024390243902,
+          "precision": 1.0,
+          "f1": 0.8531468531468531,
+          "recall_ci95": [
+            0.6400110661749446,
+            0.8259642390131129
+          ],
+          "precision_ci95": [
+            0.9407561312226413,
+            1.0
+          ]
+        },
+        "lowmap_or_segdup": {
+          "truth_total": 82,
+          "truth_tp": 61,
+          "truth_fn": 21,
+          "query_total": 64,
+          "query_tp": 61,
+          "query_fp": 0,
+          "query_unk": 3,
+          "fp_gt": 0,
+          "recall": 0.7439024390243902,
+          "precision": 1.0,
+          "f1": 0.8531468531468531,
+          "recall_ci95": [
+            0.6400110661749446,
+            0.8259642390131129
+          ],
+          "precision_ci95": [
+            0.9407561312226413,
+            1.0
+          ]
+        },
+        "not_difficult": {
+          "truth_total": 260,
+          "truth_tp": 260,
+          "truth_fn": 0,
+          "query_total": 261,
+          "query_tp": 260,
+          "query_fp": 0,
+          "query_unk": 1,
+          "fp_gt": 0,
+          "recall": 1.0,
+          "precision": 1.0,
+          "f1": 1.0,
+          "recall_ci95": [
+            0.9854402757717305,
+            1.0
+          ],
+          "precision_ci95": [
+            0.9854402757717305,
+            1.0
+          ]
+        },
+        "not_lowmap_or_segdup": {
+          "truth_total": 278,
+          "truth_tp": 278,
+          "truth_fn": 0,
+          "query_total": 281,
+          "query_tp": 278,
+          "query_fp": 0,
+          "query_unk": 3,
+          "fp_gt": 0,
+          "recall": 1.0,
+          "precision": 1.0,
+          "f1": 1.0,
+          "recall_ci95": [
+            0.9863701426449333,
+            1.0
+          ],
+          "precision_ci95": [
+            0.9863701426449333,
+            1.0
+          ]
+        },
+        "segdup": {
+          "truth_total": 0,
+          "truth_tp": 0,
+          "truth_fn": 0,
+          "query_total": 0,
+          "query_tp": 0,
+          "query_fp": 0,
+          "query_unk": 0,
+          "fp_gt": 0,
+          "recall": null,
+          "precision": null,
+          "f1": null,
+          "recall_ci95": null,
+          "precision_ci95": null
+        },
+        "tandem_repeat": {
+          "truth_total": 0,
+          "truth_tp": 0,
+          "truth_fn": 0,
+          "query_total": 0,
+          "query_tp": 0,
+          "query_fp": 0,
+          "query_unk": 0,
+          "fp_gt": 0,
+          "recall": null,
+          "precision": null,
+          "f1": null,
+          "recall_ci95": null,
+          "precision_ci95": null
+        }
+      },
+      "INDEL": {
+        "*": {
+          "truth_total": 36,
+          "truth_tp": 36,
+          "truth_fn": 0,
+          "query_total": 47,
+          "query_tp": 36,
+          "query_fp": 0,
+          "query_unk": 11,
+          "fp_gt": 0,
+          "recall": 1.0,
+          "precision": 1.0,
+          "f1": 1.0,
+          "recall_ci95": [
+            0.9035813700311206,
+            1.0
+          ],
+          "precision_ci95": [
+            0.9035813700311206,
+            1.0
+          ]
+        },
+        "TS_contained": {
+          "truth_total": 36,
+          "truth_tp": 36,
+          "truth_fn": 0,
+          "query_total": 36,
+          "query_tp": 36,
+          "query_fp": 0,
+          "query_unk": 0,
+          "fp_gt": 0,
+          "recall": 1.0,
+          "precision": 1.0,
+          "f1": 1.0,
+          "recall_ci95": [
+            0.9035813700311206,
+            1.0
+          ],
+          "precision_ci95": [
+            0.9035813700311206,
+            1.0
+          ]
+        },
+        "all_difficult": {
+          "truth_total": 27,
+          "truth_tp": 27,
+          "truth_fn": 0,
+          "query_total": 37,
+          "query_tp": 27,
+          "query_fp": 0,
+          "query_unk": 10,
+          "fp_gt": 0,
+          "recall": 1.0,
+          "precision": 1.0,
+          "f1": 1.0,
+          "recall_ci95": [
+            0.8754449685379289,
+            1.0
+          ],
+          "precision_ci95": [
+            0.8754449685379289,
+            1.0
+          ]
+        },
+        "coding": {
+          "truth_total": 0,
+          "truth_tp": 0,
+          "truth_fn": 0,
+          "query_total": 0,
+          "query_tp": 0,
+          "query_fp": 0,
+          "query_unk": 0,
+          "fp_gt": 0,
+          "recall": null,
+          "precision": null,
+          "f1": null,
+          "recall_ci95": null,
+          "precision_ci95": null
+        },
+        "gc_extreme": {
+          "truth_total": 2,
+          "truth_tp": 2,
+          "truth_fn": 0,
+          "query_total": 4,
+          "query_tp": 2,
+          "query_fp": 0,
+          "query_unk": 2,
+          "fp_gt": 0,
+          "recall": 1.0,
+          "precision": 1.0,
+          "f1": 1.0,
+          "recall_ci95": [
+            0.3423802239546494,
+            1.0
+          ],
+          "precision_ci95": [
+            0.3423802239546494,
+            1.0
+          ]
+        },
+        "homopolymer": {
+          "truth_total": 13,
+          "truth_tp": 13,
+          "truth_fn": 0,
+          "query_total": 23,
+          "query_tp": 13,
+          "query_fp": 0,
+          "query_unk": 10,
+          "fp_gt": 0,
+          "recall": 1.0,
+          "precision": 1.0,
+          "f1": 1.0,
+          "recall_ci95": [
+            0.7719046248681998,
+            1.0
+          ],
+          "precision_ci95": [
+            0.7719046248681998,
+            1.0
+          ]
+        },
+        "low_mappability": {
+          "truth_total": 6,
+          "truth_tp": 6,
+          "truth_fn": 0,
+          "query_total": 7,
+          "query_tp": 6,
+          "query_fp": 0,
+          "query_unk": 1,
+          "fp_gt": 0,
+          "recall": 1.0,
+          "precision": 1.0,
+          "f1": 1.0,
+          "recall_ci95": [
+            0.6096657083436265,
+            1.0
+          ],
+          "precision_ci95": [
+            0.6096657083436265,
+            1.0
+          ]
+        },
+        "lowmap_or_segdup": {
+          "truth_total": 6,
+          "truth_tp": 6,
+          "truth_fn": 0,
+          "query_total": 7,
+          "query_tp": 6,
+          "query_fp": 0,
+          "query_unk": 1,
+          "fp_gt": 0,
+          "recall": 1.0,
+          "precision": 1.0,
+          "f1": 1.0,
+          "recall_ci95": [
+            0.6096657083436265,
+            1.0
+          ],
+          "precision_ci95": [
+            0.6096657083436265,
+            1.0
+          ]
+        },
+        "not_difficult": {
+          "truth_total": 9,
+          "truth_tp": 9,
+          "truth_fn": 0,
+          "query_total": 10,
+          "query_tp": 9,
+          "query_fp": 0,
+          "query_unk": 1,
+          "fp_gt": 0,
+          "recall": 1.0,
+          "precision": 1.0,
+          "f1": 1.0,
+          "recall_ci95": [
+            0.700854948272956,
+            1.0
+          ],
+          "precision_ci95": [
+            0.700854948272956,
+            1.0
+          ]
+        },
+        "not_lowmap_or_segdup": {
+          "truth_total": 30,
+          "truth_tp": 30,
+          "truth_fn": 0,
+          "query_total": 40,
+          "query_tp": 30,
+          "query_fp": 0,
+          "query_unk": 10,
+          "fp_gt": 0,
+          "recall": 1.0,
+          "precision": 1.0,
+          "f1": 1.0,
+          "recall_ci95": [
+            0.886486605238548,
+            1.0
+          ],
+          "precision_ci95": [
+            0.886486605238548,
+            1.0
+          ]
+        },
+        "segdup": {
+          "truth_total": 0,
+          "truth_tp": 0,
+          "truth_fn": 0,
+          "query_total": 0,
+          "query_tp": 0,
+          "query_fp": 0,
+          "query_unk": 0,
+          "fp_gt": 0,
+          "recall": null,
+          "precision": null,
+          "f1": null,
+          "recall_ci95": null,
+          "precision_ci95": null
+        },
+        "tandem_repeat": {
+          "truth_total": 9,
+          "truth_tp": 9,
+          "truth_fn": 0,
+          "query_total": 9,
+          "query_tp": 9,
+          "query_fp": 0,
+          "query_unk": 0,
+          "fp_gt": 0,
+          "recall": 1.0,
+          "precision": 1.0,
+          "f1": 1.0,
+          "recall_ci95": [
+            0.700854948272956,
+            1.0
+          ],
+          "precision_ci95": [
+            0.700854948272956,
+            1.0
+          ]
+        }
+      }
+    }
+  }
+}

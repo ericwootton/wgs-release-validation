@@ -1,0 +1,27 @@
+{
+  "ReleaseValidation.run_label": "fixture",
+  "ReleaseValidation.region": "chr20:21860001-21890000",
+  "ReleaseValidation.callers": [
+    "gatk"
+  ],
+  "ReleaseValidation.ref_fasta": "tests/data/fixture/chr20_masked.fa.gz",
+  "ReleaseValidation.reads_bam": "tests/data/fixture/reads.bam",
+  "ReleaseValidation.reads_bai": "tests/data/fixture/reads.bam.bai",
+  "ReleaseValidation.truth_vcf": "tests/data/fixture/truth.vcf",
+  "ReleaseValidation.confident_bed": "tests/data/fixture/confident.bed",
+  "ReleaseValidation.region_bed": "tests/data/fixture/region.bed",
+  "ReleaseValidation.strat_beds": [
+    "tests/data/fixture/strat/all_difficult.bed",
+    "tests/data/fixture/strat/not_difficult.bed",
+    "tests/data/fixture/strat/lowmap_or_segdup.bed",
+    "tests/data/fixture/strat/not_lowmap_or_segdup.bed",
+    "tests/data/fixture/strat/homopolymer.bed",
+    "tests/data/fixture/strat/tandem_repeat.bed",
+    "tests/data/fixture/strat/segdup.bed",
+    "tests/data/fixture/strat/low_mappability.bed",
+    "tests/data/fixture/strat/gc_extreme.bed",
+    "tests/data/fixture/strat/coding.bed"
+  ],
+  "ReleaseValidation.summarize_script": "scripts/summarize_happy.py",
+  "ReleaseValidation.run_preflight": false
+}

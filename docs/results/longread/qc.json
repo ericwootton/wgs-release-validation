@@ -1,0 +1,4771 @@
+{
+  "label": "longread",
+  "region": "chr20:1000001-6000000",
+  "read_count": 14151,
+  "sv": {
+    "pbsv": {
+      "records": 110,
+      "pass": 110,
+      "pass_fraction": 1.0,
+      "by_type": {
+        "DEL": 44,
+        "DUP": 6,
+        "INS": 60
+      },
+      "by_size": {
+        "< 50 bp": 64,
+        "50-99 bp": 12,
+        "100-499 bp": 25,
+        "500-999 bp": 2,
+        "1-10 kb": 7,
+        ">= 10 kb": 0
+      },
+      "truvari": {
+        "TP-base": 45,
+        "TP-comp": 41,
+        "FP": 2,
+        "FN": 7,
+        "precision": 0.9534883720930233,
+        "recall": 0.8653846153846154,
+        "f1": 0.9073026801081879,
+        "base cnt": 52,
+        "comp cnt": 43,
+        "gt_concordance": 0.8780487804878049
+      },
+      "truvari_refined": {
+        "TP-base": 48,
+        "TP-comp": 41,
+        "FP": 2,
+        "FN": 4,
+        "precision": 0.9534883720930233,
+        "recall": 0.9230769230769231,
+        "f1": 0.9380362249761678,
+        "base cnt": 52,
+        "comp cnt": 43,
+        "gt_concordance": null
+      }
+    },
+    "sniffles": {
+      "records": 48,
+      "pass": 48,
+      "pass_fraction": 1.0,
+      "by_type": {
+        "DEL": 16,
+        "INS": 32
+      },
+      "by_size": {
+        "< 50 bp": 2,
+        "50-99 bp": 11,
+        "100-499 bp": 26,
+        "500-999 bp": 2,
+        "1-10 kb": 7,
+        ">= 10 kb": 0
+      },
+      "truvari": {
+        "TP-base": 44,
+        "TP-comp": 40,
+        "FP": 4,
+        "FN": 8,
+        "precision": 0.9090909090909091,
+        "recall": 0.8461538461538461,
+        "f1": 0.8764940239043824,
+        "base cnt": 52,
+        "comp cnt": 44,
+        "gt_concordance": 0.875
+      },
+      "truvari_refined": {
+        "TP-base": 47,
+        "TP-comp": 40,
+        "FP": 4,
+        "FN": 5,
+        "precision": 0.9090909090909091,
+        "recall": 0.9038461538461539,
+        "f1": 0.9064609450337512,
+        "base cnt": 52,
+        "comp cnt": 44,
+        "gt_concordance": null
+      }
+    }
+  },
+  "sv_types": [
+    "DEL",
+    "DUP",
+    "INS"
+  ],
+  "sv_sizes": [
+    "< 50 bp",
+    "50-99 bp",
+    "100-499 bp",
+    "500-999 bp",
+    "1-10 kb",
+    ">= 10 kb"
+  ],
+  "trgt": {
+    "loci": 346,
+    "genotyped": 346,
+    "no_call_rate": 0.0,
+    "median_spanning_reads": 42.0,
+    "allele_length_bp": {
+      "min": 4,
+      "median": 26.0,
+      "max": 237
+    },
+    "per_locus": [
+      {
+        "id": "chr20_1015042_1015082",
+        "chrom": "chr20",
+        "pos": 1015042,
+        "motifs": "AAAT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          36,
+          36
+        ],
+        "motif_counts": "9,9",
+        "spanning_reads": 46
+      },
+      {
+        "id": "chr20_1057790_1057806",
+        "chrom": "chr20",
+        "pos": 1057790,
+        "motifs": "AT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          16,
+          16
+        ],
+        "motif_counts": "8,8",
+        "spanning_reads": 36
+      },
+      {
+        "id": "chr20_1079348_1079368",
+        "chrom": "chr20",
+        "pos": 1079348,
+        "motifs": "AATT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          24,
+          24
+        ],
+        "motif_counts": "6,6",
+        "spanning_reads": 42
+      },
+      {
+        "id": "chr20_1095829_1095847",
+        "chrom": "chr20",
+        "pos": 1095829,
+        "motifs": "TG",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          18,
+          18
+        ],
+        "motif_counts": "8,8",
+        "spanning_reads": 61
+      },
+      {
+        "id": "chr20_1113445_1113493",
+        "chrom": "chr20",
+        "pos": 1113445,
+        "motifs": "AC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          48,
+          50
+        ],
+        "motif_counts": "24,25",
+        "spanning_reads": 39
+      },
+      {
+        "id": "chr20_1183290_1183314",
+        "chrom": "chr20",
+        "pos": 1183290,
+        "motifs": "TG",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          24,
+          24
+        ],
+        "motif_counts": "12,12",
+        "spanning_reads": 38
+      },
+      {
+        "id": "chr20_1184621_1184655",
+        "chrom": "chr20",
+        "pos": 1184621,
+        "motifs": "AC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          30,
+          34
+        ],
+        "motif_counts": "15,16",
+        "spanning_reads": 44
+      },
+      {
+        "id": "chr20_1221366_1221422",
+        "chrom": "chr20",
+        "pos": 1221366,
+        "motifs": "TCTT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          57,
+          60
+        ],
+        "motif_counts": "14,15",
+        "spanning_reads": 48
+      },
+      {
+        "id": "chr20_1225639_1225657",
+        "chrom": "chr20",
+        "pos": 1225639,
+        "motifs": "GCC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          18,
+          18
+        ],
+        "motif_counts": "6,6",
+        "spanning_reads": 53
+      },
+      {
+        "id": "chr20_1289512_1289556",
+        "chrom": "chr20",
+        "pos": 1289512,
+        "motifs": "AC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          24,
+          40
+        ],
+        "motif_counts": "12,20",
+        "spanning_reads": 44
+      },
+      {
+        "id": "chr20_1298804_1298844",
+        "chrom": "chr20",
+        "pos": 1298804,
+        "motifs": "TG",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          26,
+          30
+        ],
+        "motif_counts": "13,15",
+        "spanning_reads": 37
+      },
+      {
+        "id": "chr20_1342147_1342171",
+        "chrom": "chr20",
+        "pos": 1342147,
+        "motifs": "CA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          24,
+          30
+        ],
+        "motif_counts": "12,15",
+        "spanning_reads": 50
+      },
+      {
+        "id": "chr20_1411238_1411266",
+        "chrom": "chr20",
+        "pos": 1411238,
+        "motifs": "AAAT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          28,
+          32
+        ],
+        "motif_counts": "6,7",
+        "spanning_reads": 52
+      },
+      {
+        "id": "chr20_1419017_1419027",
+        "chrom": "chr20",
+        "pos": 1419017,
+        "motifs": "AAACA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          10,
+          15
+        ],
+        "motif_counts": "2,3",
+        "spanning_reads": 49
+      },
+      {
+        "id": "chr20_1430099_1430107",
+        "chrom": "chr20",
+        "pos": 1430099,
+        "motifs": "TC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          8,
+          4
+        ],
+        "motif_counts": "4,2",
+        "spanning_reads": 48
+      },
+      {
+        "id": "chr20_1437362_1437383",
+        "chrom": "chr20",
+        "pos": 1437362,
+        "motifs": "AAC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          21,
+          21
+        ],
+        "motif_counts": "7,7",
+        "spanning_reads": 46
+      },
+      {
+        "id": "chr20_1469919_1469934",
+        "chrom": "chr20",
+        "pos": 1469919,
+        "motifs": "AAT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          15,
+          15
+        ],
+        "motif_counts": "5,5",
+        "spanning_reads": 48
+      },
+      {
+        "id": "chr20_1473358_1473366",
+        "chrom": "chr20",
+        "pos": 1473358,
+        "motifs": "CA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          8,
+          8
+        ],
+        "motif_counts": "4,4",
+        "spanning_reads": 43
+      },
+      {
+        "id": "chr20_1518630_1518638",
+        "chrom": "chr20",
+        "pos": 1518630,
+        "motifs": "GA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          8,
+          8
+        ],
+        "motif_counts": "4,4",
+        "spanning_reads": 57
+      },
+      {
+        "id": "chr20_1524998_1525050",
+        "chrom": "chr20",
+        "pos": 1524998,
+        "motifs": "AC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          40,
+          44
+        ],
+        "motif_counts": "19,21",
+        "spanning_reads": 65
+      },
+      {
+        "id": "chr20_1525863_1525879",
+        "chrom": "chr20",
+        "pos": 1525863,
+        "motifs": "AT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          16,
+          16
+        ],
+        "motif_counts": "8,8",
+        "spanning_reads": 66
+      },
+      {
+        "id": "chr20_1559135_1559151",
+        "chrom": "chr20",
+        "pos": 1559135,
+        "motifs": "TA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          16,
+          44
+        ],
+        "motif_counts": "8,22",
+        "spanning_reads": 51
+      },
+      {
+        "id": "chr20_1648634_1648649",
+        "chrom": "chr20",
+        "pos": 1648634,
+        "motifs": "AATAA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          15,
+          15
+        ],
+        "motif_counts": "3,3",
+        "spanning_reads": 44
+      },
+      {
+        "id": "chr20_1672741_1672762",
+        "chrom": "chr20",
+        "pos": 1672741,
+        "motifs": "TTG",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          21,
+          21
+        ],
+        "motif_counts": "7,7",
+        "spanning_reads": 49
+      },
+      {
+        "id": "chr20_1699043_1699087",
+        "chrom": "chr20",
+        "pos": 1699043,
+        "motifs": "AC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          38,
+          38
+        ],
+        "motif_counts": "19,19",
+        "spanning_reads": 68
+      },
+      {
+        "id": "chr20_1707356_1707384",
+        "chrom": "chr20",
+        "pos": 1707356,
+        "motifs": "AAAC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          28,
+          24
+        ],
+        "motif_counts": "7,6",
+        "spanning_reads": 60
+      },
+      {
+        "id": "chr20_1720925_1720955",
+        "chrom": "chr20",
+        "pos": 1720925,
+        "motifs": "TAAAA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          30,
+          20
+        ],
+        "motif_counts": "6,4",
+        "spanning_reads": 48
+      },
+      {
+        "id": "chr20_1735498_1735522",
+        "chrom": "chr20",
+        "pos": 1735498,
+        "motifs": "GT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          26,
+          28
+        ],
+        "motif_counts": "13,14",
+        "spanning_reads": 49
+      },
+      {
+        "id": "chr20_1750142_1750182",
+        "chrom": "chr20",
+        "pos": 1750142,
+        "motifs": "GATA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          40,
+          44
+        ],
+        "motif_counts": "10,11",
+        "spanning_reads": 46
+      },
+      {
+        "id": "chr20_1753436_1753461",
+        "chrom": "chr20",
+        "pos": 1753436,
+        "motifs": "AAAAT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          25,
+          25
+        ],
+        "motif_counts": "5,5",
+        "spanning_reads": 53
+      },
+      {
+        "id": "chr20_1769641_1769689",
+        "chrom": "chr20",
+        "pos": 1769641,
+        "motifs": "TGGA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          48,
+          48
+        ],
+        "motif_counts": "12,12",
+        "spanning_reads": 45
+      },
+      {
+        "id": "chr20_1781728_1781740",
+        "chrom": "chr20",
+        "pos": 1781728,
+        "motifs": "TC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          12,
+          12
+        ],
+        "motif_counts": "6,6",
+        "spanning_reads": 57
+      },
+      {
+        "id": "chr20_1791598_1791632",
+        "chrom": "chr20",
+        "pos": 1791598,
+        "motifs": "AC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          34,
+          36
+        ],
+        "motif_counts": "17,18",
+        "spanning_reads": 51
+      },
+      {
+        "id": "chr20_1818415_1818439",
+        "chrom": "chr20",
+        "pos": 1818415,
+        "motifs": "CT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          24,
+          24
+        ],
+        "motif_counts": "12,12",
+        "spanning_reads": 52
+      },
+      {
+        "id": "chr20_1849802_1849834",
+        "chrom": "chr20",
+        "pos": 1849802,
+        "motifs": "AAAT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          32,
+          28
+        ],
+        "motif_counts": "8,7",
+        "spanning_reads": 36
+      },
+      {
+        "id": "chr20_1850385_1850427",
+        "chrom": "chr20",
+        "pos": 1850385,
+        "motifs": "GT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          42,
+          44
+        ],
+        "motif_counts": "21,22",
+        "spanning_reads": 35
+      },
+      {
+        "id": "chr20_1871503_1871519",
+        "chrom": "chr20",
+        "pos": 1871503,
+        "motifs": "CA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          16,
+          14
+        ],
+        "motif_counts": "8,7",
+        "spanning_reads": 27
+      },
+      {
+        "id": "chr20_1874923_1874943",
+        "chrom": "chr20",
+        "pos": 1874923,
+        "motifs": "AC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          20,
+          14
+        ],
+        "motif_counts": "10,7",
+        "spanning_reads": 24
+      },
+      {
+        "id": "chr20_1888448_1888460",
+        "chrom": "chr20",
+        "pos": 1888448,
+        "motifs": "TC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          12,
+          12
+        ],
+        "motif_counts": "6,6",
+        "spanning_reads": 31
+      },
+      {
+        "id": "chr20_1923970_1924022",
+        "chrom": "chr20",
+        "pos": 1923970,
+        "motifs": "TGGT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          52,
+          40
+        ],
+        "motif_counts": "12,9",
+        "spanning_reads": 45
+      },
+      {
+        "id": "chr20_1932053_1932085",
+        "chrom": "chr20",
+        "pos": 1932053,
+        "motifs": "ATTC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          32,
+          32
+        ],
+        "motif_counts": "8,8",
+        "spanning_reads": 45
+      },
+      {
+        "id": "chr20_1948230_1948258",
+        "chrom": "chr20",
+        "pos": 1948230,
+        "motifs": "ATTC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          28,
+          24
+        ],
+        "motif_counts": "7,6",
+        "spanning_reads": 55
+      },
+      {
+        "id": "chr20_1959779_1959799",
+        "chrom": "chr20",
+        "pos": 1959779,
+        "motifs": "AT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          20,
+          20
+        ],
+        "motif_counts": "10,10",
+        "spanning_reads": 39
+      },
+      {
+        "id": "chr20_1978620_1978650",
+        "chrom": "chr20",
+        "pos": 1978620,
+        "motifs": "TG",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          30,
+          32
+        ],
+        "motif_counts": "15,16",
+        "spanning_reads": 27
+      },
+      {
+        "id": "chr20_1981931_1981963",
+        "chrom": "chr20",
+        "pos": 1981931,
+        "motifs": "AAAT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          32,
+          44
+        ],
+        "motif_counts": "8,11",
+        "spanning_reads": 31
+      },
+      {
+        "id": "chr20_1987248_1987276",
+        "chrom": "chr20",
+        "pos": 1987248,
+        "motifs": "ATGA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          28,
+          28
+        ],
+        "motif_counts": "7,7",
+        "spanning_reads": 36
+      },
+      {
+        "id": "chr20_1994400_1994418",
+        "chrom": "chr20",
+        "pos": 1994400,
+        "motifs": "AG",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          18,
+          14
+        ],
+        "motif_counts": "9,7",
+        "spanning_reads": 48
+      },
+      {
+        "id": "chr20_1996765_1996801",
+        "chrom": "chr20",
+        "pos": 1996765,
+        "motifs": "AC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          36,
+          36
+        ],
+        "motif_counts": "18,18",
+        "spanning_reads": 51
+      },
+      {
+        "id": "chr20_2000015_2000043",
+        "chrom": "chr20",
+        "pos": 2000015,
+        "motifs": "TTAT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          28,
+          32
+        ],
+        "motif_counts": "7,8",
+        "spanning_reads": 45
+      },
+      {
+        "id": "chr20_2004200_2004222",
+        "chrom": "chr20",
+        "pos": 2004200,
+        "motifs": "TC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          22,
+          22
+        ],
+        "motif_counts": "11,11",
+        "spanning_reads": 49
+      },
+      {
+        "id": "chr20_2011231_2011277",
+        "chrom": "chr20",
+        "pos": 2011231,
+        "motifs": "CT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          30,
+          42
+        ],
+        "motif_counts": "15,21",
+        "spanning_reads": 52
+      },
+      {
+        "id": "chr20_2015768_2015820",
+        "chrom": "chr20",
+        "pos": 2015768,
+        "motifs": "AAAT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          48,
+          48
+        ],
+        "motif_counts": "12,12",
+        "spanning_reads": 29
+      },
+      {
+        "id": "chr20_2032200_2032230",
+        "chrom": "chr20",
+        "pos": 2032200,
+        "motifs": "CA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          30,
+          32
+        ],
+        "motif_counts": "15,15",
+        "spanning_reads": 54
+      },
+      {
+        "id": "chr20_2055031_2055065",
+        "chrom": "chr20",
+        "pos": 2055031,
+        "motifs": "AC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          24,
+          30
+        ],
+        "motif_counts": "12,15",
+        "spanning_reads": 67
+      },
+      {
+        "id": "chr20_2074806_2074826",
+        "chrom": "chr20",
+        "pos": 2074806,
+        "motifs": "AAGG",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          20,
+          20
+        ],
+        "motif_counts": "5,5",
+        "spanning_reads": 53
+      },
+      {
+        "id": "chr20_2075897_2075931",
+        "chrom": "chr20",
+        "pos": 2075897,
+        "motifs": "AC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          34,
+          32
+        ],
+        "motif_counts": "17,16",
+        "spanning_reads": 51
+      },
+      {
+        "id": "chr20_2092646_2092666",
+        "chrom": "chr20",
+        "pos": 2092646,
+        "motifs": "TA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          20,
+          22
+        ],
+        "motif_counts": "9,11",
+        "spanning_reads": 46
+      },
+      {
+        "id": "chr20_2096481_2096497",
+        "chrom": "chr20",
+        "pos": 2096481,
+        "motifs": "AC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          16,
+          16
+        ],
+        "motif_counts": "8,8",
+        "spanning_reads": 48
+      },
+      {
+        "id": "chr20_2151746_2151762",
+        "chrom": "chr20",
+        "pos": 2151746,
+        "motifs": "AGAT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          16,
+          16
+        ],
+        "motif_counts": "4,4",
+        "spanning_reads": 37
+      },
+      {
+        "id": "chr20_2162558_2162580",
+        "chrom": "chr20",
+        "pos": 2162558,
+        "motifs": "TG",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          22,
+          22
+        ],
+        "motif_counts": "11,11",
+        "spanning_reads": 38
+      },
+      {
+        "id": "chr20_2172079_2172099",
+        "chrom": "chr20",
+        "pos": 2172079,
+        "motifs": "AAAG",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          16,
+          16
+        ],
+        "motif_counts": "4,4",
+        "spanning_reads": 35
+      },
+      {
+        "id": "chr20_2172397_2172445",
+        "chrom": "chr20",
+        "pos": 2172397,
+        "motifs": "TTTA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          36,
+          52
+        ],
+        "motif_counts": "8,13",
+        "spanning_reads": 36
+      },
+      {
+        "id": "chr20_2175286_2175300",
+        "chrom": "chr20",
+        "pos": 2175286,
+        "motifs": "AT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          16,
+          16
+        ],
+        "motif_counts": "8,8",
+        "spanning_reads": 45
+      },
+      {
+        "id": "chr20_2175518_2175536",
+        "chrom": "chr20",
+        "pos": 2175518,
+        "motifs": "TTA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          15,
+          19
+        ],
+        "motif_counts": "5,6",
+        "spanning_reads": 45
+      },
+      {
+        "id": "chr20_2185115_2185159",
+        "chrom": "chr20",
+        "pos": 2185115,
+        "motifs": "TTAT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          44,
+          48
+        ],
+        "motif_counts": "11,12",
+        "spanning_reads": 52
+      },
+      {
+        "id": "chr20_2190476_2190506",
+        "chrom": "chr20",
+        "pos": 2190476,
+        "motifs": "AAACA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          25,
+          25
+        ],
+        "motif_counts": "5,5",
+        "spanning_reads": 47
+      },
+      {
+        "id": "chr20_2199083_2199103",
+        "chrom": "chr20",
+        "pos": 2199083,
+        "motifs": "TTTTC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          20,
+          20
+        ],
+        "motif_counts": "4,4",
+        "spanning_reads": 55
+      },
+      {
+        "id": "chr20_2227525_2227549",
+        "chrom": "chr20",
+        "pos": 2227525,
+        "motifs": "TTAT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          24,
+          24
+        ],
+        "motif_counts": "6,6",
+        "spanning_reads": 56
+      },
+      {
+        "id": "chr20_2243420_2243458",
+        "chrom": "chr20",
+        "pos": 2243420,
+        "motifs": "GT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          38,
+          32
+        ],
+        "motif_counts": "19,16",
+        "spanning_reads": 44
+      },
+      {
+        "id": "chr20_2260781_2260809",
+        "chrom": "chr20",
+        "pos": 2260781,
+        "motifs": "AAAC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          28,
+          24
+        ],
+        "motif_counts": "7,6",
+        "spanning_reads": 36
+      },
+      {
+        "id": "chr20_2275537_2275558",
+        "chrom": "chr20",
+        "pos": 2275537,
+        "motifs": "ATT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          21,
+          21
+        ],
+        "motif_counts": "7,7",
+        "spanning_reads": 42
+      },
+      {
+        "id": "chr20_2281317_2281393",
+        "chrom": "chr20",
+        "pos": 2281317,
+        "motifs": "TTTC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          64,
+          72
+        ],
+        "motif_counts": "16,18",
+        "spanning_reads": 39
+      },
+      {
+        "id": "chr20_2313651_2313665",
+        "chrom": "chr20",
+        "pos": 2313651,
+        "motifs": "CT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          14,
+          14
+        ],
+        "motif_counts": "7,7",
+        "spanning_reads": 41
+      },
+      {
+        "id": "chr20_2314530_2314570",
+        "chrom": "chr20",
+        "pos": 2314530,
+        "motifs": "AC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          36,
+          44
+        ],
+        "motif_counts": "18,22",
+        "spanning_reads": 42
+      },
+      {
+        "id": "chr20_2317922_2317942",
+        "chrom": "chr20",
+        "pos": 2317922,
+        "motifs": "AT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          18,
+          20
+        ],
+        "motif_counts": "9,9",
+        "spanning_reads": 46
+      },
+      {
+        "id": "chr20_2349264_2349322",
+        "chrom": "chr20",
+        "pos": 2349264,
+        "motifs": "CT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          40,
+          46
+        ],
+        "motif_counts": "20,23",
+        "spanning_reads": 54
+      },
+      {
+        "id": "chr20_2352173_2352201",
+        "chrom": "chr20",
+        "pos": 2352173,
+        "motifs": "AA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          28,
+          28
+        ],
+        "motif_counts": "14,14",
+        "spanning_reads": 47
+      },
+      {
+        "id": "chr20_2363893_2363913",
+        "chrom": "chr20",
+        "pos": 2363893,
+        "motifs": "TTTG",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          20,
+          28
+        ],
+        "motif_counts": "5,7",
+        "spanning_reads": 52
+      },
+      {
+        "id": "chr20_2366014_2366038",
+        "chrom": "chr20",
+        "pos": 2366014,
+        "motifs": "AATA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          24,
+          40
+        ],
+        "motif_counts": "6,10",
+        "spanning_reads": 49
+      },
+      {
+        "id": "chr20_2366774_2366784",
+        "chrom": "chr20",
+        "pos": 2366774,
+        "motifs": "TTTGT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          10,
+          10
+        ],
+        "motif_counts": "2,2",
+        "spanning_reads": 49
+      },
+      {
+        "id": "chr20_2373963_2373978",
+        "chrom": "chr20",
+        "pos": 2373963,
+        "motifs": "ACAAA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          15,
+          15
+        ],
+        "motif_counts": "3,3",
+        "spanning_reads": 51
+      },
+      {
+        "id": "chr20_2450297_2450321",
+        "chrom": "chr20",
+        "pos": 2450297,
+        "motifs": "TG",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          20,
+          24
+        ],
+        "motif_counts": "10,11",
+        "spanning_reads": 44
+      },
+      {
+        "id": "chr20_2454017_2454045",
+        "chrom": "chr20",
+        "pos": 2454017,
+        "motifs": "TCAT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          28,
+          24
+        ],
+        "motif_counts": "7,6",
+        "spanning_reads": 41
+      },
+      {
+        "id": "chr20_2455042_2455062",
+        "chrom": "chr20",
+        "pos": 2455042,
+        "motifs": "TATT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          20,
+          20
+        ],
+        "motif_counts": "5,5",
+        "spanning_reads": 41
+      },
+      {
+        "id": "chr20_2517366_2517378",
+        "chrom": "chr20",
+        "pos": 2517366,
+        "motifs": "TA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          10,
+          10
+        ],
+        "motif_counts": "5,5",
+        "spanning_reads": 45
+      },
+      {
+        "id": "chr20_2588691_2588721",
+        "chrom": "chr20",
+        "pos": 2588691,
+        "motifs": "TG",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          30,
+          30
+        ],
+        "motif_counts": "15,15",
+        "spanning_reads": 48
+      },
+      {
+        "id": "chr20_2589270_2589324",
+        "chrom": "chr20",
+        "pos": 2589270,
+        "motifs": "TG",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          66,
+          74
+        ],
+        "motif_counts": "33,37",
+        "spanning_reads": 48
+      },
+      {
+        "id": "chr20_2598394_2598430",
+        "chrom": "chr20",
+        "pos": 2598394,
+        "motifs": "TTTA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          36,
+          40
+        ],
+        "motif_counts": "9,10",
+        "spanning_reads": 52
+      },
+      {
+        "id": "chr20_2608300_2608342",
+        "chrom": "chr20",
+        "pos": 2608300,
+        "motifs": "TTA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          48,
+          51
+        ],
+        "motif_counts": "16,17",
+        "spanning_reads": 46
+      },
+      {
+        "id": "chr20_2636459_2636493",
+        "chrom": "chr20",
+        "pos": 2636459,
+        "motifs": "AC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          44,
+          46
+        ],
+        "motif_counts": "22,23",
+        "spanning_reads": 51
+      },
+      {
+        "id": "chr20_2636618_2636638",
+        "chrom": "chr20",
+        "pos": 2636618,
+        "motifs": "TTTG",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          12,
+          12
+        ],
+        "motif_counts": "3,3",
+        "spanning_reads": 51
+      },
+      {
+        "id": "chr20_2645321_2645339",
+        "chrom": "chr20",
+        "pos": 2645321,
+        "motifs": "GAG",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          18,
+          15
+        ],
+        "motif_counts": "6,5",
+        "spanning_reads": 45
+      },
+      {
+        "id": "chr20_2647120_2647160",
+        "chrom": "chr20",
+        "pos": 2647120,
+        "motifs": "TTTA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          32,
+          44
+        ],
+        "motif_counts": "8,11",
+        "spanning_reads": 38
+      },
+      {
+        "id": "SCA36_NOP56",
+        "chrom": "chr20",
+        "pos": 2652732,
+        "motifs": "GGCCTG,CGCCTG,CCTGGG",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          37,
+          55
+        ],
+        "motif_counts": "3_2_0,6_2_0",
+        "spanning_reads": 39
+      },
+      {
+        "id": "chr20_2661177_2661203",
+        "chrom": "chr20",
+        "pos": 2661177,
+        "motifs": "TG",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          28,
+          28
+        ],
+        "motif_counts": "14,14",
+        "spanning_reads": 32
+      },
+      {
+        "id": "chr20_2669361_2669385",
+        "chrom": "chr20",
+        "pos": 2669361,
+        "motifs": "AC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          24,
+          24
+        ],
+        "motif_counts": "12,12",
+        "spanning_reads": 40
+      },
+      {
+        "id": "chr20_2675160_2675215",
+        "chrom": "chr20",
+        "pos": 2675160,
+        "motifs": "TTTAT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          55,
+          78
+        ],
+        "motif_counts": "10,14",
+        "spanning_reads": 52
+      },
+      {
+        "id": "chr20_2687503_2687521",
+        "chrom": "chr20",
+        "pos": 2687503,
+        "motifs": "TG",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          18,
+          18
+        ],
+        "motif_counts": "9,9",
+        "spanning_reads": 30
+      },
+      {
+        "id": "chr20_2692804_2692831",
+        "chrom": "chr20",
+        "pos": 2692804,
+        "motifs": "GCG",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          27,
+          27
+        ],
+        "motif_counts": "9,9",
+        "spanning_reads": 31
+      },
+      {
+        "id": "chr20_2697552_2697564",
+        "chrom": "chr20",
+        "pos": 2697552,
+        "motifs": "AAAG",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          12,
+          16
+        ],
+        "motif_counts": "3,4",
+        "spanning_reads": 34
+      },
+      {
+        "id": "chr20_2705785_2705837",
+        "chrom": "chr20",
+        "pos": 2705785,
+        "motifs": "CA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          44,
+          60
+        ],
+        "motif_counts": "22,30",
+        "spanning_reads": 38
+      },
+      {
+        "id": "chr20_2711148_2711178",
+        "chrom": "chr20",
+        "pos": 2711148,
+        "motifs": "AAT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          30,
+          30
+        ],
+        "motif_counts": "10,10",
+        "spanning_reads": 45
+      },
+      {
+        "id": "chr20_2764300_2764330",
+        "chrom": "chr20",
+        "pos": 2764300,
+        "motifs": "GT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          34,
+          36
+        ],
+        "motif_counts": "17,18",
+        "spanning_reads": 44
+      },
+      {
+        "id": "chr20_2811120_2811160",
+        "chrom": "chr20",
+        "pos": 2811120,
+        "motifs": "GT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          40,
+          34
+        ],
+        "motif_counts": "20,17",
+        "spanning_reads": 32
+      },
+      {
+        "id": "chr20_2829946_2829956",
+        "chrom": "chr20",
+        "pos": 2829946,
+        "motifs": "TA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          10,
+          12
+        ],
+        "motif_counts": "5,6",
+        "spanning_reads": 39
+      },
+      {
+        "id": "chr20_2845007_2845043",
+        "chrom": "chr20",
+        "pos": 2845007,
+        "motifs": "GT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          36,
+          40
+        ],
+        "motif_counts": "18,19",
+        "spanning_reads": 30
+      },
+      {
+        "id": "chr20_2850326_2850341",
+        "chrom": "chr20",
+        "pos": 2850326,
+        "motifs": "AAAAC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          15,
+          15
+        ],
+        "motif_counts": "3,3",
+        "spanning_reads": 26
+      },
+      {
+        "id": "chr20_2854238_2854264",
+        "chrom": "chr20",
+        "pos": 2854238,
+        "motifs": "AC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          26,
+          24
+        ],
+        "motif_counts": "13,12",
+        "spanning_reads": 32
+      },
+      {
+        "id": "chr20_2863823_2863839",
+        "chrom": "chr20",
+        "pos": 2863823,
+        "motifs": "AGAA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          20,
+          20
+        ],
+        "motif_counts": "5,5",
+        "spanning_reads": 43
+      },
+      {
+        "id": "chr20_2900110_2900130",
+        "chrom": "chr20",
+        "pos": 2900110,
+        "motifs": "AAAAC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          20,
+          20
+        ],
+        "motif_counts": "4,4",
+        "spanning_reads": 39
+      },
+      {
+        "id": "chr20_2914445_2914479",
+        "chrom": "chr20",
+        "pos": 2914445,
+        "motifs": "TG",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          34,
+          34
+        ],
+        "motif_counts": "17,17",
+        "spanning_reads": 48
+      },
+      {
+        "id": "chr20_2931718_2931746",
+        "chrom": "chr20",
+        "pos": 2931718,
+        "motifs": "TG",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          24,
+          26
+        ],
+        "motif_counts": "12,13",
+        "spanning_reads": 50
+      },
+      {
+        "id": "chr20_2945582_2945612",
+        "chrom": "chr20",
+        "pos": 2945582,
+        "motifs": "GT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          22,
+          22
+        ],
+        "motif_counts": "11,11",
+        "spanning_reads": 38
+      },
+      {
+        "id": "chr20_2956661_2956697",
+        "chrom": "chr20",
+        "pos": 2956661,
+        "motifs": "AAAT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          28,
+          28
+        ],
+        "motif_counts": "7,7",
+        "spanning_reads": 40
+      },
+      {
+        "id": "chr20_2969982_2969994",
+        "chrom": "chr20",
+        "pos": 2969982,
+        "motifs": "AATA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          16,
+          16
+        ],
+        "motif_counts": "4,4",
+        "spanning_reads": 55
+      },
+      {
+        "id": "chr20_2970805_2970825",
+        "chrom": "chr20",
+        "pos": 2970805,
+        "motifs": "GT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          20,
+          20
+        ],
+        "motif_counts": "10,10",
+        "spanning_reads": 54
+      },
+      {
+        "id": "chr20_2979698_2979714",
+        "chrom": "chr20",
+        "pos": 2979698,
+        "motifs": "TGTT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          16,
+          16
+        ],
+        "motif_counts": "4,4",
+        "spanning_reads": 63
+      },
+      {
+        "id": "chr20_2985884_2985924",
+        "chrom": "chr20",
+        "pos": 2985884,
+        "motifs": "TTGT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          40,
+          32
+        ],
+        "motif_counts": "10,8",
+        "spanning_reads": 53
+      },
+      {
+        "id": "chr20_2997115_2997119",
+        "chrom": "chr20",
+        "pos": 2997115,
+        "motifs": "AT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          4,
+          4
+        ],
+        "motif_counts": "2,2",
+        "spanning_reads": 41
+      },
+      {
+        "id": "chr20_2998889_2998899",
+        "chrom": "chr20",
+        "pos": 2998889,
+        "motifs": "TATTA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          10,
+          10
+        ],
+        "motif_counts": "2,2",
+        "spanning_reads": 39
+      },
+      {
+        "id": "chr20_3029135_3029159",
+        "chrom": "chr20",
+        "pos": 3029135,
+        "motifs": "TTTG",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          27,
+          27
+        ],
+        "motif_counts": "6,6",
+        "spanning_reads": 31
+      },
+      {
+        "id": "chr20_3045699_3045714",
+        "chrom": "chr20",
+        "pos": 3045699,
+        "motifs": "GCCCC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          20,
+          20
+        ],
+        "motif_counts": "4,4",
+        "spanning_reads": 34
+      },
+      {
+        "id": "chr20_3047387_3047411",
+        "chrom": "chr20",
+        "pos": 3047387,
+        "motifs": "AAAT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          20,
+          20
+        ],
+        "motif_counts": "5,5",
+        "spanning_reads": 31
+      },
+      {
+        "id": "chr20_3053577_3053601",
+        "chrom": "chr20",
+        "pos": 3053577,
+        "motifs": "TTTA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          24,
+          24
+        ],
+        "motif_counts": "6,6",
+        "spanning_reads": 36
+      },
+      {
+        "id": "chr20_3058878_3058898",
+        "chrom": "chr20",
+        "pos": 3058878,
+        "motifs": "TTTG",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          20,
+          20
+        ],
+        "motif_counts": "5,5",
+        "spanning_reads": 39
+      },
+      {
+        "id": "chr20_3060116_3060120",
+        "chrom": "chr20",
+        "pos": 3060116,
+        "motifs": "TA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          4,
+          4
+        ],
+        "motif_counts": "2,2",
+        "spanning_reads": 41
+      },
+      {
+        "id": "chr20_3062335_3062356",
+        "chrom": "chr20",
+        "pos": 3062335,
+        "motifs": "CAA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          21,
+          21
+        ],
+        "motif_counts": "7,7",
+        "spanning_reads": 35
+      },
+      {
+        "id": "chr20_3088824_3088854",
+        "chrom": "chr20",
+        "pos": 3088824,
+        "motifs": "TTTGTT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          30,
+          30
+        ],
+        "motif_counts": "5,5",
+        "spanning_reads": 38
+      },
+      {
+        "id": "chr20_3093164_3093178",
+        "chrom": "chr20",
+        "pos": 3093164,
+        "motifs": "GCCCCAG",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          35,
+          35
+        ],
+        "motif_counts": "5,5",
+        "spanning_reads": 32
+      },
+      {
+        "id": "chr20_3117287_3117327",
+        "chrom": "chr20",
+        "pos": 3117287,
+        "motifs": "CA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          30,
+          32
+        ],
+        "motif_counts": "15,16",
+        "spanning_reads": 28
+      },
+      {
+        "id": "chr20_3130226_3130266",
+        "chrom": "chr20",
+        "pos": 3130226,
+        "motifs": "AAAT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          32,
+          32
+        ],
+        "motif_counts": "7,7",
+        "spanning_reads": 27
+      },
+      {
+        "id": "chr20_3134107_3134119",
+        "chrom": "chr20",
+        "pos": 3134107,
+        "motifs": "AT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          12,
+          14
+        ],
+        "motif_counts": "6,7",
+        "spanning_reads": 27
+      },
+      {
+        "id": "chr20_3139383_3139403",
+        "chrom": "chr20",
+        "pos": 3139383,
+        "motifs": "TTTA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          20,
+          24
+        ],
+        "motif_counts": "5,6",
+        "spanning_reads": 26
+      },
+      {
+        "id": "chr20_3167430_3167460",
+        "chrom": "chr20",
+        "pos": 3167430,
+        "motifs": "GCTCA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          30,
+          30
+        ],
+        "motif_counts": "6,6",
+        "spanning_reads": 29
+      },
+      {
+        "id": "chr20_3191972_3192000",
+        "chrom": "chr20",
+        "pos": 3191972,
+        "motifs": "AC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          32,
+          36
+        ],
+        "motif_counts": "16,18",
+        "spanning_reads": 35
+      },
+      {
+        "id": "chr20_3207696_3207717",
+        "chrom": "chr20",
+        "pos": 3207696,
+        "motifs": "AAC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          21,
+          21
+        ],
+        "motif_counts": "7,7",
+        "spanning_reads": 22
+      },
+      {
+        "id": "chr20_3211492_3211508",
+        "chrom": "chr20",
+        "pos": 3211492,
+        "motifs": "TTTG",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          16,
+          16
+        ],
+        "motif_counts": "4,4",
+        "spanning_reads": 31
+      },
+      {
+        "id": "chr20_3234403_3234431",
+        "chrom": "chr20",
+        "pos": 3234403,
+        "motifs": "CCAGCCC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          28,
+          35
+        ],
+        "motif_counts": "4,5",
+        "spanning_reads": 29
+      },
+      {
+        "id": "chr20_3235309_3235353",
+        "chrom": "chr20",
+        "pos": 3235309,
+        "motifs": "CA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          32,
+          40
+        ],
+        "motif_counts": "15,20",
+        "spanning_reads": 28
+      },
+      {
+        "id": "chr20_3236581_3236616",
+        "chrom": "chr20",
+        "pos": 3236581,
+        "motifs": "CAAAA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          35,
+          30
+        ],
+        "motif_counts": "7,6",
+        "spanning_reads": 31
+      },
+      {
+        "id": "chr20_3300678_3300729",
+        "chrom": "chr20",
+        "pos": 3300678,
+        "motifs": "AAT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          48,
+          57
+        ],
+        "motif_counts": "16,19",
+        "spanning_reads": 47
+      },
+      {
+        "id": "chr20_3310333_3310389",
+        "chrom": "chr20",
+        "pos": 3310333,
+        "motifs": "AAAG",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          60,
+          72
+        ],
+        "motif_counts": "15,18",
+        "spanning_reads": 40
+      },
+      {
+        "id": "chr20_3332900_3332936",
+        "chrom": "chr20",
+        "pos": 3332900,
+        "motifs": "GT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          36,
+          40
+        ],
+        "motif_counts": "18,20",
+        "spanning_reads": 46
+      },
+      {
+        "id": "chr20_3343840_3343858",
+        "chrom": "chr20",
+        "pos": 3343840,
+        "motifs": "GT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          18,
+          18
+        ],
+        "motif_counts": "9,9",
+        "spanning_reads": 53
+      },
+      {
+        "id": "chr20_3344590_3344640",
+        "chrom": "chr20",
+        "pos": 3344590,
+        "motifs": "AC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          42,
+          52
+        ],
+        "motif_counts": "20,26",
+        "spanning_reads": 46
+      },
+      {
+        "id": "chr20_3351834_3351862",
+        "chrom": "chr20",
+        "pos": 3351834,
+        "motifs": "TTTA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          28,
+          24
+        ],
+        "motif_counts": "7,6",
+        "spanning_reads": 41
+      },
+      {
+        "id": "chr20_3352846_3352862",
+        "chrom": "chr20",
+        "pos": 3352846,
+        "motifs": "TA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          16,
+          18
+        ],
+        "motif_counts": "8,9",
+        "spanning_reads": 41
+      },
+      {
+        "id": "chr20_3353108_3353116",
+        "chrom": "chr20",
+        "pos": 3353108,
+        "motifs": "AT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          8,
+          8
+        ],
+        "motif_counts": "4,4",
+        "spanning_reads": 40
+      },
+      {
+        "id": "chr20_3365373_3365405",
+        "chrom": "chr20",
+        "pos": 3365373,
+        "motifs": "TTTA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          32,
+          24
+        ],
+        "motif_counts": "8,6",
+        "spanning_reads": 49
+      },
+      {
+        "id": "chr20_3377069_3377087",
+        "chrom": "chr20",
+        "pos": 3377069,
+        "motifs": "AAAAAT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          18,
+          18
+        ],
+        "motif_counts": "3,3",
+        "spanning_reads": 42
+      },
+      {
+        "id": "chr20_3418200_3418232",
+        "chrom": "chr20",
+        "pos": 3418200,
+        "motifs": "AC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          32,
+          34
+        ],
+        "motif_counts": "16,17",
+        "spanning_reads": 36
+      },
+      {
+        "id": "chr20_3431860_3431868",
+        "chrom": "chr20",
+        "pos": 3431860,
+        "motifs": "AAAC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          8,
+          8
+        ],
+        "motif_counts": "2,2",
+        "spanning_reads": 51
+      },
+      {
+        "id": "chr20_3434154_3434158",
+        "chrom": "chr20",
+        "pos": 3434154,
+        "motifs": "GA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          4,
+          4
+        ],
+        "motif_counts": "2,2",
+        "spanning_reads": 42
+      },
+      {
+        "id": "chr20_3437632_3437678",
+        "chrom": "chr20",
+        "pos": 3437632,
+        "motifs": "AC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          32,
+          44
+        ],
+        "motif_counts": "16,22",
+        "spanning_reads": 42
+      },
+      {
+        "id": "chr20_3438915_3438941",
+        "chrom": "chr20",
+        "pos": 3438915,
+        "motifs": "AC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          26,
+          22
+        ],
+        "motif_counts": "13,11",
+        "spanning_reads": 40
+      },
+      {
+        "id": "chr20_3459065_3459113",
+        "chrom": "chr20",
+        "pos": 3459065,
+        "motifs": "ATTT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          48,
+          40
+        ],
+        "motif_counts": "12,10",
+        "spanning_reads": 28
+      },
+      {
+        "id": "chr20_3459588_3459622",
+        "chrom": "chr20",
+        "pos": 3459588,
+        "motifs": "GT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          34,
+          32
+        ],
+        "motif_counts": "17,16",
+        "spanning_reads": 29
+      },
+      {
+        "id": "chr20_3484909_3484948",
+        "chrom": "chr20",
+        "pos": 3484909,
+        "motifs": "ATT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          36,
+          36
+        ],
+        "motif_counts": "12,12",
+        "spanning_reads": 41
+      },
+      {
+        "id": "chr20_3492168_3492204",
+        "chrom": "chr20",
+        "pos": 3492168,
+        "motifs": "GT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          42,
+          44
+        ],
+        "motif_counts": "21,22",
+        "spanning_reads": 41
+      },
+      {
+        "id": "chr20_3504688_3504739",
+        "chrom": "chr20",
+        "pos": 3504688,
+        "motifs": "ATA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          51,
+          51
+        ],
+        "motif_counts": "17,17",
+        "spanning_reads": 37
+      },
+      {
+        "id": "chr20_3506057_3506081",
+        "chrom": "chr20",
+        "pos": 3506057,
+        "motifs": "ACACAT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          24,
+          24
+        ],
+        "motif_counts": "4,4",
+        "spanning_reads": 35
+      },
+      {
+        "id": "chr20_3531797_3531821",
+        "chrom": "chr20",
+        "pos": 3531797,
+        "motifs": "AAC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          24,
+          24
+        ],
+        "motif_counts": "8,8",
+        "spanning_reads": 37
+      },
+      {
+        "id": "chr20_3535588_3535626",
+        "chrom": "chr20",
+        "pos": 3535588,
+        "motifs": "AC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          36,
+          36
+        ],
+        "motif_counts": "18,18",
+        "spanning_reads": 44
+      },
+      {
+        "id": "chr20_3554305_3554349",
+        "chrom": "chr20",
+        "pos": 3554305,
+        "motifs": "TTTA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          44,
+          44
+        ],
+        "motif_counts": "11,11",
+        "spanning_reads": 54
+      },
+      {
+        "id": "chr20_3573758_3573782",
+        "chrom": "chr20",
+        "pos": 3573758,
+        "motifs": "TTTA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          20,
+          20
+        ],
+        "motif_counts": "5,5",
+        "spanning_reads": 46
+      },
+      {
+        "id": "chr20_3587827_3587863",
+        "chrom": "chr20",
+        "pos": 3587827,
+        "motifs": "TGTT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          36,
+          24
+        ],
+        "motif_counts": "9,6",
+        "spanning_reads": 56
+      },
+      {
+        "id": "chr20_3597059_3597073",
+        "chrom": "chr20",
+        "pos": 3597059,
+        "motifs": "AT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          34,
+          36
+        ],
+        "motif_counts": "16,17",
+        "spanning_reads": 40
+      },
+      {
+        "id": "chr20_3609714_3609750",
+        "chrom": "chr20",
+        "pos": 3609714,
+        "motifs": "TG",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          38,
+          40
+        ],
+        "motif_counts": "19,20",
+        "spanning_reads": 51
+      },
+      {
+        "id": "chr20_3620219_3620264",
+        "chrom": "chr20",
+        "pos": 3620219,
+        "motifs": "GTTTT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          45,
+          45
+        ],
+        "motif_counts": "9,9",
+        "spanning_reads": 49
+      },
+      {
+        "id": "chr20_3633184_3633190",
+        "chrom": "chr20",
+        "pos": 3633184,
+        "motifs": "AG",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          6,
+          6
+        ],
+        "motif_counts": "3,3",
+        "spanning_reads": 58
+      },
+      {
+        "id": "chr20_3635367_3635395",
+        "chrom": "chr20",
+        "pos": 3635367,
+        "motifs": "AATA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          28,
+          28
+        ],
+        "motif_counts": "7,7",
+        "spanning_reads": 61
+      },
+      {
+        "id": "chr20_3639253_3639273",
+        "chrom": "chr20",
+        "pos": 3639253,
+        "motifs": "TTTG",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          20,
+          20
+        ],
+        "motif_counts": "5,5",
+        "spanning_reads": 67
+      },
+      {
+        "id": "chr20_3648897_3648905",
+        "chrom": "chr20",
+        "pos": 3648897,
+        "motifs": "TTTG",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          8,
+          8
+        ],
+        "motif_counts": "2,2",
+        "spanning_reads": 51
+      },
+      {
+        "id": "chr20_3664473_3664501",
+        "chrom": "chr20",
+        "pos": 3664473,
+        "motifs": "AAAC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          24,
+          24
+        ],
+        "motif_counts": "6,6",
+        "spanning_reads": 34
+      },
+      {
+        "id": "chr20_3694174_3694216",
+        "chrom": "chr20",
+        "pos": 3694174,
+        "motifs": "AC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          42,
+          44
+        ],
+        "motif_counts": "21,22",
+        "spanning_reads": 37
+      },
+      {
+        "id": "chr20_3696448_3696456",
+        "chrom": "chr20",
+        "pos": 3696448,
+        "motifs": "GCTG",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          8,
+          12
+        ],
+        "motif_counts": "2,3",
+        "spanning_reads": 38
+      },
+      {
+        "id": "chr20_3718729_3718761",
+        "chrom": "chr20",
+        "pos": 3718729,
+        "motifs": "AAAT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          28,
+          28
+        ],
+        "motif_counts": "7,7",
+        "spanning_reads": 39
+      },
+      {
+        "id": "chr20_3722726_3722754",
+        "chrom": "chr20",
+        "pos": 3722726,
+        "motifs": "AATA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          24,
+          24
+        ],
+        "motif_counts": "6,6",
+        "spanning_reads": 40
+      },
+      {
+        "id": "chr20_3737057_3737105",
+        "chrom": "chr20",
+        "pos": 3737057,
+        "motifs": "AAAT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          32,
+          52
+        ],
+        "motif_counts": "8,13",
+        "spanning_reads": 33
+      },
+      {
+        "id": "chr20_3738841_3738857",
+        "chrom": "chr20",
+        "pos": 3738841,
+        "motifs": "GT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          14,
+          14
+        ],
+        "motif_counts": "7,7",
+        "spanning_reads": 36
+      },
+      {
+        "id": "chr20_3757026_3757046",
+        "chrom": "chr20",
+        "pos": 3757026,
+        "motifs": "AAAT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          20,
+          20
+        ],
+        "motif_counts": "4,4",
+        "spanning_reads": 31
+      },
+      {
+        "id": "chr20_3759973_3759989",
+        "chrom": "chr20",
+        "pos": 3759973,
+        "motifs": "CA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          16,
+          14
+        ],
+        "motif_counts": "8,7",
+        "spanning_reads": 35
+      },
+      {
+        "id": "chr20_3771817_3771845",
+        "chrom": "chr20",
+        "pos": 3771817,
+        "motifs": "AC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          32,
+          32
+        ],
+        "motif_counts": "16,16",
+        "spanning_reads": 38
+      },
+      {
+        "id": "chr20_3780416_3780450",
+        "chrom": "chr20",
+        "pos": 3780416,
+        "motifs": "CA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          34,
+          28
+        ],
+        "motif_counts": "17,14",
+        "spanning_reads": 39
+      },
+      {
+        "id": "chr20_3788142_3788162",
+        "chrom": "chr20",
+        "pos": 3788142,
+        "motifs": "AAAG",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          28,
+          28
+        ],
+        "motif_counts": "7,7",
+        "spanning_reads": 39
+      },
+      {
+        "id": "chr20_3793455_3793471",
+        "chrom": "chr20",
+        "pos": 3793455,
+        "motifs": "CAAA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          16,
+          16
+        ],
+        "motif_counts": "4,4",
+        "spanning_reads": 32
+      },
+      {
+        "id": "chr20_3793572_3793597",
+        "chrom": "chr20",
+        "pos": 3793572,
+        "motifs": "ATTTT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          20,
+          20
+        ],
+        "motif_counts": "4,4",
+        "spanning_reads": 31
+      },
+      {
+        "id": "chr20_3833899_3833955",
+        "chrom": "chr20",
+        "pos": 3833899,
+        "motifs": "CTTC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          56,
+          52
+        ],
+        "motif_counts": "13,12",
+        "spanning_reads": 28
+      },
+      {
+        "id": "chr20_3861743_3861769",
+        "chrom": "chr20",
+        "pos": 3861743,
+        "motifs": "TG",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          26,
+          28
+        ],
+        "motif_counts": "13,14",
+        "spanning_reads": 33
+      },
+      {
+        "id": "chr20_3878836_3878876",
+        "chrom": "chr20",
+        "pos": 3878836,
+        "motifs": "CA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          26,
+          38
+        ],
+        "motif_counts": "13,19",
+        "spanning_reads": 31
+      },
+      {
+        "id": "chr20_3880110_3880126",
+        "chrom": "chr20",
+        "pos": 3880110,
+        "motifs": "AAAC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          16,
+          16
+        ],
+        "motif_counts": "4,4",
+        "spanning_reads": 32
+      },
+      {
+        "id": "chr20_3887303_3887315",
+        "chrom": "chr20",
+        "pos": 3887303,
+        "motifs": "TTAT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          12,
+          12
+        ],
+        "motif_counts": "3,3",
+        "spanning_reads": 38
+      },
+      {
+        "id": "chr20_3902972_3903018",
+        "chrom": "chr20",
+        "pos": 3902972,
+        "motifs": "AC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          46,
+          40
+        ],
+        "motif_counts": "23,20",
+        "spanning_reads": 35
+      },
+      {
+        "id": "chr20_3966469_3966507",
+        "chrom": "chr20",
+        "pos": 3966469,
+        "motifs": "GT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          50,
+          52
+        ],
+        "motif_counts": "25,26",
+        "spanning_reads": 53
+      },
+      {
+        "id": "chr20_3982103_3982135",
+        "chrom": "chr20",
+        "pos": 3982103,
+        "motifs": "TC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          30,
+          42
+        ],
+        "motif_counts": "15,21",
+        "spanning_reads": 42
+      },
+      {
+        "id": "chr20_4010048_4010092",
+        "chrom": "chr20",
+        "pos": 4010048,
+        "motifs": "ACAA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          36,
+          36
+        ],
+        "motif_counts": "9,9",
+        "spanning_reads": 47
+      },
+      {
+        "id": "chr20_4014739_4014777",
+        "chrom": "chr20",
+        "pos": 4014739,
+        "motifs": "CA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          40,
+          42
+        ],
+        "motif_counts": "20,21",
+        "spanning_reads": 44
+      },
+      {
+        "id": "chr20_4035678_4035710",
+        "chrom": "chr20",
+        "pos": 4035678,
+        "motifs": "GT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          32,
+          32
+        ],
+        "motif_counts": "16,16",
+        "spanning_reads": 21
+      },
+      {
+        "id": "chr20_4040915_4040929",
+        "chrom": "chr20",
+        "pos": 4040915,
+        "motifs": "GA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          14,
+          16
+        ],
+        "motif_counts": "7,8",
+        "spanning_reads": 26
+      },
+      {
+        "id": "chr20_4045062_4045076",
+        "chrom": "chr20",
+        "pos": 4045062,
+        "motifs": "GA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          14,
+          12
+        ],
+        "motif_counts": "7,6",
+        "spanning_reads": 27
+      },
+      {
+        "id": "chr20_4051390_4051434",
+        "chrom": "chr20",
+        "pos": 4051390,
+        "motifs": "AAAG",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          36,
+          56
+        ],
+        "motif_counts": "9,14",
+        "spanning_reads": 30
+      },
+      {
+        "id": "chr20_4064585_4064593",
+        "chrom": "chr20",
+        "pos": 4064585,
+        "motifs": "AGAT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          8,
+          8
+        ],
+        "motif_counts": "2,2",
+        "spanning_reads": 38
+      },
+      {
+        "id": "chr20_4072831_4072871",
+        "chrom": "chr20",
+        "pos": 4072831,
+        "motifs": "AC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          42,
+          44
+        ],
+        "motif_counts": "21,22",
+        "spanning_reads": 47
+      },
+      {
+        "id": "chr20_4079945_4079961",
+        "chrom": "chr20",
+        "pos": 4079945,
+        "motifs": "TTTA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          16,
+          16
+        ],
+        "motif_counts": "4,4",
+        "spanning_reads": 44
+      },
+      {
+        "id": "chr20_4094851_4094867",
+        "chrom": "chr20",
+        "pos": 4094851,
+        "motifs": "AC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          16,
+          18
+        ],
+        "motif_counts": "8,9",
+        "spanning_reads": 33
+      },
+      {
+        "id": "chr20_4096335_4096363",
+        "chrom": "chr20",
+        "pos": 4096335,
+        "motifs": "AAAT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          28,
+          34
+        ],
+        "motif_counts": "7,8",
+        "spanning_reads": 34
+      },
+      {
+        "id": "chr20_4096699_4096729",
+        "chrom": "chr20",
+        "pos": 4096699,
+        "motifs": "TAT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          24,
+          27
+        ],
+        "motif_counts": "8,9",
+        "spanning_reads": 34
+      },
+      {
+        "id": "chr20_4097958_4097998",
+        "chrom": "chr20",
+        "pos": 4097958,
+        "motifs": "TTTA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          40,
+          28
+        ],
+        "motif_counts": "10,7",
+        "spanning_reads": 32
+      },
+      {
+        "id": "chr20_4107116_4107136",
+        "chrom": "chr20",
+        "pos": 4107116,
+        "motifs": "CAAAA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          20,
+          25
+        ],
+        "motif_counts": "4,5",
+        "spanning_reads": 25
+      },
+      {
+        "id": "chr20_4108056_4108080",
+        "chrom": "chr20",
+        "pos": 4108056,
+        "motifs": "TC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          26,
+          62
+        ],
+        "motif_counts": "13,31",
+        "spanning_reads": 28
+      },
+      {
+        "id": "chr20_4114975_4114993",
+        "chrom": "chr20",
+        "pos": 4114975,
+        "motifs": "TA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          16,
+          16
+        ],
+        "motif_counts": "7,7",
+        "spanning_reads": 35
+      },
+      {
+        "id": "chr20_4118533_4118593",
+        "chrom": "chr20",
+        "pos": 4118533,
+        "motifs": "TCT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          225,
+          237
+        ],
+        "motif_counts": "65,68",
+        "spanning_reads": 35
+      },
+      {
+        "id": "chr20_4145091_4145107",
+        "chrom": "chr20",
+        "pos": 4145091,
+        "motifs": "AAAC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          16,
+          16
+        ],
+        "motif_counts": "4,4",
+        "spanning_reads": 33
+      },
+      {
+        "id": "chr20_4151269_4151284",
+        "chrom": "chr20",
+        "pos": 4151269,
+        "motifs": "CCAAG",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          15,
+          15
+        ],
+        "motif_counts": "3,3",
+        "spanning_reads": 38
+      },
+      {
+        "id": "chr20_4168883_4168948",
+        "chrom": "chr20",
+        "pos": 4168883,
+        "motifs": "TATTT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          60,
+          70
+        ],
+        "motif_counts": "12,13",
+        "spanning_reads": 24
+      },
+      {
+        "id": "chr20_4189183_4189195",
+        "chrom": "chr20",
+        "pos": 4189183,
+        "motifs": "AC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          12,
+          18
+        ],
+        "motif_counts": "6,9",
+        "spanning_reads": 49
+      },
+      {
+        "id": "chr20_4189520_4189536",
+        "chrom": "chr20",
+        "pos": 4189520,
+        "motifs": "TGAT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          16,
+          16
+        ],
+        "motif_counts": "4,4",
+        "spanning_reads": 49
+      },
+      {
+        "id": "chr20_4204488_4204506",
+        "chrom": "chr20",
+        "pos": 4204488,
+        "motifs": "AAATAA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          18,
+          18
+        ],
+        "motif_counts": "3,3",
+        "spanning_reads": 37
+      },
+      {
+        "id": "chr20_4231038_4231066",
+        "chrom": "chr20",
+        "pos": 4231038,
+        "motifs": "TTTC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          24,
+          48
+        ],
+        "motif_counts": "6,10",
+        "spanning_reads": 47
+      },
+      {
+        "id": "chr20_4237836_4237860",
+        "chrom": "chr20",
+        "pos": 4237836,
+        "motifs": "TATT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          28,
+          40
+        ],
+        "motif_counts": "7,10",
+        "spanning_reads": 42
+      },
+      {
+        "id": "chr20_4242858_4242874",
+        "chrom": "chr20",
+        "pos": 4242858,
+        "motifs": "TG",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          16,
+          16
+        ],
+        "motif_counts": "8,8",
+        "spanning_reads": 37
+      },
+      {
+        "id": "chr20_4252399_4252423",
+        "chrom": "chr20",
+        "pos": 4252399,
+        "motifs": "TATT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          24,
+          24
+        ],
+        "motif_counts": "6,6",
+        "spanning_reads": 41
+      },
+      {
+        "id": "chr20_4263631_4263655",
+        "chrom": "chr20",
+        "pos": 4263631,
+        "motifs": "TTAT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          24,
+          28
+        ],
+        "motif_counts": "6,7",
+        "spanning_reads": 40
+      },
+      {
+        "id": "chr20_4280610_4280636",
+        "chrom": "chr20",
+        "pos": 4280610,
+        "motifs": "TC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          24,
+          24
+        ],
+        "motif_counts": "12,12",
+        "spanning_reads": 46
+      },
+      {
+        "id": "chr20_4299430_4299466",
+        "chrom": "chr20",
+        "pos": 4299430,
+        "motifs": "TGA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          39,
+          42
+        ],
+        "motif_counts": "12,13",
+        "spanning_reads": 40
+      },
+      {
+        "id": "chr20_4350114_4350146",
+        "chrom": "chr20",
+        "pos": 4350114,
+        "motifs": "GT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          24,
+          26
+        ],
+        "motif_counts": "12,13",
+        "spanning_reads": 50
+      },
+      {
+        "id": "chr20_4385990_4386010",
+        "chrom": "chr20",
+        "pos": 4385990,
+        "motifs": "AAAC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          20,
+          16
+        ],
+        "motif_counts": "5,4",
+        "spanning_reads": 53
+      },
+      {
+        "id": "chr20_4398305_4398326",
+        "chrom": "chr20",
+        "pos": 4398305,
+        "motifs": "AAC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          24,
+          24
+        ],
+        "motif_counts": "8,8",
+        "spanning_reads": 69
+      },
+      {
+        "id": "chr20_4398562_4398600",
+        "chrom": "chr20",
+        "pos": 4398562,
+        "motifs": "GT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          32,
+          36
+        ],
+        "motif_counts": "16,18",
+        "spanning_reads": 70
+      },
+      {
+        "id": "chr20_4411737_4411749",
+        "chrom": "chr20",
+        "pos": 4411737,
+        "motifs": "TG",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          14,
+          14
+        ],
+        "motif_counts": "7,7",
+        "spanning_reads": 62
+      },
+      {
+        "id": "chr20_4422551_4422573",
+        "chrom": "chr20",
+        "pos": 4422551,
+        "motifs": "GT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          20,
+          24
+        ],
+        "motif_counts": "10,12",
+        "spanning_reads": 60
+      },
+      {
+        "id": "chr20_4461691_4461721",
+        "chrom": "chr20",
+        "pos": 4461691,
+        "motifs": "TTTAT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          15,
+          15
+        ],
+        "motif_counts": "3,3",
+        "spanning_reads": 60
+      },
+      {
+        "id": "chr20_4472333_4472373",
+        "chrom": "chr20",
+        "pos": 4472333,
+        "motifs": "AC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          40,
+          42
+        ],
+        "motif_counts": "20,21",
+        "spanning_reads": 49
+      },
+      {
+        "id": "chr20_4525691_4525747",
+        "chrom": "chr20",
+        "pos": 4525691,
+        "motifs": "AGAT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          56,
+          56
+        ],
+        "motif_counts": "14,14",
+        "spanning_reads": 50
+      },
+      {
+        "id": "chr20_4531801_4531833",
+        "chrom": "chr20",
+        "pos": 4531801,
+        "motifs": "AAAC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          28,
+          28
+        ],
+        "motif_counts": "7,7",
+        "spanning_reads": 55
+      },
+      {
+        "id": "chr20_4543653_4543687",
+        "chrom": "chr20",
+        "pos": 4543653,
+        "motifs": "GT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          28,
+          28
+        ],
+        "motif_counts": "14,14",
+        "spanning_reads": 49
+      },
+      {
+        "id": "chr20_4580193_4580229",
+        "chrom": "chr20",
+        "pos": 4580193,
+        "motifs": "CCTT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          36,
+          36
+        ],
+        "motif_counts": "7,7",
+        "spanning_reads": 62
+      },
+      {
+        "id": "chr20_4585930_4585974",
+        "chrom": "chr20",
+        "pos": 4585930,
+        "motifs": "GAAG",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          44,
+          40
+        ],
+        "motif_counts": "11,10",
+        "spanning_reads": 58
+      },
+      {
+        "id": "chr20_4608513_4608527",
+        "chrom": "chr20",
+        "pos": 4608513,
+        "motifs": "AC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          14,
+          12
+        ],
+        "motif_counts": "7,6",
+        "spanning_reads": 49
+      },
+      {
+        "id": "chr20_4609620_4609632",
+        "chrom": "chr20",
+        "pos": 4609620,
+        "motifs": "CTGGCC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          12,
+          18
+        ],
+        "motif_counts": "2,3",
+        "spanning_reads": 51
+      },
+      {
+        "id": "chr20_4613252_4613300",
+        "chrom": "chr20",
+        "pos": 4613252,
+        "motifs": "AAAT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          48,
+          40
+        ],
+        "motif_counts": "12,10",
+        "spanning_reads": 47
+      },
+      {
+        "id": "chr20_4617798_4617813",
+        "chrom": "chr20",
+        "pos": 4617798,
+        "motifs": "AAAAC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          15,
+          15
+        ],
+        "motif_counts": "3,3",
+        "spanning_reads": 56
+      },
+      {
+        "id": "chr20_4633227_4633245",
+        "chrom": "chr20",
+        "pos": 4633227,
+        "motifs": "ATA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          18,
+          21
+        ],
+        "motif_counts": "6,7",
+        "spanning_reads": 51
+      },
+      {
+        "id": "chr20_4655021_4655035",
+        "chrom": "chr20",
+        "pos": 4655021,
+        "motifs": "GA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          14,
+          14
+        ],
+        "motif_counts": "7,7",
+        "spanning_reads": 49
+      },
+      {
+        "id": "chr20_4669069_4669111",
+        "chrom": "chr20",
+        "pos": 4669069,
+        "motifs": "TG",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          42,
+          36
+        ],
+        "motif_counts": "21,18",
+        "spanning_reads": 47
+      },
+      {
+        "id": "CJD_PRNP",
+        "chrom": "chr20",
+        "pos": 4699370,
+        "motifs": "CCTCAGGGCGGTGGTGGCTGGGGGCAG,CCTCATGGTGGTGGCTGGGGGCAG,AGCCTCATGGTGGTGGCTGGGGGC,GGTGGTGGCTGGGGGCAGCCTCAT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          123,
+          123
+        ],
+        "motif_counts": "1_4_0_0,1_4_0_0",
+        "spanning_reads": 41
+      },
+      {
+        "id": "chr20_4707370_4707400",
+        "chrom": "chr20",
+        "pos": 4707370,
+        "motifs": "CAAAA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          30,
+          30
+        ],
+        "motif_counts": "6,6",
+        "spanning_reads": 44
+      },
+      {
+        "id": "chr20_4738035_4738075",
+        "chrom": "chr20",
+        "pos": 4738035,
+        "motifs": "TAAA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          40,
+          40
+        ],
+        "motif_counts": "9,9",
+        "spanning_reads": 54
+      },
+      {
+        "id": "chr20_4746513_4746568",
+        "chrom": "chr20",
+        "pos": 4746513,
+        "motifs": "ATTTT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          60,
+          65
+        ],
+        "motif_counts": "12,13",
+        "spanning_reads": 43
+      },
+      {
+        "id": "chr20_4755134_4755198",
+        "chrom": "chr20",
+        "pos": 4755134,
+        "motifs": "TTTC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          56,
+          80
+        ],
+        "motif_counts": "14,20",
+        "spanning_reads": 45
+      },
+      {
+        "id": "chr20_4763128_4763164",
+        "chrom": "chr20",
+        "pos": 4763128,
+        "motifs": "AAAT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          44,
+          48
+        ],
+        "motif_counts": "11,12",
+        "spanning_reads": 38
+      },
+      {
+        "id": "chr20_4763262_4763270",
+        "chrom": "chr20",
+        "pos": 4763262,
+        "motifs": "TTTG",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          8,
+          8
+        ],
+        "motif_counts": "2,2",
+        "spanning_reads": 37
+      },
+      {
+        "id": "chr20_4777598_4777622",
+        "chrom": "chr20",
+        "pos": 4777598,
+        "motifs": "CA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          30,
+          32
+        ],
+        "motif_counts": "15,16",
+        "spanning_reads": 43
+      },
+      {
+        "id": "chr20_4779167_4779209",
+        "chrom": "chr20",
+        "pos": 4779167,
+        "motifs": "GT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          32,
+          34
+        ],
+        "motif_counts": "16,17",
+        "spanning_reads": 46
+      },
+      {
+        "id": "chr20_4813782_4813800",
+        "chrom": "chr20",
+        "pos": 4813782,
+        "motifs": "GT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          18,
+          16
+        ],
+        "motif_counts": "9,8",
+        "spanning_reads": 47
+      },
+      {
+        "id": "chr20_4827653_4827677",
+        "chrom": "chr20",
+        "pos": 4827653,
+        "motifs": "AAAC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          24,
+          24
+        ],
+        "motif_counts": "6,6",
+        "spanning_reads": 39
+      },
+      {
+        "id": "chr20_4831166_4831182",
+        "chrom": "chr20",
+        "pos": 4831166,
+        "motifs": "TA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          16,
+          16
+        ],
+        "motif_counts": "8,8",
+        "spanning_reads": 38
+      },
+      {
+        "id": "chr20_4854390_4854416",
+        "chrom": "chr20",
+        "pos": 4854390,
+        "motifs": "GT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          26,
+          26
+        ],
+        "motif_counts": "13,13",
+        "spanning_reads": 34
+      },
+      {
+        "id": "chr20_4857283_4857335",
+        "chrom": "chr20",
+        "pos": 4857283,
+        "motifs": "AC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          52,
+          52
+        ],
+        "motif_counts": "26,26",
+        "spanning_reads": 43
+      },
+      {
+        "id": "chr20_4857931_4857956",
+        "chrom": "chr20",
+        "pos": 4857931,
+        "motifs": "AAAAC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          25,
+          25
+        ],
+        "motif_counts": "5,5",
+        "spanning_reads": 43
+      },
+      {
+        "id": "chr20_4869540_4869560",
+        "chrom": "chr20",
+        "pos": 4869540,
+        "motifs": "AC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          20,
+          18
+        ],
+        "motif_counts": "10,9",
+        "spanning_reads": 43
+      },
+      {
+        "id": "chr20_4922843_4922863",
+        "chrom": "chr20",
+        "pos": 4922843,
+        "motifs": "CA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          20,
+          22
+        ],
+        "motif_counts": "10,11",
+        "spanning_reads": 34
+      },
+      {
+        "id": "chr20_4945293_4945321",
+        "chrom": "chr20",
+        "pos": 4945293,
+        "motifs": "TTGT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          28,
+          28
+        ],
+        "motif_counts": "7,7",
+        "spanning_reads": 52
+      },
+      {
+        "id": "chr20_4955356_4955398",
+        "chrom": "chr20",
+        "pos": 4955356,
+        "motifs": "AC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          42,
+          40
+        ],
+        "motif_counts": "21,20",
+        "spanning_reads": 56
+      },
+      {
+        "id": "chr20_4971299_4971333",
+        "chrom": "chr20",
+        "pos": 4971299,
+        "motifs": "AC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          34,
+          30
+        ],
+        "motif_counts": "17,15",
+        "spanning_reads": 38
+      },
+      {
+        "id": "chr20_4986649_4986689",
+        "chrom": "chr20",
+        "pos": 4986649,
+        "motifs": "AC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          40,
+          54
+        ],
+        "motif_counts": "20,24",
+        "spanning_reads": 27
+      },
+      {
+        "id": "chr20_4991720_4991764",
+        "chrom": "chr20",
+        "pos": 4991720,
+        "motifs": "CA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          38,
+          48
+        ],
+        "motif_counts": "19,24",
+        "spanning_reads": 21
+      },
+      {
+        "id": "chr20_4997792_4997812",
+        "chrom": "chr20",
+        "pos": 4997792,
+        "motifs": "TTTTA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          20,
+          25
+        ],
+        "motif_counts": "4,5",
+        "spanning_reads": 22
+      },
+      {
+        "id": "chr20_5005000_5005036",
+        "chrom": "chr20",
+        "pos": 5005000,
+        "motifs": "AAAT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          32,
+          40
+        ],
+        "motif_counts": "8,10",
+        "spanning_reads": 24
+      },
+      {
+        "id": "chr20_5006547_5006579",
+        "chrom": "chr20",
+        "pos": 5006547,
+        "motifs": "TTTA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          32,
+          32
+        ],
+        "motif_counts": "8,8",
+        "spanning_reads": 22
+      },
+      {
+        "id": "chr20_5006948_5006976",
+        "chrom": "chr20",
+        "pos": 5006948,
+        "motifs": "GT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          24,
+          30
+        ],
+        "motif_counts": "12,15",
+        "spanning_reads": 20
+      },
+      {
+        "id": "chr20_5026874_5026916",
+        "chrom": "chr20",
+        "pos": 5026874,
+        "motifs": "CTCTCC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          24,
+          36
+        ],
+        "motif_counts": "4,6",
+        "spanning_reads": 36
+      },
+      {
+        "id": "chr20_5029965_5029989",
+        "chrom": "chr20",
+        "pos": 5029965,
+        "motifs": "AAAC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          24,
+          20
+        ],
+        "motif_counts": "6,5",
+        "spanning_reads": 42
+      },
+      {
+        "id": "chr20_5050779_5050823",
+        "chrom": "chr20",
+        "pos": 5050779,
+        "motifs": "TTTA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          32,
+          32
+        ],
+        "motif_counts": "8,8",
+        "spanning_reads": 45
+      },
+      {
+        "id": "chr20_5052775_5052791",
+        "chrom": "chr20",
+        "pos": 5052775,
+        "motifs": "TG",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          16,
+          16
+        ],
+        "motif_counts": "8,8",
+        "spanning_reads": 41
+      },
+      {
+        "id": "chr20_5053178_5053190",
+        "chrom": "chr20",
+        "pos": 5053178,
+        "motifs": "TA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          12,
+          12
+        ],
+        "motif_counts": "6,6",
+        "spanning_reads": 43
+      },
+      {
+        "id": "chr20_5067410_5067460",
+        "chrom": "chr20",
+        "pos": 5067410,
+        "motifs": "AT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          26,
+          54
+        ],
+        "motif_counts": "13,27",
+        "spanning_reads": 28
+      },
+      {
+        "id": "chr20_5069683_5069703",
+        "chrom": "chr20",
+        "pos": 5069683,
+        "motifs": "CCCTT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          20,
+          20
+        ],
+        "motif_counts": "4,4",
+        "spanning_reads": 25
+      },
+      {
+        "id": "chr20_5082234_5082252",
+        "chrom": "chr20",
+        "pos": 5082234,
+        "motifs": "TC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          18,
+          8
+        ],
+        "motif_counts": "9,4",
+        "spanning_reads": 32
+      },
+      {
+        "id": "chr20_5091727_5091735",
+        "chrom": "chr20",
+        "pos": 5091727,
+        "motifs": "TACC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          8,
+          12
+        ],
+        "motif_counts": "2,3",
+        "spanning_reads": 38
+      },
+      {
+        "id": "chr20_5106078_5106120",
+        "chrom": "chr20",
+        "pos": 5106078,
+        "motifs": "AC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          36,
+          44
+        ],
+        "motif_counts": "18,22",
+        "spanning_reads": 41
+      },
+      {
+        "id": "chr20_5126986_5126996",
+        "chrom": "chr20",
+        "pos": 5126986,
+        "motifs": "GGGCG",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          10,
+          10
+        ],
+        "motif_counts": "2,2",
+        "spanning_reads": 38
+      },
+      {
+        "id": "chr20_5175786_5175806",
+        "chrom": "chr20",
+        "pos": 5175786,
+        "motifs": "AAAC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          20,
+          20
+        ],
+        "motif_counts": "5,5",
+        "spanning_reads": 59
+      },
+      {
+        "id": "chr20_5184169_5184185",
+        "chrom": "chr20",
+        "pos": 5184169,
+        "motifs": "AAAC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          16,
+          16
+        ],
+        "motif_counts": "4,4",
+        "spanning_reads": 61
+      },
+      {
+        "id": "chr20_5188055_5188081",
+        "chrom": "chr20",
+        "pos": 5188055,
+        "motifs": "GT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          26,
+          26
+        ],
+        "motif_counts": "13,13",
+        "spanning_reads": 58
+      },
+      {
+        "id": "chr20_5253853_5253871",
+        "chrom": "chr20",
+        "pos": 5253853,
+        "motifs": "AC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          18,
+          24
+        ],
+        "motif_counts": "9,11",
+        "spanning_reads": 67
+      },
+      {
+        "id": "chr20_5270463_5270501",
+        "chrom": "chr20",
+        "pos": 5270463,
+        "motifs": "CT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          36,
+          36
+        ],
+        "motif_counts": "18,18",
+        "spanning_reads": 48
+      },
+      {
+        "id": "chr20_5275582_5275600",
+        "chrom": "chr20",
+        "pos": 5275582,
+        "motifs": "AAAAAC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          18,
+          18
+        ],
+        "motif_counts": "3,3",
+        "spanning_reads": 53
+      },
+      {
+        "id": "chr20_5289207_5289227",
+        "chrom": "chr20",
+        "pos": 5289207,
+        "motifs": "TATT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          20,
+          20
+        ],
+        "motif_counts": "5,5",
+        "spanning_reads": 52
+      },
+      {
+        "id": "chr20_5324767_5324787",
+        "chrom": "chr20",
+        "pos": 5324767,
+        "motifs": "TGTT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          20,
+          20
+        ],
+        "motif_counts": "5,5",
+        "spanning_reads": 53
+      },
+      {
+        "id": "chr20_5352667_5352691",
+        "chrom": "chr20",
+        "pos": 5352667,
+        "motifs": "TTA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          24,
+          30
+        ],
+        "motif_counts": "8,10",
+        "spanning_reads": 55
+      },
+      {
+        "id": "chr20_5371229_5371259",
+        "chrom": "chr20",
+        "pos": 5371229,
+        "motifs": "AC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          30,
+          30
+        ],
+        "motif_counts": "15,15",
+        "spanning_reads": 43
+      },
+      {
+        "id": "chr20_5427829_5427849",
+        "chrom": "chr20",
+        "pos": 5427829,
+        "motifs": "AAAC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          20,
+          16
+        ],
+        "motif_counts": "5,4",
+        "spanning_reads": 46
+      },
+      {
+        "id": "chr20_5468191_5468209",
+        "chrom": "chr20",
+        "pos": 5468191,
+        "motifs": "CA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          18,
+          18
+        ],
+        "motif_counts": "9,9",
+        "spanning_reads": 47
+      },
+      {
+        "id": "chr20_5491021_5491061",
+        "chrom": "chr20",
+        "pos": 5491021,
+        "motifs": "AC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          40,
+          36
+        ],
+        "motif_counts": "20,18",
+        "spanning_reads": 36
+      },
+      {
+        "id": "chr20_5495207_5495243",
+        "chrom": "chr20",
+        "pos": 5495207,
+        "motifs": "TTAT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          24,
+          28
+        ],
+        "motif_counts": "6,7",
+        "spanning_reads": 25
+      },
+      {
+        "id": "chr20_5505842_5505878",
+        "chrom": "chr20",
+        "pos": 5505842,
+        "motifs": "TTTG",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          36,
+          36
+        ],
+        "motif_counts": "8,8",
+        "spanning_reads": 33
+      },
+      {
+        "id": "chr20_5524946_5524994",
+        "chrom": "chr20",
+        "pos": 5524946,
+        "motifs": "GAAG",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          48,
+          36
+        ],
+        "motif_counts": "12,9",
+        "spanning_reads": 40
+      },
+      {
+        "id": "chr20_5525902_5525937",
+        "chrom": "chr20",
+        "pos": 5525902,
+        "motifs": "AAAAG",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          35,
+          67
+        ],
+        "motif_counts": "7,13",
+        "spanning_reads": 40
+      },
+      {
+        "id": "chr20_5528978_5528992",
+        "chrom": "chr20",
+        "pos": 5528978,
+        "motifs": "ATGTAAC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          14,
+          21
+        ],
+        "motif_counts": "2,3",
+        "spanning_reads": 41
+      },
+      {
+        "id": "chr20_5529312_5529332",
+        "chrom": "chr20",
+        "pos": 5529312,
+        "motifs": "TTAT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          20,
+          20
+        ],
+        "motif_counts": "5,5",
+        "spanning_reads": 42
+      },
+      {
+        "id": "chr20_5533894_5533906",
+        "chrom": "chr20",
+        "pos": 5533894,
+        "motifs": "AAAC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          12,
+          12
+        ],
+        "motif_counts": "3,3",
+        "spanning_reads": 49
+      },
+      {
+        "id": "chr20_5564838_5564854",
+        "chrom": "chr20",
+        "pos": 5564838,
+        "motifs": "CA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          16,
+          16
+        ],
+        "motif_counts": "8,8",
+        "spanning_reads": 53
+      },
+      {
+        "id": "chr20_5568230_5568246",
+        "chrom": "chr20",
+        "pos": 5568230,
+        "motifs": "TA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          16,
+          18
+        ],
+        "motif_counts": "8,9",
+        "spanning_reads": 51
+      },
+      {
+        "id": "chr20_5569098_5569113",
+        "chrom": "chr20",
+        "pos": 5569098,
+        "motifs": "CCTCC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          15,
+          15
+        ],
+        "motif_counts": "3,3",
+        "spanning_reads": 54
+      },
+      {
+        "id": "chr20_5576040_5576060",
+        "chrom": "chr20",
+        "pos": 5576040,
+        "motifs": "AC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          20,
+          18
+        ],
+        "motif_counts": "10,9",
+        "spanning_reads": 57
+      },
+      {
+        "id": "chr20_5598190_5598202",
+        "chrom": "chr20",
+        "pos": 5598190,
+        "motifs": "AAAC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          12,
+          12
+        ],
+        "motif_counts": "3,3",
+        "spanning_reads": 38
+      },
+      {
+        "id": "chr20_5612364_5612384",
+        "chrom": "chr20",
+        "pos": 5612364,
+        "motifs": "AAAAC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          20,
+          30
+        ],
+        "motif_counts": "4,6",
+        "spanning_reads": 33
+      },
+      {
+        "id": "chr20_5616245_5616281",
+        "chrom": "chr20",
+        "pos": 5616245,
+        "motifs": "TG",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          28,
+          28
+        ],
+        "motif_counts": "14,14",
+        "spanning_reads": 31
+      },
+      {
+        "id": "chr20_5621720_5621740",
+        "chrom": "chr20",
+        "pos": 5621720,
+        "motifs": "TTTTA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          20,
+          20
+        ],
+        "motif_counts": "4,4",
+        "spanning_reads": 29
+      },
+      {
+        "id": "chr20_5638315_5638348",
+        "chrom": "chr20",
+        "pos": 5638315,
+        "motifs": "TCC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          33,
+          33
+        ],
+        "motif_counts": "10,10",
+        "spanning_reads": 26
+      },
+      {
+        "id": "chr20_5646110_5646130",
+        "chrom": "chr20",
+        "pos": 5646110,
+        "motifs": "TTTTA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          20,
+          20
+        ],
+        "motif_counts": "4,4",
+        "spanning_reads": 34
+      },
+      {
+        "id": "chr20_5654600_5654626",
+        "chrom": "chr20",
+        "pos": 5654600,
+        "motifs": "TG",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          26,
+          32
+        ],
+        "motif_counts": "13,16",
+        "spanning_reads": 33
+      },
+      {
+        "id": "chr20_5664070_5664100",
+        "chrom": "chr20",
+        "pos": 5664070,
+        "motifs": "TC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          32,
+          32
+        ],
+        "motif_counts": "16,16",
+        "spanning_reads": 33
+      },
+      {
+        "id": "chr20_5673816_5673834",
+        "chrom": "chr20",
+        "pos": 5673816,
+        "motifs": "GT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          18,
+          32
+        ],
+        "motif_counts": "9,16",
+        "spanning_reads": 33
+      },
+      {
+        "id": "chr20_5692401_5692456",
+        "chrom": "chr20",
+        "pos": 5692401,
+        "motifs": "TTATT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          65,
+          65
+        ],
+        "motif_counts": "13,13",
+        "spanning_reads": 27
+      },
+      {
+        "id": "chr20_5693855_5693879",
+        "chrom": "chr20",
+        "pos": 5693855,
+        "motifs": "TTTG",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          28,
+          28
+        ],
+        "motif_counts": "7,7",
+        "spanning_reads": 30
+      },
+      {
+        "id": "chr20_5695404_5695437",
+        "chrom": "chr20",
+        "pos": 5695404,
+        "motifs": "CTC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          33,
+          33
+        ],
+        "motif_counts": "11,11",
+        "spanning_reads": 30
+      },
+      {
+        "id": "chr20_5698150_5698168",
+        "chrom": "chr20",
+        "pos": 5698150,
+        "motifs": "TC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          20,
+          20
+        ],
+        "motif_counts": "10,10",
+        "spanning_reads": 30
+      },
+      {
+        "id": "chr20_5704978_5705014",
+        "chrom": "chr20",
+        "pos": 5704978,
+        "motifs": "CA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          30,
+          30
+        ],
+        "motif_counts": "15,15",
+        "spanning_reads": 34
+      },
+      {
+        "id": "chr20_5710419_5710473",
+        "chrom": "chr20",
+        "pos": 5710419,
+        "motifs": "TAA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          39,
+          51
+        ],
+        "motif_counts": "13,16",
+        "spanning_reads": 40
+      },
+      {
+        "id": "chr20_5735765_5735801",
+        "chrom": "chr20",
+        "pos": 5735765,
+        "motifs": "CA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          36,
+          30
+        ],
+        "motif_counts": "18,14",
+        "spanning_reads": 38
+      },
+      {
+        "id": "chr20_5748054_5748078",
+        "chrom": "chr20",
+        "pos": 5748054,
+        "motifs": "AATA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          24,
+          28
+        ],
+        "motif_counts": "6,7",
+        "spanning_reads": 48
+      },
+      {
+        "id": "chr20_5759989_5760009",
+        "chrom": "chr20",
+        "pos": 5759989,
+        "motifs": "AC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          20,
+          22
+        ],
+        "motif_counts": "10,11",
+        "spanning_reads": 40
+      },
+      {
+        "id": "chr20_5767122_5767147",
+        "chrom": "chr20",
+        "pos": 5767122,
+        "motifs": "TTTTC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          25,
+          20
+        ],
+        "motif_counts": "5,4",
+        "spanning_reads": 30
+      },
+      {
+        "id": "chr20_5801938_5801946",
+        "chrom": "chr20",
+        "pos": 5801938,
+        "motifs": "TG",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          8,
+          12
+        ],
+        "motif_counts": "4,6",
+        "spanning_reads": 39
+      },
+      {
+        "id": "chr20_5804351_5804365",
+        "chrom": "chr20",
+        "pos": 5804351,
+        "motifs": "TA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          14,
+          15
+        ],
+        "motif_counts": "7,7",
+        "spanning_reads": 41
+      },
+      {
+        "id": "chr20_5817394_5817432",
+        "chrom": "chr20",
+        "pos": 5817394,
+        "motifs": "TC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          36,
+          36
+        ],
+        "motif_counts": "18,16",
+        "spanning_reads": 48
+      },
+      {
+        "id": "chr20_5832801_5832845",
+        "chrom": "chr20",
+        "pos": 5832801,
+        "motifs": "AATA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          32,
+          36
+        ],
+        "motif_counts": "8,8",
+        "spanning_reads": 50
+      },
+      {
+        "id": "chr20_5839478_5839526",
+        "chrom": "chr20",
+        "pos": 5839478,
+        "motifs": "AGAT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          48,
+          44
+        ],
+        "motif_counts": "11,10",
+        "spanning_reads": 50
+      },
+      {
+        "id": "chr20_5841170_5841202",
+        "chrom": "chr20",
+        "pos": 5841170,
+        "motifs": "GT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          32,
+          28
+        ],
+        "motif_counts": "16,14",
+        "spanning_reads": 45
+      },
+      {
+        "id": "chr20_5850112_5850151",
+        "chrom": "chr20",
+        "pos": 5850112,
+        "motifs": "AAT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          42,
+          48
+        ],
+        "motif_counts": "14,16",
+        "spanning_reads": 49
+      },
+      {
+        "id": "chr20_5852415_5852443",
+        "chrom": "chr20",
+        "pos": 5852415,
+        "motifs": "CCTT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          28,
+          28
+        ],
+        "motif_counts": "7,7",
+        "spanning_reads": 46
+      },
+      {
+        "id": "chr20_5867576_5867586",
+        "chrom": "chr20",
+        "pos": 5867576,
+        "motifs": "AAAAT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          10,
+          15
+        ],
+        "motif_counts": "2,2",
+        "spanning_reads": 50
+      },
+      {
+        "id": "chr20_5867884_5867898",
+        "chrom": "chr20",
+        "pos": 5867884,
+        "motifs": "AT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          14,
+          16
+        ],
+        "motif_counts": "7,8",
+        "spanning_reads": 50
+      },
+      {
+        "id": "chr20_5874262_5874282",
+        "chrom": "chr20",
+        "pos": 5874262,
+        "motifs": "ATTTT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          30,
+          30
+        ],
+        "motif_counts": "6,6",
+        "spanning_reads": 54
+      },
+      {
+        "id": "chr20_5875709_5875753",
+        "chrom": "chr20",
+        "pos": 5875709,
+        "motifs": "TAAA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          36,
+          36
+        ],
+        "motif_counts": "9,9",
+        "spanning_reads": 53
+      },
+      {
+        "id": "chr20_5881524_5881564",
+        "chrom": "chr20",
+        "pos": 5881524,
+        "motifs": "AC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          40,
+          34
+        ],
+        "motif_counts": "20,17",
+        "spanning_reads": 53
+      },
+      {
+        "id": "chr20_5883009_5883047",
+        "chrom": "chr20",
+        "pos": 5883009,
+        "motifs": "TG",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          40,
+          44
+        ],
+        "motif_counts": "20,22",
+        "spanning_reads": 56
+      },
+      {
+        "id": "chr20_5889110_5889140",
+        "chrom": "chr20",
+        "pos": 5889110,
+        "motifs": "CAAAA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          30,
+          30
+        ],
+        "motif_counts": "5,5",
+        "spanning_reads": 55
+      },
+      {
+        "id": "chr20_5910014_5910084",
+        "chrom": "chr20",
+        "pos": 5910014,
+        "motifs": "AATAC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          70,
+          65
+        ],
+        "motif_counts": "14,13",
+        "spanning_reads": 73
+      },
+      {
+        "id": "chr20_5913608_5913628",
+        "chrom": "chr20",
+        "pos": 5913608,
+        "motifs": "TTTTC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          20,
+          20
+        ],
+        "motif_counts": "4,4",
+        "spanning_reads": 75
+      },
+      {
+        "id": "chr20_5930942_5930960",
+        "chrom": "chr20",
+        "pos": 5930942,
+        "motifs": "CA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          18,
+          16
+        ],
+        "motif_counts": "9,8",
+        "spanning_reads": 44
+      },
+      {
+        "id": "chr20_5953438_5953470",
+        "chrom": "chr20",
+        "pos": 5953438,
+        "motifs": "GT",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          30,
+          30
+        ],
+        "motif_counts": "15,15",
+        "spanning_reads": 48
+      },
+      {
+        "id": "chr20_5981027_5981039",
+        "chrom": "chr20",
+        "pos": 5981027,
+        "motifs": "ACAA",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          12,
+          12
+        ],
+        "motif_counts": "3,3",
+        "spanning_reads": 53
+      },
+      {
+        "id": "chr20_5994478_5994522",
+        "chrom": "chr20",
+        "pos": 5994478,
+        "motifs": "AC",
+        "genotyped": true,
+        "allele_lengths_bp": [
+          44,
+          50
+        ],
+        "motif_counts": "22,25",
+        "spanning_reads": 42
+      }
+    ]
+  },
+  "highlight": [
+    {
+      "id": "SCA36_NOP56",
+      "chrom": "chr20",
+      "pos": 2652732,
+      "motifs": "GGCCTG,CGCCTG,CCTGGG",
+      "genotyped": true,
+      "allele_lengths_bp": [
+        37,
+        55
+      ],
+      "motif_counts": "3_2_0,6_2_0",
+      "spanning_reads": 39
+    },
+    {
+      "id": "CJD_PRNP",
+      "chrom": "chr20",
+      "pos": 4699370,
+      "motifs": "CCTCAGGGCGGTGGTGGCTGGGGGCAG,CCTCATGGTGGTGGCTGGGGGCAG,AGCCTCATGGTGGTGGCTGGGGGC,GGTGGTGGCTGGGGGCAGCCTCAT",
+      "genotyped": true,
+      "allele_lengths_bp": [
+        123,
+        123
+      ],
+      "motif_counts": "1_4_0_0,1_4_0_0",
+      "spanning_reads": 41
+    }
+  ],
+  "plots": [
+    "longread.trgt.CJD_PRNP.svg",
+    "longread.trgt.SCA36_NOP56.svg"
+  ],
+  "cpg": {
+    "cpg_sites": 63126,
+    "median_coverage": 37.0,
+    "fraction_ge_10x": 0.9991445680068435,
+    "sites_ge_10x": 63072,
+    "mean_methylation_pct": 66.63590816844241,
+    "fraction_below_20pct": 0.1863267376966007,
+    "fraction_above_80pct": 0.5617865296803652,
+    "islands_available": true,
+    "mean_in_islands_pct": 14.86108381300014,
+    "mean_outside_islands_pct": 73.22748395860516,
+    "sites_in_islands": 7123
+  },
+  "cpg_haplotypes": {
+    "haplotypes": {
+      "hap1": {
+        "cpg_sites": 62589,
+        "median_coverage": 18,
+        "fraction_ge_10x": 0.951077665404464,
+        "sites_ge_10x": 59527,
+        "mean_methylation_pct": 66.52563206612125,
+        "fraction_below_20pct": 0.21349975641305627,
+        "fraction_above_80pct": 0.5832311388109598,
+        "islands_available": false,
+        "mean_in_islands_pct": null,
+        "mean_outside_islands_pct": 66.52563206612125,
+        "sites_in_islands": 0
+      },
+      "hap2": {
+        "cpg_sites": 62878,
+        "median_coverage": 18.0,
+        "fraction_ge_10x": 0.9315658895003022,
+        "sites_ge_10x": 58575,
+        "mean_methylation_pct": 66.78341101152368,
+        "fraction_below_20pct": 0.20940674349125055,
+        "fraction_above_80pct": 0.5866495945369185,
+        "islands_available": false,
+        "mean_in_islands_pct": null,
+        "mean_outside_islands_pct": 66.78341101152368,
+        "sites_in_islands": 0
+      }
+    },
+    "sites_ge_10x_both": 55786,
+    "sites_differ_ge_50": 4925
+  },
+  "resources": [
+    {
+      "task": "FetchReference",
+      "wall_seconds": 7.96,
+      "cpu_seconds": 1.77575,
+      "peak_memory_bytes": 143273984,
+      "requested_cpu": 1,
+      "requested_memory_gb": 2,
+      "image": "quay.io/biocontainers/samtools:1.24--h9dcdb79_1@sha256:a130447589651ed09252aa95a5e4f4132942cdb54d835d81a04a9a930d656561"
+    },
+    {
+      "task": "FetchReadsSlice",
+      "wall_seconds": 55.56,
+      "cpu_seconds": 43.3341,
+      "peak_memory_bytes": 251191296,
+      "requested_cpu": 2,
+      "requested_memory_gb": 4,
+      "image": "quay.io/biocontainers/samtools:1.24--h9dcdb79_1@sha256:a130447589651ed09252aa95a5e4f4132942cdb54d835d81a04a9a930d656561"
+    },
+    {
+      "task": "Pbsv",
+      "label": "pbsv",
+      "wall_seconds": 33.09,
+      "cpu_seconds": 69.4213,
+      "peak_memory_bytes": 824086528,
+      "requested_cpu": 4,
+      "requested_memory_gb": 8,
+      "image": "quay.io/biocontainers/pbsv:2.11.0--h9ee0642_0@sha256:1a738d93598c14adee41f988bb47705b738798c398250741d074caf78628fd7c"
+    },
+    {
+      "task": "Sniffles",
+      "label": "sniffles",
+      "wall_seconds": 5.57,
+      "cpu_seconds": 6.10525,
+      "peak_memory_bytes": 279891968,
+      "requested_cpu": 4,
+      "requested_memory_gb": 8,
+      "image": "quay.io/biocontainers/sniffles:2.8.0--pyhdfd78af_1@sha256:787139b7592c244e2eb913c486491157e2f5b3a3494df3f7ea0c5876b72058b7"
+    },
+    {
+      "task": "Trgt",
+      "label": "trgt",
+      "wall_seconds": 3.22,
+      "cpu_seconds": 12.6652,
+      "peak_memory_bytes": 71151616,
+      "requested_cpu": 4,
+      "requested_memory_gb": 4,
+      "image": "quay.io/biocontainers/trgt:5.1.0--h9ee0642_0@sha256:5fae265afdca9864e5f2d42fbc0da744fe73d0e6a2e472dda506d7d604394b0a"
+    },
+    {
+      "task": "CpgScores",
+      "label": "cpg",
+      "wall_seconds": 23.16,
+      "cpu_seconds": 25.6853,
+      "peak_memory_bytes": 95813632,
+      "requested_cpu": 4,
+      "requested_memory_gb": 8,
+      "image": "quay.io/biocontainers/pb-cpg-tools:3.0.0--h9ee0642_0@sha256:c7d4f999b747e4d5c356669086b929e6eda34249d3e8752ede100cb45faaefb4"
+    },
+    {
+      "task": "Truvari",
+      "label": "pbsv",
+      "wall_seconds": 8.52,
+      "cpu_seconds": 10.2227,
+      "peak_memory_bytes": 260833280,
+      "requested_cpu": 2,
+      "requested_memory_gb": 4,
+      "image": "quay.io/biocontainers/truvari:5.5.0--pyhdfd78af_0@sha256:28a193205760fad402674f6011425cee09f45085ab82d57f5ff3df4bc59c1264"
+    },
+    {
+      "task": "Truvari",
+      "label": "sniffles",
+      "wall_seconds": 128.53,
+      "cpu_seconds": 135.462,
+      "peak_memory_bytes": 253001728,
+      "requested_cpu": 2,
+      "requested_memory_gb": 4,
+      "image": "quay.io/biocontainers/truvari:5.5.0--pyhdfd78af_0@sha256:28a193205760fad402674f6011425cee09f45085ab82d57f5ff3df4bc59c1264"
+    }
+  ]
+}

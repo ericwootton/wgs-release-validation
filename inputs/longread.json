@@ -1,0 +1,12 @@
+{
+  "LongRead.run_label": "longread",
+  "LongRead.region": "chr20:1000001-6000000",
+  "LongRead.ref_url": "https://storage.googleapis.com/deepvariant/case-study-testdata/GCA_000001405.15_GRCh38_no_alt_analysis_set.fa",
+  "LongRead.reads_url": "https://ftp-trace.ncbi.nlm.nih.gov/ReferenceSamples/giab/data/AshkenazimTrio/HG002_NA24385_son/PacBio_HiFi-Revio_20231031/HG002_PacBio-HiFi-Revio_20231031_48x_GRCh38-GIABv3.bam",
+  "LongRead.truth_vcf": "data/longread/stvar_vcf.vcf",
+  "LongRead.truth_bed": "data/longread/stvar_bed.bed",
+  "LongRead.trf_bed": "data/longread/pbsv_trf_bed.bed",
+  "LongRead.repeat_catalogs": ["data/longread/strchive_trgt.bed", "data/longread/trgt_catalog.bed"],
+  "LongRead.cpg_islands": "data/longread/cpg_islands.bed",
+  "LongRead.handoff_script": "scripts/longread_handoff.py"
+}

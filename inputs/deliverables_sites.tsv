@@ -1,0 +1,6 @@
+#chrom	pos	ref	alt	note
+chr20	21855413	G	A	control: unique sequence, called by both callers
+chr20	21890551	T	C	CS-01 cluster 1: hom-alt, 2 reads, both MAPQ 0
+chr20	21890838	T	TC	CS-01 cluster 1: insertion
+chr20	21911257	G	A	CS-01 customer site (Sanger-confirmed het)
+chr20	21911267	T	C	CS-01 cluster 2: het, 10 bp from the customer site

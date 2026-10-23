@@ -1,0 +1,84 @@
+site_name: wgs-release-validation
+site_description: Release validation for a WDL germline variant-calling workflow, benchmarked against GIAB HG002
+site_url: https://ericwootton.github.io/wgs-release-validation/
+repo_url: https://github.com/ericwootton/wgs-release-validation
+edit_uri: ""
+copyright: >-
+  Built from the <a href="https://github.com/ericwootton/wgs-release-validation">wgs-release-validation</a>
+  repository. Research use only; not a clinical pipeline. Customers in case studies are fictional.
+docs_dir: docs
+strict: true
+# MkDocs leaves out a top-level templates/ folder by default (it is reserved for theme overrides);
+# ours holds ticket and report templates, so build it.
+exclude_docs: |
+  !/templates/
+
+theme:
+  name: material
+  features:
+    - navigation.sections
+    - navigation.top
+    - content.code.copy
+    - search.highlight
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle: {icon: material/weather-night, name: Dark mode}
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle: {icon: material/weather-sunny, name: Light mode}
+
+markdown_extensions:
+  - admonition
+  - tables
+  - toc: {permalink: true}
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.highlight
+  - pymdownx.details
+  - attr_list
+  - pymdownx.snippets:
+      base_path: [docs]
+      check_paths: true
+
+plugins:
+  - search
+
+# Run directories other than the ones in the nav are published (pages link to them) but not listed.
+not_in_nav: |
+  /results/*/
+  /case-studies/*.html
+
+nav:
+  - Home: index.md
+  - How it works: workflow.md
+  - Results:
+      - Latest CI run: results/latest/metrics.md
+      - Caller comparison: results/caller-comparison.md
+      - Cost estimate: results/cost-estimate.md
+      - Cloud run: results/cloud-run.md
+      - CI region (GATK): results/ci/metrics.md
+      - Full region (GATK + DeepVariant): results/full/metrics.md
+      - Long-read hand-off QC: results/longread/QC_SUMMARY.md
+  - Runbooks:
+      - Release validation: runbooks/release-validation.md
+      - Failed-run triage: runbooks/failed-run-triage.md
+      - Updating baselines: runbooks/updating-baselines.md
+  - Release validation:
+      - INC-01 MAPQ default change: incidents/INC-01-mapq-default-change.md
+      - GATK 4.6.2.0 to 4.7.0.0: upgrade-reports/2026-10-23-gatk-4.6.2.0-to-4.7.0.0.md
+      - DeepVariant 1.9.0 to 1.10.0: upgrade-reports/2026-10-23-deepvariant-1.9.0-to-1.10.0.md
+  - Case studies:
+      - CS-01 Missed variants in low mappability: case-studies/CS-01-missed-variants-lowmap.md
+      - CS-02 Empty results from contig names: case-studies/CS-02-contig-names.md
+      - CS-03 DeepVariant memory: case-studies/CS-03-deepvariant-memory.md
+      - CS-04 Long-read partner hand-off: case-studies/CS-04-partner-handoff.md
+  - Deliverables: deliverables.md
+  - Knowledge base: kb/faq.md
+  - Templates:
+      - Ticket: templates/ticket.md
+      - Incident: templates/incident.md
+      - Upgrade report: templates/upgrade-report.md
