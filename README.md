@@ -10,6 +10,8 @@ tool or parameter changes which worsen results are blocked.
 
 Documentation, results, case studies, and runbooks: **<https://ericwootton.github.io/wgs-release-validation/>**
 
+https://github.com/user-attachments/assets/8d06912b-63b6-4546-9d6f-29694b36c11f
+
 ## Results at a glance
 
 <!-- results:start -->
